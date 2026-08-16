@@ -6349,9 +6349,10 @@
   position:absolute;
   left:50%;
   top:50%;
-  width:min(64vw,250px);
-  height:min(64vw,250px);
-  max-height:76%;
+  width:min(82%,420px);
+  aspect-ratio:1/1;
+  height:auto;
+  max-height:88%;
   transform:translate(-50%,-50%);
   border:3px solid rgba(255,255,255,.92);
   border-radius:18px;
@@ -7792,6 +7793,1022 @@ button.mci-stat-card.mci-completed-stat-v21102{
     min-height:48px!important;
     font-size:15px!important;
   }
+}
+</style>
+
+
+<style>
+/* V21.10.11｜MCI 指揮官看板手機瘦身 */
+
+/* 災情資訊預設收合 */
+.mci-event-compact-v211011{padding:0!important;overflow:hidden;background:#fffaf1!important}
+.mci-event-summary-v211011{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;cursor:pointer}
+.mci-event-summary-v211011::-webkit-details-marker{display:none}
+.mci-event-summary-main-v211011{min-width:0;display:flex;flex-direction:column;gap:2px}
+.mci-event-compact-v211011 .mci-event-title{margin:0!important;font-size:17px!important}
+.mci-event-compact-meta-v211011{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#617d83;font-size:12px;font-weight:700}
+.mci-event-expand-v211011{flex:0 0 auto;padding:4px 9px;border:1px solid #d4e2e2;border-radius:9px;background:#fff;color:#426d74;font-size:11px;font-weight:900}
+.mci-event-compact-v211011[open] .mci-event-expand-v211011{font-size:0}
+.mci-event-compact-v211011[open] .mci-event-expand-v211011::after{content:"收合";font-size:11px}
+.mci-event-detail-v211011{padding:0 16px 14px;border-top:1px solid #efe5d5;color:#315f68;line-height:1.65}
+
+/* 人力總覽降為收合摘要 */
+.mci-manpower-summary-v211011{padding:0!important;overflow:hidden}
+.mci-manpower-summary-head-v211011{list-style:none;margin:0!important;padding:14px 16px!important;cursor:pointer}
+.mci-manpower-summary-head-v211011::-webkit-details-marker{display:none}
+.mci-manpower-summary-head-v211011>span:first-child{display:flex;flex-direction:column;gap:3px}
+.mci-manpower-compact-v211011{color:#6f858a;font-size:11px;font-weight:750}
+.mci-manpower-summary-v211011>.mci-stat-grid,
+.mci-manpower-summary-v211011>.mci-integrated-task-v21757,
+.mci-manpower-summary-v211011>.mci-completed-list-v21102{margin-left:16px!important;margin-right:16px!important}
+.mci-manpower-summary-v211011>.mci-integrated-task-v21757{margin-bottom:14px!important}
+.mci-manpower-summary-v211011>.mci-completed-list-v21102{margin-bottom:14px!important}
+
+/* 人員動態・任務指派成為主操作區 */
+.mci-personnel-live-v21101{border-color:#c8e0df!important;box-shadow:0 8px 22px rgba(22,88,93,.055)!important}
+.mci-person-summary-main-v211011{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mci-person-summary-actions-v211011{display:inline-flex;align-items:center;gap:7px;flex:0 0 auto}
+.mci-assign-entry-v211011{appearance:none!important;width:auto!important;min-height:32px!important;margin:0!important;padding:4px 9px!important;border:1px solid #a9d1d2!important;border-radius:9px!important;background:#eef8f7!important;color:#176976!important;font-family:inherit!important;font-size:11px!important;font-weight:900!important;white-space:nowrap!important;box-shadow:none!important}
+
+@media(max-width:700px){
+  #mciDashboardBox{gap:10px!important}
+  #mciDashboardBox>.summary-box,
+  #mciDashboardBox>.mci-board-section,
+  .mci-manpower-summary-v211011{margin-top:10px!important;margin-bottom:10px!important;border-radius:14px!important}
+  .mci-personnel-live-v21101{padding:14px!important}
+  .mci-personnel-live-title-v21101 small{font-size:10px!important}
+  .mci-person-row-v21756 summary{gap:6px!important;padding:10px 8px!important}
+  .mci-person-summary-main-v211011{font-size:12px!important}
+  .mci-assign-entry-v211011{min-height:30px!important;padding:3px 7px!important;font-size:10px!important}
+  .mci-person-row-side-v21756{display:none!important}
+  .mci-event-summary-v211011{padding:11px 13px}
+  .mci-event-detail-v211011{padding:0 13px 12px;font-size:12px}
+  .mci-manpower-summary-head-v211011{padding:12px 14px!important}
+}
+</style>
+
+
+<style>
+/* V21.10.13｜數位檢傷卡視覺強化 */
+.mci-digital-triage-head-v211013{
+  position:relative;
+  overflow:hidden;
+  padding:16px 18px!important;
+  border:1px solid #d5e3e5;
+  border-left:9px solid #9aabb0;
+  border-radius:15px;
+  background:#f8fbfb;
+}
+.mci-digital-triage-head-v211013.level-紅色{border-left-color:#d84343;background:#fff4f4}
+.mci-digital-triage-head-v211013.level-黃色{border-left-color:#e1b526;background:#fffaf0}
+.mci-digital-triage-head-v211013.level-綠色{border-left-color:#35a96b;background:#f2fbf6}
+.mci-digital-triage-head-v211013.level-黑色{border-left-color:#2f3539;background:#f3f4f5}
+.mci-digital-triage-main-v211013{width:100%}
+.mci-digital-triage-label-v211013{
+  margin-bottom:3px;
+  color:#74878c;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.mci-digital-triage-head-v211013 #triagePatientTitleV2170{
+  margin:0!important;
+  color:#244f59!important;
+  font-size:27px!important;
+  font-weight:950!important;
+  letter-spacing:.02em;
+}
+.mci-digital-triage-head-v211013 .triage-current-level-v2170{
+  width:100%;
+  box-sizing:border-box;
+  justify-content:center;
+  margin-top:10px!important;
+  padding:10px 14px!important;
+  border-radius:10px!important;
+  font-size:18px!important;
+  font-weight:950!important;
+  letter-spacing:.01em;
+}
+.mci-digital-triage-head-v211013 .triage-current-level-v2170.level-紅色{background:#d84343!important;color:#fff!important}
+.mci-digital-triage-head-v211013 .triage-current-level-v2170.level-黃色{background:#f1c928!important;color:#4b4100!important}
+.mci-digital-triage-head-v211013 .triage-current-level-v2170.level-綠色{background:#38a96c!important;color:#fff!important}
+.mci-digital-triage-head-v211013 .triage-current-level-v2170.level-黑色{background:#30363b!important;color:#fff!important}
+.mci-digital-triage-head-v211013 .triage-current-level-v2170.level-none{background:#eef2f3!important;color:#66777c!important}
+
+#triagePatientMetaV2170.triage-patient-meta-v2170{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:7px!important;
+  margin-top:9px!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+}
+#triagePatientMetaV2170.triage-patient-meta-v2170>span{
+  min-width:0;
+  padding:8px 9px;
+  border:1px solid #e0eaeb;
+  border-radius:10px;
+  background:#f8fbfb;
+}
+#triagePatientMetaV2170.triage-patient-meta-v2170 small{
+  display:block;
+  margin-bottom:2px;
+  color:#7d8f93;
+  font-size:9px;
+  font-weight:800;
+}
+#triagePatientMetaV2170.triage-patient-meta-v2170 strong{
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#315d65;
+  font-size:11px;
+  font-weight:900;
+}
+@media(max-width:700px){
+  .mci-digital-triage-head-v211013{padding:13px 14px!important;border-left-width:7px}
+  .mci-digital-triage-head-v211013 #triagePatientTitleV2170{font-size:23px!important}
+  .mci-digital-triage-head-v211013 .triage-current-level-v2170{font-size:16px!important;padding:9px 10px!important}
+  #triagePatientMetaV2170.triage-patient-meta-v2170{grid-template-columns:1fr 1fr!important}
+}
+</style>
+
+
+<style>
+/* V21.10.14｜第一次讀取先開工作台、後端背景同步 */
+.mci-patient-authoritative-sync-v211014{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin:8px 0;
+  padding:8px 10px;
+  border:1px solid #cfe4df;
+  border-radius:10px;
+  background:#f0faf7;
+  color:#397065;
+  font-size:11px;
+  font-weight:850;
+}
+.mci-patient-authoritative-sync-v211014.error{
+  border-color:#efc8c8;
+  background:#fff4f4;
+  color:#9b4545;
+}
+#triagePatientPanelV2170 button:disabled,
+#triagePatientPanelV2170 input:disabled,
+#triagePatientPanelV2170 select:disabled,
+#triagePatientPanelV2170 textarea:disabled{
+  cursor:wait;
+}
+</style>
+
+
+<style>
+/* V21.10.15｜QR 掃描框放大＋人體圖受傷位置 */
+.triage-camera-corners-v21702{
+  width:min(82%,420px)!important;
+  aspect-ratio:1/1!important;
+  height:auto!important;
+  max-height:88%!important;
+  border-width:4px!important;
+}
+
+.mci-body-map-v211015{
+  margin:12px 0;
+  padding:12px;
+  border:1px solid #dbe8e8;
+  border-radius:13px;
+  background:#f9fcfc;
+}
+.mci-body-map-title-v211015{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-bottom:8px;
+  color:#365e66;
+  font-size:12px;
+  font-weight:900;
+}
+.mci-body-map-title-v211015 small{
+  color:#829397;
+  font-size:9px;
+  font-weight:700;
+}
+.mci-body-map-stage-v211015{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.mci-body-figure-v211015{
+  min-width:0;
+  padding:8px;
+  border:1px solid #e3ecec;
+  border-radius:12px;
+  background:#fff;
+}
+.mci-body-caption-v211015{
+  margin-bottom:3px;
+  text-align:center;
+  color:#72898e;
+  font-size:10px;
+  font-weight:850;
+}
+.mci-body-figure-v211015 svg{
+  display:block;
+  width:100%;
+  max-width:150px;
+  height:auto;
+  margin:0 auto;
+}
+.mci-body-base-v211015>*{
+  fill:#e8eef0;
+  stroke:#aebdc1;
+  stroke-width:2;
+}
+.mci-body-hotspots-v211015>*{
+  fill:rgba(61,167,151,.02);
+  stroke:rgba(61,167,151,.20);
+  stroke-width:1.5;
+  cursor:pointer;
+  transition:fill .12s ease,stroke .12s ease;
+}
+.mci-body-hotspots-v211015>*:hover{
+  fill:rgba(61,167,151,.14);
+  stroke:#399b8d;
+}
+.mci-body-hotspots-v211015>*.selected{
+  fill:rgba(25,143,128,.38);
+  stroke:#168f80;
+  stroke-width:3;
+}
+.mci-body-selected-v211015{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  min-height:30px;
+  margin-top:9px;
+  align-items:center;
+  color:#839498;
+  font-size:10px;
+}
+.mci-body-selected-v211015 span{
+  display:inline-flex;
+  padding:4px 7px;
+  border-radius:999px;
+  background:#e5f5f1;
+  color:#247266;
+  font-weight:850;
+}
+.mci-body-clear-v211015{
+  width:auto!important;
+  min-height:30px!important;
+  margin-top:4px!important;
+  padding:4px 9px!important;
+  border:1px solid #d7e4e4!important;
+  border-radius:9px!important;
+  background:#fff!important;
+  color:#6d858a!important;
+  font-size:10px!important;
+  font-weight:800!important;
+}
+@media(max-width:560px){
+  .triage-camera-corners-v21702{
+    width:86%!important;
+    max-width:360px!important;
+  }
+  .mci-body-map-v211015{padding:10px}
+  .mci-body-map-stage-v211015{gap:7px}
+  .mci-body-figure-v211015{padding:5px}
+  .mci-body-map-title-v211015{align-items:flex-start;flex-direction:column;gap:2px}
+}
+</style>
+
+<style>
+.mci-injury-map-entry-v211026{margin-top:10px;padding:10px;border:1px solid #dce8e8;border-radius:11px;background:#fff}.mci-injury-map-title-v211026{margin-bottom:6px;color:#456970;font-size:11px;font-weight:900}.mci-injury-map-grid-v211026{display:grid;grid-template-columns:1fr 1fr;gap:7px}.mci-injury-map-grid-v211026 select{width:100%}.mci-injury-add-v211026{width:auto!important;min-height:34px!important;margin-top:7px!important;padding:5px 10px!important;border:1px solid #9fcfca!important;border-radius:9px!important;background:#eef9f6!important;color:#176f65!important;font-size:11px!important;font-weight:900!important}.mci-injury-record-list-v211026{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.mci-injury-chip-v211026{display:inline-flex;align-items:center;gap:2px;padding:5px 7px;border-radius:9px;background:#eef5f6;color:#3d646b;font-size:10px}.mci-injury-chip-v211026 b{color:#205d67}.mci-injury-chip-v211026 button{width:auto!important;min-width:20px!important;min-height:20px!important;margin:0 0 0 3px!important;padding:0!important;border:0!important;background:transparent!important;color:#9c5656!important;font-size:15px!important}.mci-injury-empty-v211026{color:#899a9e;font-size:10px}@media(max-width:620px){.mci-injury-map-grid-v211026{grid-template-columns:1fr}}
+</style>
+<style>
+.mci-treatment-map-entry-v211027{margin:10px 0 12px;padding:10px;border:1px solid #dce8e8;border-radius:11px;background:#fff}.mci-treatment-map-title-v211027{margin-bottom:6px;color:#456970;font-size:11px;font-weight:900}.mci-treatment-map-grid-v211027{display:grid;grid-template-columns:1fr 1fr;gap:7px}.mci-treatment-map-grid-v211027 select{width:100%}.mci-treatment-add-v211027{width:auto!important;min-height:34px!important;margin-top:7px!important;padding:5px 10px!important;border:1px solid #9fcfca!important;border-radius:9px!important;background:#eef9f6!important;color:#176f65!important;font-size:11px!important;font-weight:900!important}.mci-treatment-record-list-v211027{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.mci-treatment-chip-v211027{display:inline-flex;align-items:center;gap:2px;padding:5px 7px;border-radius:9px;background:#eef5f6;color:#3d646b;font-size:10px}.mci-treatment-chip-v211027 b{color:#205d67}.mci-treatment-chip-v211027 button{width:auto!important;min-width:20px!important;min-height:20px!important;margin:0 0 0 3px!important;padding:0!important;border:0!important;background:transparent!important;color:#9c5656!important;font-size:15px!important}.mci-treatment-empty-v211027{color:#899a9e;font-size:10px}@media(max-width:620px){.mci-treatment-map-grid-v211027{grid-template-columns:1fr}}
+</style>
+
+<style>
+/* V21.10.28｜傷患工作台版面重整 */
+#triagePatientPanelV2170{
+  background:transparent!important;
+  border:0!important;
+  padding:0!important;
+  box-shadow:none!important;
+}
+#triagePatientPanelV2170 > *{
+  box-sizing:border-box;
+}
+.mci-workbench-section-label-v211028{
+  display:inline-flex;
+  align-items:center;
+  margin:0 0 8px;
+  padding:4px 9px;
+  border-radius:999px;
+  background:#eaf6f4;
+  color:#2a706b;
+  font-size:11px;
+  font-weight:950;
+  letter-spacing:.02em;
+}
+#mciPatientPhotoPanelV21710,
+.mci-patient-basic-v21730,
+#mciTreatmentPanelV21710,
+#mciBlackIdentityPanelV21710{
+  margin-top:12px!important;
+  border:1px solid #dce7e8!important;
+  border-radius:16px!important;
+  background:#fff!important;
+  box-shadow:0 4px 16px rgba(45,86,94,.045)!important;
+}
+#mciPatientPhotoPanelV21710{
+  padding:12px!important;
+}
+.mci-patient-photo-row-v21710{
+  grid-template-columns:74px 1fr!important;
+}
+.mci-patient-photo-thumb-v21710{
+  width:74px!important;
+  height:74px!important;
+  border-radius:12px!important;
+}
+.mci-patient-basic-v21730{
+  padding:14px!important;
+}
+.mci-shared-data-note-v21740{
+  margin-top:0!important;
+  font-size:10px!important;
+  padding:6px 8px!important;
+}
+.mci-body-map-v211015{
+  margin-top:10px!important;
+}
+.mci-body-selected-compact-v211028{
+  margin-top:8px!important;
+  font-size:10px!important;
+  opacity:.78;
+}
+.mci-injury-map-entry-v211026{
+  margin-top:8px!important;
+  background:#f8fbfb!important;
+}
+.mci-injury-map-title-v211026{
+  font-size:12px!important;
+}
+.mci-injury-record-list-v211026{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:7px!important;
+}
+.mci-injury-card-v211028{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:8px 9px;
+  border:1px solid #dce8e8;
+  border-radius:10px;
+  background:#fff;
+}
+.mci-injury-card-main-v211028{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+.mci-injury-card-main-v211028 b{
+  color:#215f69;
+  font-size:11px;
+}
+.mci-injury-card-main-v211028 span{
+  margin-top:2px;
+  color:#4d656c;
+  font-size:10px;
+}
+.mci-injury-card-actions-v211028{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  flex:0 0 auto;
+}
+.mci-injury-card-actions-v211028 button{
+  width:auto!important;
+  margin:0!important;
+  min-height:28px!important;
+}
+.mci-injury-treat-v211028{
+  padding:4px 7px!important;
+  border:1px solid #90c5bb!important;
+  border-radius:8px!important;
+  background:#eef9f6!important;
+  color:#1d7468!important;
+  font-size:10px!important;
+  font-weight:900!important;
+}
+.mci-injury-remove-v211028{
+  border:0!important;
+  background:transparent!important;
+  color:#9c5656!important;
+  font-size:16px!important;
+}
+#mciTreatmentPanelV21710{
+  padding:14px!important;
+}
+.mci-treatment-source-injury-v211028{
+  align-items:center;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-bottom:7px;
+  padding:7px 8px;
+  border-radius:9px;
+  background:#eef7f4;
+  color:#466762;
+  font-size:10px;
+}
+.mci-treatment-source-injury-v211028 span{font-weight:700}
+.mci-treatment-source-injury-v211028 strong{color:#1f665f}
+.mci-treatment-source-injury-v211028 button{
+  width:auto!important;
+  min-height:26px!important;
+  margin-left:auto!important;
+  padding:3px 7px!important;
+  border:1px solid #b7d8d2!important;
+  border-radius:7px!important;
+  background:#fff!important;
+  color:#4e7771!important;
+  font-size:9px!important;
+}
+.mci-treatment-time-row-v211028{
+  display:flex;
+  align-items:flex-end;
+  gap:8px;
+  margin-top:7px;
+}
+.mci-treatment-time-row-v211028 label{
+  margin:0!important;
+  min-width:130px;
+  color:#526f75;
+  font-size:10px;
+  font-weight:850;
+}
+.mci-treatment-time-row-v211028 input{
+  min-height:36px!important;
+  margin-top:4px!important;
+}
+.mci-treatment-time-row-v211028 span{
+  padding-bottom:7px;
+  color:#809297;
+  font-size:9px;
+}
+.mci-treatment-record-list-v211027{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:7px!important;
+}
+.mci-treatment-record-card-v211028{
+  position:relative;
+  padding:8px 30px 8px 9px;
+  border:1px solid #dce8e8;
+  border-radius:10px;
+  background:#fff;
+}
+.mci-treatment-record-card-v211028.tourniquet{
+  border-color:#efb5b5;
+  background:#fff7f7;
+}
+.mci-treatment-record-main-v211028{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  flex-wrap:wrap;
+}
+.mci-treatment-record-main-v211028 b{
+  color:#215f69;
+  font-size:10px;
+}
+.mci-treatment-record-main-v211028 span{
+  color:#4d656c;
+  font-size:10px;
+  font-weight:850;
+}
+.mci-treatment-record-main-v211028 time{
+  margin-left:auto;
+  padding:2px 5px;
+  border-radius:999px;
+  background:#eef4f5;
+  color:#587178;
+  font-size:9px;
+  font-weight:900;
+}
+.mci-treatment-record-card-v211028.tourniquet time{
+  background:#ffe7e7;
+  color:#a23e3e;
+}
+.mci-treatment-record-card-v211028 small{
+  display:block;
+  margin-top:4px;
+  color:#7b8e93;
+  font-size:9px;
+}
+.mci-treatment-record-card-v211028 > button{
+  position:absolute;
+  right:6px;
+  top:6px;
+  width:20px!important;
+  min-width:20px!important;
+  min-height:20px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  color:#9c5656!important;
+  font-size:15px!important;
+}
+.mci-vitals-section-label-v211028{
+  margin-top:16px;
+}
+.mci-latest-vitals-v21710{
+  margin-top:0!important;
+  border-radius:10px!important;
+  background:#f7fafb!important;
+}
+.mci-vitals-grid-v21710{
+  margin-top:9px!important;
+}
+.mci-treatment-note-v211028{
+  display:block;
+  margin-top:10px!important;
+}
+.mci-evac-need-v21721{
+  margin-top:16px!important;
+  padding:12px!important;
+  border:1px solid #e3eaeb!important;
+  border-radius:12px!important;
+  background:#fbfcfc!important;
+}
+.mci-unified-save-v21101{
+  position:sticky;
+  bottom:8px;
+  z-index:20;
+  margin-top:14px;
+  padding:10px;
+  border:1px solid #d7e6e4;
+  border-radius:12px;
+  background:rgba(255,255,255,.96);
+  box-shadow:0 8px 28px rgba(42,79,86,.12);
+  backdrop-filter:blur(6px);
+}
+@media(max-width:700px){
+  .mci-injury-record-list-v211026,
+  .mci-treatment-record-list-v211027{
+    grid-template-columns:1fr!important;
+  }
+  .mci-treatment-time-row-v211028{
+    align-items:stretch;
+    flex-direction:column;
+    gap:2px;
+  }
+  .mci-treatment-time-row-v211028 span{
+    padding-bottom:0;
+  }
+  .mci-unified-save-v21101{
+    bottom:4px;
+  }
+}
+</style>
+
+
+<style>
+/* V21.10.29｜人體圖同步傷勢＋傷勢內直接處置 */
+.mci-injury-workspace-v211029{
+  padding:10px!important;
+}
+.mci-injury-workspace-hint-v211029{
+  margin:-2px 0 8px;
+  color:#7b8f94;
+  font-size:10px;
+  line-height:1.45;
+}
+.mci-injury-record-list-v211026{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:7px!important;
+}
+.mci-injury-workspace-empty-v211029{
+  padding:10px;
+  border:1px dashed #d5e3e4;
+  border-radius:9px;
+  color:#829499;
+  font-size:10px;
+  text-align:center;
+}
+.mci-injury-region-card-v211029{
+  padding:8px;
+  border:1px solid #d7e5e5;
+  border-radius:11px;
+  background:#fff;
+}
+.mci-injury-region-main-v211029,
+.mci-extra-injury-main-v211029{
+  display:grid;
+  grid-template-columns:minmax(78px,.45fr) minmax(150px,1.2fr) auto;
+  gap:7px;
+  align-items:center;
+}
+.mci-extra-injury-main-v211029{
+  grid-template-columns:minmax(78px,.45fr) minmax(150px,1.2fr) auto 28px;
+}
+.mci-injury-region-name-v211029,
+.mci-extra-injury-main-v211029 > span{
+  min-height:38px;
+  display:flex;
+  align-items:center;
+  padding:0 9px;
+  border-radius:8px;
+  background:#edf7f5;
+  color:#236b64;
+  font-size:11px;
+  font-weight:950;
+}
+.mci-injury-type-select-v211029,
+.mci-extra-injury-main-v211029 select{
+  min-height:38px!important;
+  margin:0!important;
+}
+.mci-inline-treat-btn-v211029,
+.mci-extra-injury-main-v211029 button:not(.remove){
+  width:auto!important;
+  min-height:38px!important;
+  margin:0!important;
+  padding:6px 10px!important;
+  border:1px solid #9fc9c3!important;
+  border-radius:8px!important;
+  background:#f1faf8!important;
+  color:#246f68!important;
+  font-size:10px!important;
+  font-weight:900!important;
+}
+.mci-inline-treat-btn-v211029:disabled,
+.mci-extra-injury-main-v211029 button:disabled{
+  opacity:.45!important;
+}
+.mci-extra-injury-v211029{
+  margin-top:7px;
+  padding-top:7px;
+  border-top:1px solid #edf2f2;
+}
+.mci-extra-injury-main-v211029 .remove{
+  width:28px!important;
+  min-width:28px!important;
+  min-height:34px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  color:#a25b5b!important;
+  font-size:16px!important;
+}
+.mci-add-extra-injury-v211029{
+  width:auto!important;
+  min-height:30px!important;
+  margin:7px 0 0!important;
+  padding:4px 8px!important;
+  border:0!important;
+  background:transparent!important;
+  color:#5d7c7b!important;
+  font-size:9px!important;
+  font-weight:850!important;
+}
+.mci-inline-treatment-editor-v211029{
+  grid-template-columns:minmax(140px,1fr) 92px auto;
+  gap:6px;
+  align-items:center;
+  margin-top:7px;
+  padding:7px;
+  border-radius:9px;
+  background:#f7fafb;
+  border:1px solid #e1eaeb;
+}
+.mci-inline-treatment-editor-v211029 select{
+  min-height:34px!important;
+  margin:0!important;
+}
+.mci-inline-treatment-editor-v211029 input[type="time"]{
+  width:92px!important;
+  min-width:92px!important;
+  max-width:92px!important;
+  min-height:34px!important;
+  margin:0!important;
+  padding:4px 5px!important;
+  font-size:10px!important;
+  text-align:center;
+}
+.mci-inline-treatment-editor-v211029 button{
+  width:auto!important;
+  min-height:34px!important;
+  margin:0!important;
+  padding:5px 9px!important;
+  border:1px solid #91c6bd!important;
+  border-radius:8px!important;
+  background:#eef9f6!important;
+  color:#1f7168!important;
+  font-size:10px!important;
+  font-weight:900!important;
+}
+.mci-inline-treatment-list-v211029{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:6px;
+}
+.mci-inline-treatment-item-v211029{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:4px 6px;
+  border-radius:8px;
+  background:#f0f5f6;
+  color:#536d73;
+  font-size:9px;
+  font-weight:800;
+}
+.mci-inline-treatment-item-v211029 time{
+  padding:1px 4px;
+  border-radius:999px;
+  background:#fff;
+  color:#71868b;
+  font-size:8px;
+  font-weight:900;
+}
+.mci-inline-treatment-item-v211029.tourniquet{
+  background:#fff0f0;
+  color:#9a4545;
+}
+.mci-inline-treatment-item-v211029.tourniquet time{
+  background:#ffe0e0;
+  color:#9a3939;
+}
+.mci-inline-treatment-item-v211029 button{
+  width:16px!important;
+  min-width:16px!important;
+  min-height:16px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  color:#9b5a5a!important;
+  font-size:12px!important;
+}
+.mci-general-treatment-v211029{
+  margin-top:9px;
+  padding-top:8px;
+  border-top:1px solid #e6eeee;
+}
+#mciGeneralTreatmentBtnV211029{
+  width:auto!important;
+  min-height:32px!important;
+  margin:0!important;
+  padding:5px 9px!important;
+  border:1px solid #c4d8d6!important;
+  border-radius:8px!important;
+  background:#fff!important;
+  color:#547873!important;
+  font-size:9px!important;
+  font-weight:850!important;
+}
+.mci-general-treatment-list-v211029{
+  margin-top:5px;
+}
+#mciTreatmentPanelV21710{
+  margin-top:12px!important;
+}
+#mciTreatmentPanelV21710 > .mci-vitals-section-label-v211028{
+  margin-top:0!important;
+}
+@media(max-width:700px){
+  .mci-injury-region-main-v211029{
+    grid-template-columns:76px minmax(0,1fr) auto;
+  }
+  .mci-extra-injury-main-v211029{
+    grid-template-columns:68px minmax(0,1fr) auto 24px;
+  }
+  .mci-inline-treatment-editor-v211029{
+    grid-template-columns:minmax(0,1fr) 88px auto;
+  }
+  .mci-inline-treatment-editor-v211029 input[type="time"]{
+    width:88px!important;
+    min-width:88px!important;
+    max-width:88px!important;
+  }
+}
+@media(max-width:480px){
+  .mci-injury-region-main-v211029,
+  .mci-extra-injury-main-v211029{
+    grid-template-columns:1fr;
+  }
+  .mci-extra-injury-main-v211029 .remove{
+    position:absolute;
+    right:8px;
+  }
+  .mci-extra-injury-v211029{position:relative}
+  .mci-inline-treatment-editor-v211029{
+    grid-template-columns:1fr 86px;
+  }
+  .mci-inline-treatment-editor-v211029 button{
+    grid-column:1 / -1;
+  }
+}
+</style>
+
+
+<style>
+/* V21.10.30｜簡單操作優先 */
+.mci-inline-treatment-editor-v211029{
+  grid-template-columns:minmax(140px,1fr) minmax(120px,1fr) 78px auto!important;
+  gap:5px!important;
+  padding:6px!important;
+}
+.mci-inline-treatment-editor-v211029 > span[data-role="detail-slot"]{
+  display:block;
+}
+.mci-inline-treatment-editor-v211029 > span[data-role="detail-slot"]:empty{
+  display:none;
+}
+.mci-inline-treatment-editor-v211029 > span[data-role="detail-slot"] input,
+.mci-inline-treatment-editor-v211029 > span[data-role="detail-slot"] select{
+  width:100%!important;
+  min-height:34px!important;
+  margin:0!important;
+}
+.mci-inline-treatment-editor-v211029 input[type="time"]{
+  width:78px!important;
+  min-width:78px!important;
+  max-width:78px!important;
+  padding:3px!important;
+  font-size:9px!important;
+}
+@media(max-width:700px){
+  .mci-inline-treatment-editor-v211029{
+    grid-template-columns:1fr 1fr 74px!important;
+  }
+  .mci-inline-treatment-editor-v211029 button{
+    grid-column:1/-1;
+  }
+}
+@media(max-width:480px){
+  .mci-inline-treatment-editor-v211029{
+    grid-template-columns:1fr 72px!important;
+  }
+  .mci-inline-treatment-editor-v211029 > span[data-role="detail-slot"]{
+    grid-column:1/-1;
+  }
+}
+</style>
+
+
+<style>
+/* V21.10.31｜部位／傷勢／處置三欄平均，處置直接下拉 */
+.mci-injury-region-main-v211029.mci-three-col-v211031{
+  grid-template-columns:1fr 1.35fr 1.15fr!important;
+}
+.mci-extra-injury-main-v211029.mci-three-col-extra-v211031{
+  grid-template-columns:1fr 1.35fr 1.15fr 28px!important;
+}
+.mci-injury-region-name-v211029,
+.mci-extra-injury-main-v211029 > span{
+  min-width:0!important;
+}
+.mci-injury-type-select-v211029,
+.mci-extra-injury-main-v211029 select,
+.mci-direct-treatment-select-v211031{
+  width:100%!important;
+  min-width:0!important;
+  min-height:38px!important;
+  margin:0!important;
+}
+.mci-direct-treatment-detail-v211031{
+  display:grid;
+  grid-template-columns:minmax(140px,1fr) 76px auto;
+  gap:5px;
+  align-items:center;
+  margin-top:6px;
+}
+.mci-direct-treatment-detail-v211031:empty{
+  display:none;
+}
+.mci-direct-treatment-detail-v211031 input,
+.mci-direct-treatment-detail-v211031 select{
+  width:100%!important;
+  min-height:34px!important;
+  margin:0!important;
+}
+.mci-direct-treatment-detail-v211031 input[type="time"]{
+  width:76px!important;
+  min-width:76px!important;
+  max-width:76px!important;
+  padding:3px!important;
+  font-size:9px!important;
+}
+.mci-direct-treatment-detail-v211031 button{
+  width:auto!important;
+  min-height:34px!important;
+  margin:0!important;
+  padding:5px 9px!important;
+  border:1px solid #91c6bd!important;
+  border-radius:8px!important;
+  background:#eef9f6!important;
+  color:#1f7168!important;
+  font-size:10px!important;
+  font-weight:900!important;
+}
+@media(max-width:700px){
+  .mci-injury-region-main-v211029.mci-three-col-v211031{
+    grid-template-columns:.9fr 1.2fr 1fr!important;
+  }
+  .mci-extra-injury-main-v211029.mci-three-col-extra-v211031{
+    grid-template-columns:.9fr 1.2fr 1fr 24px!important;
+  }
+}
+@media(max-width:520px){
+  .mci-injury-region-main-v211029.mci-three-col-v211031,
+  .mci-extra-injury-main-v211029.mci-three-col-extra-v211031{
+    grid-template-columns:1fr!important;
+  }
+  .mci-direct-treatment-detail-v211031{
+    grid-template-columns:1fr 72px!important;
+  }
+  .mci-direct-treatment-detail-v211031 button{
+    grid-column:1/-1;
+  }
+}
+</style>
+
+
+<style>
+/* V21.10.33｜自行輸入部位＋人體圖首次點擊穩定化 */
+.mci-custom-region-row-v211033{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:6px;
+  margin-bottom:8px;
+}
+.mci-custom-region-row-v211033 input{
+  width:100%!important;
+  min-height:36px!important;
+  margin:0!important;
+  padding:7px 9px!important;
+  font-size:10px!important;
+}
+.mci-custom-region-row-v211033 button{
+  width:auto!important;
+  min-height:36px!important;
+  margin:0!important;
+  padding:6px 9px!important;
+  border:1px solid #9fc9c3!important;
+  border-radius:8px!important;
+  background:#f1faf8!important;
+  color:#246f68!important;
+  font-size:10px!important;
+  font-weight:900!important;
+}
+.mci-injury-region-name-v211029{
+  position:relative;
+  padding-right:28px!important;
+}
+.mci-custom-region-remove-v211033{
+  position:absolute!important;
+  right:5px!important;
+  top:50%!important;
+  transform:translateY(-50%)!important;
+  width:20px!important;
+  min-width:20px!important;
+  min-height:20px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  color:#9f5959!important;
+  font-size:14px!important;
+  line-height:1!important;
+}
+</style>
+
+
+<style>
+/* V21.10.34｜人體圖點擊精準化 */
+.mci-body-base-v211015{
+  pointer-events:none!important;
+}
+.mci-body-hotspots-v211015{
+  pointer-events:none!important;
+}
+.mci-body-hotspots-v211015 > [data-region]{
+  pointer-events:all!important;
+  touch-action:manipulation;
 }
 </style>
 
@@ -9372,10 +10389,16 @@ button.mci-stat-card.mci-completed-stat-v21102{
     </div>
 
     <div id="mciEventContent" style="display:none;">
-      <div class="mci-event-box">
-        <div class="mci-event-title" id="mciEventTitle">災害應變事件</div>
-        <div id="mciEventInfo">事件資訊載入中...</div>
-      </div>
+      <details class="mci-event-box mci-event-compact-v211011">
+        <summary class="mci-event-summary-v211011">
+          <span class="mci-event-summary-main-v211011">
+            <span class="mci-event-title" id="mciEventTitle">災害應變事件</span>
+            <span id="mciEventCompactMetaV211011" class="mci-event-compact-meta-v211011">事件資訊</span>
+          </span>
+          <span class="mci-event-expand-v211011">展開</span>
+        </summary>
+        <div id="mciEventInfo" class="mci-event-detail-v211011">事件資訊載入中...</div>
+      </details>
 <div class="mci-hub-grid" id="mciHubView">
         <button class="mci-hub-card" onclick="showMciMemberView()">
           <div class="mci-hub-icon">🙋</div>
@@ -9457,8 +10480,14 @@ button.mci-stat-card.mci-completed-stat-v21102{
           <div class="mci-live-sync-v21681" title="展開詳細資料時會暫停畫面重整，收合後自動恢復同步">● 3 秒自動同步中</div>
           <button type="button" class="mci-test-reset-btn-v21743 mci-tool-btn-v21756" onclick="openMciTestPatientResetV21743()">🧹 重設測試傷患</button>
           <button type="button" class="mci-command-scan-btn-v21744 mci-tool-btn-v21756" onclick="openMciPatientScannerV21702('指揮官')" title="已通過指揮官密碼驗證時，使用完整指揮層傷患操作權限">📷 指揮層掃描傷患 QR</button>
-          <div class="summary-box">
-            <div class="result-title mci-card-title-tools-v21102"><span>👥 人力總覽</span><span class="mci-card-sync-tools-v21102"><button type="button" onclick="refreshMciPersonnelLiteV21101(true,this)">↻ 更新</button><span id="mciHumanSyncStateV21102">● 3 秒同步</span></span></div>
+          <details class="summary-box mci-manpower-summary-v211011">
+            <summary class="result-title mci-card-title-tools-v21102 mci-manpower-summary-head-v211011">
+  <span>👥 人力摘要 <small id="mciManpowerCompactV211011" class="mci-manpower-compact-v211011">已報到 0｜已派遣 0｜未分配 0</small></span>
+  <span class="mci-card-sync-tools-v21102">
+    <button type="button" onclick="event.preventDefault();event.stopPropagation();refreshMciPersonnelLiteV21101(true,this)">↻ 更新</button>
+    <span id="mciHumanSyncStateV21102">● 3 秒同步</span>
+  </span>
+</summary>
             <div class="mci-stat-grid mci-manpower-grid-v21757">
               <div class="mci-stat-card">可前往<span class="mci-stat-number" id="mciCountCanGo">0</span></div>
               <div class="mci-stat-card">已報到<span class="mci-stat-number" id="mciCountArrived">0</span></div>
@@ -9474,13 +10503,13 @@ button.mci-stat-card.mci-completed-stat-v21102{
               <div class="mci-completed-list-title-v21102">✅ 已完成點名名單</div>
               <div id="mciCompletedListBodyV21102"><div class="mci-empty-compact-v21756">目前尚無完成點名人員。</div></div>
             </div>
-          </div>
+          </details>
 
           <div class="summary-box mci-board-section mci-personnel-live-v21101">
             <div class="result-title mci-personnel-live-title-v21101">
               <span>
-                👥 人員動態
-                <small>最新報到、任務指派與人員狀態</small>
+                👥 人員動態・任務指派
+                <small>未分配優先，依指揮任務順序排列｜可直接指派或變更任務</small>
               </span>
               <span class="mci-personnel-live-tools-v21101"><span id="mciPersonnelSyncStateV21101">● 自動同步</span></span>
             </div>
@@ -9587,13 +10616,15 @@ button.mci-stat-card.mci-completed-stat-v21102{
     </div>
 
     <div id="triagePatientPanelV2170" class="form-panel triage-panel-v2170" style="display:none;">
-      <div class="triage-patient-head-v2170">
-        <div>
+      <div class="triage-patient-head-v2170 mci-digital-triage-head-v211013" id="mciDigitalTriageHeadV211013">
+        <div class="mci-digital-triage-main-v211013">
+          <div class="mci-digital-triage-label-v211013">PHOENIX MCI｜數位檢傷卡</div>
           <div class="panel-title" id="triagePatientTitleV2170">傷患</div>
           <div id="triagePatientLevelV2170" class="triage-current-level-v2170">尚未完成檢傷</div>
         </div>
       </div>
       <div id="triagePatientMetaV2170" class="triage-patient-meta-v2170"></div>
+      <div id="mciPatientAuthoritativeSyncV211014" class="mci-patient-authoritative-sync-v211014" style="display:none;">☁️ 最新傷患資料同步中…</div>
       <div id="triageRoleHintV21702" class="triage-role-hint-v21702"></div>
       <div id="mci搬運DestinationV21802" class="mci-carry-destination-v21802" style="display:none;"></div>
 
@@ -9601,7 +10632,7 @@ button.mci-stat-card.mci-completed-stat-v21102{
         <div class="mci-patient-photo-row-v21710">
           <div id="mciPatientPhotoThumbV21710" class="mci-patient-photo-thumb-v21710" onclick="openMciPatientPhotoLightboxV21714()" title="點擊可放大">無照片</div>
           <div>
-            <div class="mci-subpanel-title-v21710">傷患辨識照片</div>
+            <div class="mci-workbench-section-label-v211028">① 傷患識別</div><div class="mci-subpanel-title-v21710">傷患辨識照片</div>
             <div class="triage-hint-v2170">僅供現場辨識與交接使用，不作為正式身分驗證。成功上傳後會存入 Google Drive 私有資料夾。</div>
             <div id="mciPhotoSyncStatusV21720" class="mci-photo-sync-status-v21720">☁️ 尚無照片</div><button type="button" id="mciPhotoRetryBtnV21751" class="mci-photo-retry-v21751" style="display:none;" onclick="retryPendingMciPhotoV21751(this)">↻ 重新同步照片</button>
             <label class="mci-photo-btn-v21710">
@@ -9617,12 +10648,86 @@ button.mci-stat-card.mci-completed-stat-v21102{
         <button type="button" onclick="forceRefreshMciPatientV21733(this)">↻ 重新讀取傷患資料</button>
       </div>
       <div class="mci-patient-basic-v21730 mci-section-stripe-v21750 mci-section-basic-v21750">
-        <div class="mci-subpanel-title-v21710">傷患基本資料</div><div class="mci-shared-data-note-v21740">此為共用傷患主檔；任何角色重新開啟同一 QR，都會讀取同一份最新資料。</div>
+        <div class="mci-workbench-section-label-v211028">② 傷勢紀錄</div><div class="mci-subpanel-title-v21710">傷患資料與傷勢</div><div class="mci-shared-data-note-v21740">此為共用傷患主檔；任何角色重新開啟同一 QR，都會讀取同一份最新資料。</div>
         <div class="mci-basic-grid-v21730">
           <label>性別<select id="mciBasicSexV21730"><option value="">未填寫</option><option value="男">男</option><option value="女">女</option><option value="其他/不明">其他／不明</option></select></label>
           <label>約略年齡層<select id="mciBasicAgeV21730"><option value="">未填寫</option><option value="嬰幼兒">嬰幼兒</option><option value="兒童">兒童</option><option value="青少年">青少年</option><option value="成人">成人</option><option value="高齡">高齡</option><option value="不明">不明</option></select></label>
         </div>
-        <label>主要傷勢<input id="mciBasicInjuryV21730" type="text" placeholder="例如：頭部外傷、胸部外傷、大量出血"></label>
+        <div class="mci-body-map-v211015">
+          <div class="mci-body-map-title-v211015">
+            <span>📍 受傷位置</span>
+            <small>可複選｜點人體區域標記</small>
+          </div>
+          <input type="hidden" id="mciBasicBodyRegionsV211015" value="">
+          <div class="mci-body-map-stage-v211015">
+            <div class="mci-body-figure-v211015">
+              <div class="mci-body-caption-v211015">正面</div>
+              <svg viewBox="0 0 180 340" role="img" aria-label="人體正面受傷位置選擇">
+                <g class="mci-body-base-v211015">
+                  <circle cx="90" cy="33" r="24"/>
+                  <rect x="80" y="56" width="20" height="19" rx="7"/>
+                  <path d="M55 78 Q90 62 125 78 L132 151 Q116 168 90 168 Q64 168 48 151 Z"/>
+                  <path d="M66 166 Q90 154 114 166 L118 214 Q90 228 62 214 Z"/>
+                  <rect x="25" y="83" width="28" height="115" rx="14" transform="rotate(7 39 140)"/>
+                  <rect x="127" y="83" width="28" height="115" rx="14" transform="rotate(-7 141 140)"/>
+                  <rect x="63" y="212" width="34" height="118" rx="16" transform="rotate(2 80 271)"/>
+                  <rect x="83" y="212" width="34" height="118" rx="16" transform="rotate(-2 100 271)"/>
+                </g>
+                <g class="mci-body-hotspots-v211015">
+                  <circle data-region="頭頸" cx="90" cy="40" r="31" onclick="selectMciBodyHotspotV211034(event,this)"/>
+                  <rect data-region="胸部" x="59" y="76" width="62" height="67" rx="16" onclick="selectMciBodyHotspotV211034(event,this)"/>
+                  <rect data-region="腹部" x="58" y="145" width="64" height="58" rx="16" onclick="selectMciBodyHotspotV211034(event,this)"/>
+                  <rect data-region="左上肢" x="14" y="82" width="44" height="121" rx="19" onclick="selectMciBodyHotspotV211034(event,this)"/>
+                  <rect data-region="右上肢" x="122" y="82" width="44" height="121" rx="19" onclick="selectMciBodyHotspotV211034(event,this)"/>
+                  <rect data-region="左下肢" x="52" y="221" width="40" height="112" rx="18" onclick="selectMciBodyHotspotV211034(event,this)"/>
+                  <rect data-region="右下肢" x="86" y="221" width="40" height="112" rx="18" onclick="selectMciBodyHotspotV211034(event,this)"/>
+                </g>
+              </svg>
+            </div>
+            <div class="mci-body-figure-v211015">
+              <div class="mci-body-caption-v211015">背面</div>
+              <svg viewBox="0 0 180 340" role="img" aria-label="人體背面受傷位置選擇">
+                <g class="mci-body-base-v211015">
+                  <circle cx="90" cy="33" r="24"/>
+                  <rect x="80" y="56" width="20" height="19" rx="7"/>
+                  <path d="M55 78 Q90 62 125 78 L132 151 Q116 168 90 168 Q64 168 48 151 Z"/>
+                  <path d="M66 166 Q90 154 114 166 L118 214 Q90 228 62 214 Z"/>
+                  <rect x="25" y="83" width="28" height="115" rx="14" transform="rotate(7 39 140)"/>
+                  <rect x="127" y="83" width="28" height="115" rx="14" transform="rotate(-7 141 140)"/>
+                  <rect x="63" y="212" width="34" height="118" rx="16" transform="rotate(2 80 271)"/>
+                  <rect x="83" y="212" width="34" height="118" rx="16" transform="rotate(-2 100 271)"/>
+                </g>
+                <g class="mci-body-hotspots-v211015">
+                  <circle data-region="後頭／頸後" cx="90" cy="40" r="31" onclick="selectMciBodyHotspotV211034(event,this)"/>
+                  <rect data-region="背部" x="59" y="76" width="62" height="100" rx="16" onclick="selectMciBodyHotspotV211034(event,this)"/>
+                  <rect data-region="腰臀部" x="58" y="178" width="64" height="42" rx="14" onclick="selectMciBodyHotspotV211034(event,this)"/>
+                  <rect data-region="左上肢" x="14" y="82" width="44" height="121" rx="19" onclick="selectMciBodyHotspotV211034(event,this)"/>
+                  <rect data-region="右上肢" x="122" y="82" width="44" height="121" rx="19" onclick="selectMciBodyHotspotV211034(event,this)"/>
+                  <rect data-region="左下肢" x="52" y="221" width="40" height="112" rx="18" onclick="selectMciBodyHotspotV211034(event,this)"/>
+                  <rect data-region="右下肢" x="86" y="221" width="40" height="112" rx="18" onclick="selectMciBodyHotspotV211034(event,this)"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div id="mciBodyRegionSelectedV211015" class="mci-body-selected-v211015 mci-body-selected-compact-v211028">尚未標記受傷位置</div>
+          <button type="button" class="mci-body-clear-v211015" onclick="clearMciBodyRegionsV211015()">清除受傷位置</button>
+          <div class="mci-injury-map-entry-v211026 mci-injury-workspace-v211029">
+            <div class="mci-injury-map-title-v211026">新增傷勢</div>
+            
+            <div class="mci-custom-region-row-v211033">
+              <input id="mciCustomBodyRegionV211033" type="text" placeholder="自行輸入部位（人體圖無法點選）">
+              <button type="button" onclick="addCustomMciBodyRegionV211033()">＋ 新增部位</button>
+            </div>
+            <input type="hidden" id="mciBasicInjuryRecordsV211026" value="">
+            <input type="hidden" id="mciTreatmentRecordsV211027" value="">
+            <div id="mciInjuryRecordListV211026" class="mci-injury-record-list-v211026"></div>
+            <div class="mci-general-treatment-v211029">
+              <button type="button" id="mciGeneralTreatmentBtnV211029" onclick="toggleGeneralTreatmentEditorV211029()">＋ 一般／全身性處置</button>
+              <div id="mciGeneralTreatmentEditorV211029" class="mci-inline-treatment-editor-v211029" style="display:none;"></div>
+            </div>
+          </div>
+        </div>
+        <label>其他傷勢／補充說明<input id="mciBasicInjuryV21730" type="text" placeholder="例如：疑似內出血、特殊傷情補充"></label>
         <details class="mci-identity-details-v21730"><summary>身分資料補充（選填）</summary>
           <div class="mci-basic-grid-v21730"><label>姓名<input id="mciBasicNameV21730" type="text" placeholder="不明可留空"></label><label>身分證明資訊<input id="mciBasicIdInfoV21730" type="text" placeholder="證件或其他識別資訊"></label></div>
           <label>辨識特徵<input id="mciBasicFeatureV21730" type="text" placeholder="例如：衣著、刺青、明顯特徵"></label>
@@ -9636,9 +10741,7 @@ button.mci-stat-card.mci-completed-stat-v21102{
       </div>
 
       <div id="mciTreatmentPanelV21710" class="mci-patient-subpanel-v21710" style="display:none;">
-        <div class="mci-subpanel-title-v21710" id="mciTreatmentTitleV21712">🩺 治療／生命徵象</div>
-        <div class="triage-hint-v2170">治療工作人員掃描同一個傷患 QR，即可讀取檢傷區資料並新增生命徵象、處置與後送需求。</div>
-        <div id="mciLatestVitalsV21710" class="mci-latest-vitals-v21710">尚無生命徵象紀錄</div>
+        <div class="mci-workbench-section-label-v211028 mci-vitals-section-label-v211028">③ 生命徵象</div><div id="mciLatestVitalsV21710" class="mci-latest-vitals-v21710">尚無生命徵象紀錄</div>
         <div class="mci-vitals-grid-v21710">
           <label>HR<input id="mciVitalHrV21710" type="number" inputmode="numeric" placeholder="次/分"></label>
           <label>BP
@@ -9658,12 +10761,12 @@ button.mci-stat-card.mci-completed-stat-v21102{
             </select>
           </label>
         </div>
-        <label>主要處置
-          <input id="mciVitalTreatmentV21710" type="text" placeholder="例如 氧氣、止血、固定、保暖">
+        <label class="mci-treatment-note-v211028">其他處置／補充說明
+          <input id="mciVitalTreatmentV21710" type="text" placeholder="例如：特殊處置、交接補充、無法由選單完整描述的情況">
         </label>
 
         <div class="mci-evac-need-v21710 mci-evac-need-v21721">
-          <div class="mci-subpanel-title-v21710">選擇後送需求</div>
+          <div class="mci-workbench-section-label-v211028">④ 後送需求</div><div class="mci-subpanel-title-v21710">選擇後送需求</div>
           <div class="mci-evac-current-v21721">
             <span>目前：</span>
             <strong id="mciEvacCurrentV21721">尚未評估</strong>
@@ -9927,7 +11030,7 @@ button.mci-stat-card.mci-completed-stat-v21102{
     <div class="form-panel"><div class="panel-title">申請資料</div><button type="button" class="secondary" onclick="loadOnboardingApplications()">重新整理</button><div id="onboardingAdminList" style="margin-top:12px">資料載入中...</div><div class="error" id="onboardingAdminError"></div></div>
   </section>
 
-  <div class="footer">🛡️ 管理單位：鳳凰救護大隊第一分隊<br>網頁更新時間：2026/08/14 ｜版本：Phoenix MCI V1.1.10</div>
+  <div class="footer">🛡️ 管理單位：鳳凰救護大隊第一分隊<br>網頁更新時間：2026/08/16 ｜版本：Phoenix MCI V1.1.35</div>
 </div>
 
 <script>
@@ -13556,16 +14659,50 @@ function buildLocalTaskSummaryV21107(responders){
     return {task,count:people.length,names:people.map(p=>p.name||'').filter(Boolean).join('、')};
   });
 }
+
+function reorderMciPersonnelDomV211012(){
+  const list=document.getElementById('mciResponderList');
+  if(!list)return;
+  const rows=Array.from(list.querySelectorAll('details[data-person-row]'));
+  const rank=new Map(MCI_TASK_SORT_ORDER_V211012.map((task,index)=>[task,index]));
+  rows.sort((a,b)=>{
+    const ta=(a.querySelector('.mci-person-task-v21756')?.textContent||'｜未分配').replace(/^｜/,'').trim()||'未分配';
+    const tb=(b.querySelector('.mci-person-task-v21756')?.textContent||'｜未分配').replace(/^｜/,'').trim()||'未分配';
+    const ra=rank.has(ta)?rank.get(ta):999;
+    const rb=rank.has(tb)?rank.get(tb):999;
+    if(ra!==rb)return ra-rb;
+    return Number(a.dataset.personRow||999999)-Number(b.dataset.personRow||999999);
+  });
+  rows.forEach(row=>list.appendChild(row));
+}
+
 function updateMciPersonTaskLocalV21107(rowNumber,task){
   const row=document.querySelector(`#mciResponderList details[data-person-row="${CSS.escape(String(rowNumber))}"]`);
   if(!row)return;
   const taskText=row.querySelector('.mci-person-task-v21756');
   if(taskText)taskText.textContent=`｜${task}`;
   row.style.setProperty('--mci-task-color',mciTaskColorV21101(task));
+  reorderMciPersonnelDomV211012();
 }
 
 let mciPersonnelLiteTimerV21101=null;
 let mciPersonnelLiteBusyV21101=false;
+
+
+function openMciTaskAssignV211011(event,rowNumber){
+  if(event){event.preventDefault();event.stopPropagation();}
+  const row=document.querySelector(`#mciResponderList details[data-person-row="${CSS.escape(String(rowNumber))}"]`);
+  if(!row)return;
+  row.open=true;
+  holdMciCommanderUiV21104(12000);
+  setTimeout(()=>{
+    const sel=document.getElementById(`mciTask_${rowNumber}`);
+    if(sel){
+      sel.scrollIntoView({behavior:'smooth',block:'center'});
+      try{sel.focus({preventScroll:true});}catch(_){sel.focus();}
+    }
+  },40);
+}
 
 function mciTaskColorV21101(task){
   return {
@@ -13578,7 +14715,7 @@ function mciTaskColorV21101(task){
 
 function renderMciPersonnelLiteV21101(data){
   const stats=data?.stats||{};
-  const responders=applyMciPendingTasksV21107(data?.activeResponders||[]);
+  const responders=sortMciPersonnelByTaskV211012(applyMciPendingTasksV21107(data?.activeResponders||[]));
   const allResponders=applyMciPendingTasksV21107(data?.responders||[]);
   renderMciCompletedListV21102(allResponders);
 
@@ -13588,6 +14725,8 @@ function renderMciPersonnelLiteV21101(data){
   setStat('mciCountAssigned',stats.assigned);
   setStat('mciCountUnassigned',stats.unassigned);
   setStat('mciCountCompleted',stats.completed);
+  const compact=document.getElementById('mciManpowerCompactV211011');
+  if(compact)compact.textContent=`已報到 ${Number(stats.arrived||0)}｜已派遣 ${Number(stats.assigned||0)}｜未分配 ${Number(stats.unassigned||0)}`;
 
   // 有尚未被後端確認的任務時，以本機畫面資料為準；避免 3 秒輪詢把新任務洗回舊值。
   renderMciTaskSummary(buildLocalTaskSummaryV21107(responders));
@@ -14224,7 +15363,7 @@ function renderMciTransportMissionV21760(data){
           <label>SpO₂<input id="mciTvSpo2V21762" type="number" inputmode="numeric"></label>
           <label>GCS<input id="mciTvGcsV21762" type="number" inputmode="numeric" min="3" max="15"></label>
         </div>
-        <label style="display:block;margin-top:8px;">主要處置<input id="mciTvTreatmentV21762" type="text" placeholder="例如：氧氣、止血、固定"></label>
+        <label style="display:block;margin-top:8px;">其他處置／補充說明<input id="mciTvTreatmentV21762" type="text" placeholder="例如：氧氣、止血、固定"></label>
         <label style="display:block;margin-top:8px;">備註（選填）<textarea id="mciTvNoteV21762" placeholder="途中狀況補充"></textarea></label>
         <button type="button" class="primary-action mci-transport-save-vitals-v21810" onclick="saveMciTransportVitalsV21762(this)">💾 儲存途中紀錄</button>
       </div>`;
@@ -14704,6 +15843,10 @@ function showMciCommanderView() {
     warmMciBackendV2195(event.eventId);
 
     document.getElementById('mciEventTitle').innerText = event.eventName || '災害應變事件';
+    const compactMetaV211011=document.getElementById('mciEventCompactMetaV211011');
+    if(compactMetaV211011){
+      compactMetaV211011.textContent=[event.caseNumber||'',event.location||''].filter(Boolean).join('｜')||'事件資訊';
+    }
     document.getElementById('mciEventInfo').innerHTML = `
       案件號碼：${escapeHtml(event.caseNumber || '-')}<br>
       啟動時間：${escapeHtml(event.startTimeText || '-')}<br>
@@ -15507,7 +16650,7 @@ function renderMciDashboard(data) {
     }
 
     const stats = data.stats || {};
-    const responders = data.activeResponders || data.responders || [];
+    const responders = sortMciPersonnelByTaskV211012(data.activeResponders || data.responders || []);
     renderMciCompletedListV21102(data.responders||[]);
     const taskSummary = data.taskSummary || [];
 
@@ -15598,7 +16741,43 @@ function renderMciDashboard(data) {
     return selectFocused || dirty || Date.now()<mciCommanderEditingUntilV21740 || isMciCommanderUiLockedV21104();
   }
 
-  function buildMciPersonCard(person) {
+  
+const MCI_TASK_SORT_ORDER_V211012=[
+  '未分配',
+  '指揮官',
+  '副指揮官',
+  '治療官',
+  '後送官',
+  '檢傷',
+  '治療－紅區',
+  '治療－黃區',
+  '綠區引導',
+  'CPR/AED',
+  '搬運',
+  '指揮紀錄',
+  '物資',
+  '交通引導',
+  '家屬安撫'
+];
+function sortMciPersonnelByTaskV211012(rows){
+  const rank=new Map(MCI_TASK_SORT_ORDER_V211012.map((task,index)=>[task,index]));
+  return [...(rows||[])].sort((a,b)=>{
+    const ta=String(a?.assignedTask||'未分配').trim()||'未分配';
+    const tb=String(b?.assignedTask||'未分配').trim()||'未分配';
+    const ra=rank.has(ta)?rank.get(ta):999;
+    const rb=rank.has(tb)?rank.get(tb):999;
+    if(ra!==rb)return ra-rb;
+
+    // 同一任務時，已報到／已派遣的人員維持較前；再依原始列號穩定排序。
+    const statusRank=s=>({'已報到':0,'已派遣':0,'可前往':1,'無法前往':2}[String(s||'')]??3);
+    const sa=statusRank(a?.status), sb=statusRank(b?.status);
+    if(sa!==sb)return sa-sb;
+
+    return Number(a?.rowNumber||999999)-Number(b?.rowNumber||999999);
+  });
+}
+
+function buildMciPersonCard(person) {
   const isArrived=person.status==='已報到'||person.status==='已派遣';
   const isUnavailable=person.status==='無法前往';
   const taskOptions=[
@@ -15620,13 +16799,16 @@ function renderMciDashboard(data) {
   return `
     <details class="mci-person-row-v21756 ${isUnavailable?'is-unavailable-v21756':''}" data-person-row="${person.rowNumber}" style="--mci-task-color:${taskColor}">
       <summary>
-        <span class="mci-person-row-main-v21756">
+        <span class="mci-person-row-main-v21756 mci-person-summary-main-v211011">
           <strong>${escapeHtml(person.name||'-')}</strong>
           <span>｜${escapeHtml(person.team||'-')}</span>
           <span>｜${statusText}</span>
           <span class="mci-person-task-v21756">｜${taskText}</span>
         </span>
-        <span class="mci-person-row-side-v21756">${supportText}</span>
+        <span class="mci-person-summary-actions-v211011">
+          ${isArrived?`<button type="button" class="mci-assign-entry-v211011" onclick="openMciTaskAssignV211011(event,'${person.rowNumber}')">${(person.assignedTask&&person.assignedTask!=='未分配')?'變更任務':'指派任務'}</button>`:''}
+          <span class="mci-person-row-side-v21756">${supportText}</span>
+        </span>
       </summary>
 
       <div class="mci-person-row-detail-v21756">
@@ -20319,9 +21501,12 @@ function normalizeMciServerPatientV21750(patient){
   if(p.name===undefined) p.name=p.identityName||'';
   if(p.idInfo===undefined) p.idInfo=p.identityDocument||'';
   if(p.identifyingFeatures===undefined) p.identifyingFeatures=p.identityFeature||'';
+  if(p.bodyRegions===undefined) p.bodyRegions='';
+  if(p.injuryRecords===undefined) p.injuryRecords='';
+  if(p.treatmentRecords===undefined) p.treatmentRecords='';
 
   // 後端回傳值為 authoritative；明確補齊空字串，避免舊 localStorage 值滲回畫面。
-  ['sex','ageGroup','majorInjury','name','idInfo','identifyingFeatures',
+  ['sex','ageGroup','bodyRegions','injuryRecords','majorInjury','name','idInfo','identifyingFeatures',
    'currentTriageLevel','systemTriageLevel','currentLocation','flowStatus',
    'hospital','ambulance','latestHr','latestBp','latestRr','latestSpo2',
    'latestGcs','latestMental','latestTreatment','photoFileId','photoDataUrl',
@@ -20645,7 +21830,7 @@ async function startQrScannerV21702(){
           stopQrScannerV21702();
           const input=document.getElementById('triageLabelInputV2170');
           if(input)input.value=parsed;
-          triageMessageV2170('✅ 已掃描 QR｜開始讀取傷患資料','success');
+          triageMessageV2170('✅ 已掃描 QR｜正在開啟傷患工作台','success');
           await lookupTriageLabelV2170();
         }
       }catch(err){}finally{busy=false;}
@@ -20744,8 +21929,7 @@ async function lookupTriageLabelV2170(btn){
   const workspace=mciWorkspaceForTaskV21770(currentMciPatientTaskV21702);
   const cached=getCachedMciPatientV21730(label)||getCachedMciPatientV21730(normalized);
 
-  // Phoenix MCI V1.1.3｜檢傷工作台：掃到就開始。
-  // 新傷患不再先 getTriageLabel -> 再按啟用；直接呼叫既有 activate API 背景建立。
+  // 檢傷工作台：真正 local-first。掃到／輸入就直接開始，後端背景建立或確認傷患。
   if(workspace==='triage'){
     if(cached){
       openCachedMciPatientV21730(cached);
@@ -20756,11 +21940,11 @@ async function lookupTriageLabelV2170(btn){
       triageMessageV2170(`傷患 ${cached.patientId||normalized}｜${cached.currentTriageLevel?'開始重新檢傷':'開始首次檢傷'}`,'info');
       return;
     }
-    await activateTriageLabelV2170(label,btn,true);
+    activateTriageLabelV2170(label,btn,true);
     return;
   }
 
-  // 治療 / 指揮 / 其他工作區：共用同一支傷患讀取 API。
+  // 其他工作區若本機已有快取，立即開啟，再背景校正。
   if(cached){
     openCachedMciPatientV21730(cached);
     cacheMciPatientAliasV21731(label,cached);
@@ -20768,8 +21952,33 @@ async function lookupTriageLabelV2170(btn){
     return;
   }
 
-  const releaseBtn=setTriageButtonBusyV21704(btn,'讀取中…');
-  triageMessageV2170(`傷患 ${normalized}｜讀取最新傷患資料…`,'info');
+  // V21.10.14：
+  // 治療／指揮／搬運等「第一次讀取」不再讓使用者卡在輸入框等 Apps Script。
+  // 先開安全的唯讀傷患殼層，再背景抓權威主檔。
+  const shell={
+    patientId:/^\d+$/.test(label)?normalized:'',
+    qrToken:/^\d+$/.test(label)?'':label,
+    qrStatus:'同步中',
+    currentTriageLevel:'',
+    systemTriageLevel:'',
+    currentLocation:'同步中',
+    flowStatus:'資料讀取中',
+    evacNeed:'同步中',
+    lastUpdateText:'同步中',
+    _loadingAuthoritativeV211014:true
+  };
+  mciTriageCurrentPatientV2170=shell;
+  const lookup=document.getElementById('triageLookupPanelV2170');
+  const patientPanel=document.getElementById('triagePatientPanelV2170');
+  if(lookup)lookup.style.display='none';
+  if(patientPanel)patientPanel.style.display='block';
+  renderTriagePatientV2170(shell);
+  triageMessageV2170(`傷患 ${normalized}｜工作台已開啟，最新資料背景同步中…`,'info');
+
+  // 按鈕只短暫顯示「開啟中」，不跟著整段後端讀取鎖住。
+  const releaseBtn=setTriageButtonBusyV21704(btn,'開啟中…');
+  setTimeout(()=>{try{releaseBtn();}catch(_){}},180);
+
   try{
     const params=new URLSearchParams({
       action:'getTriageLabelV2170',
@@ -20779,19 +21988,29 @@ async function lookupTriageLabelV2170(btn){
     });
     const res=await fetch(`${API_URL}?${params.toString()}`);
     const result=await res.json();
+
     if(!result.success){
-      triageMessageV2170(result.message||'傷患資料讀取失敗。','error');
-      return;
+      throw new Error(result.message||'傷患資料讀取失敗。');
     }
+
     if(result.data&&result.data.patient){
       result.data.patient=normalizeMciServerPatientV21750(result.data.patient);
       replaceMciPatientCacheFromServerV21733(label,result.data.patient);
+      renderTriageLabelStateV2170(result.data);
+      triageMessageV2170(`傷患 ${result.data.patient.patientId||normalized}｜✓ 最新資料已同步`,'success');
+      return;
     }
+
+    // 未啟用／未建立的 QR 仍交由原本狀態 renderer 判斷，不自行猜測傷患資料。
     renderTriageLabelStateV2170(result.data);
   }catch(err){
-    triageMessageV2170('系統連線異常，請稍後再試。','error');
-  }finally{
-    releaseBtn();
+    const banner=document.getElementById('mciPatientAuthoritativeSyncV211014');
+    if(banner){
+      banner.style.display='block';
+      banner.className='mci-patient-authoritative-sync-v211014 error';
+      banner.textContent='⚠️ 最新傷患資料同步失敗｜請重新讀取';
+    }
+    triageMessageV2170(err.message||'系統連線異常，請稍後再試。','error');
   }
 }
 
@@ -20922,10 +22141,10 @@ async function activateTriageLabelV2170(labelNumber, btn, quickStart=false){
 
 function triageLevelLabelV2170(level){
   const map={
-    '紅色':'🔴 第一優先｜紅色',
-    '黃色':'🟡 第二優先｜黃色',
-    '綠色':'🟢 第三優先｜綠色',
-    '黑色':'⚫ 第四優先｜黑色'
+    '紅色':'🔴 I　最優先｜紅色',
+    '黃色':'🟡 II　次優先｜黃色',
+    '綠色':'🟢 III　延後處理｜綠色',
+    '黑色':'⚫ 0　黑色'
   };
   return map[level]||'尚未完成檢傷';
 }
@@ -21076,6 +22295,10 @@ function updateMciPatientActionVisibilityV21813(){
 }
 
 function renderTriagePatientV2170(patient){
+  const incomingKeyV211035=String(patient?.patientId||patient?.qrToken||'').trim();
+  if(mciInjuryLocalDirtyV211035 && incomingKeyV211035 && mciInjuryLocalDirtyPatientKeyV211035 && incomingKeyV211035!==mciInjuryLocalDirtyPatientKeyV211035){
+    clearMciInjuryLocalDirtyV211035();
+  }
   updateMciPatientActionVisibilityV21813();
   const accessV21742=getMciPatientAccessV21742(currentMciPatientTaskV21702,patient);
   if(!accessV21742.canOpen){
@@ -21101,16 +22324,29 @@ function renderTriagePatientV2170(patient){
     level.textContent=triageLevelLabelV2170(patient.currentTriageLevel);
     level.className=`triage-current-level-v2170 level-${patient.currentTriageLevel||'none'}`;
   }
+  const digitalHead=document.getElementById('mciDigitalTriageHeadV211013');
+  if(digitalHead){
+    digitalHead.classList.remove('level-紅色','level-黃色','level-綠色','level-黑色','level-none');
+    digitalHead.classList.add(`level-${patient.currentTriageLevel||'none'}`);
+  }
   if(meta){
     meta.innerHTML=[
-      `目前位置：${escapeHtml(patient.currentLocation||'未標記')}`,
-      `流程狀態：${escapeHtml(patient.flowStatus||'待檢傷')}`,
-      `後送需求：${escapeHtml(patient.evacNeed||'尚未評估')}`,
-      `最近更新：${escapeHtml(patient.lastUpdateText||'-')}`
-    ].join('<br>');
+      `<span><small>目前位置</small><strong>${escapeHtml(patient.currentLocation||'未標記')}</strong></span>`,
+      `<span><small>流程狀態</small><strong>${escapeHtml(patient.flowStatus||'待檢傷')}</strong></span>`,
+      `<span><small>後送需求</small><strong>${escapeHtml(patient.evacNeed||'尚未評估')}</strong></span>`,
+      `<span><small>最近更新</small><strong>${escapeHtml(patient.lastUpdateText||'-')}</strong></span>`
+    ].join('');
   }
   const firstBtn=document.getElementById('triageFirstBtnV2170');
   const retriageBtn=document.getElementById('triageRetriageBtnV2170');
+  const syncBannerV211014=document.getElementById('mciPatientAuthoritativeSyncV211014');
+  const loadingAuthoritativeV211014=!!patient._loadingAuthoritativeV211014;
+  if(syncBannerV211014){
+    syncBannerV211014.style.display=loadingAuthoritativeV211014?'block':'none';
+    syncBannerV211014.className='mci-patient-authoritative-sync-v211014';
+    syncBannerV211014.textContent='☁️ 最新傷患資料同步中…';
+  }
+
   const taskHint=document.getElementById('triageRoleHintV21702');
   const roleScope=getMciPatientRoleScopeV21740(currentMciPatientTaskV21702);
   const accessV21742Current=getMciPatientAccessV21742(currentMciPatientTaskV21702,patient);
@@ -21172,15 +22408,37 @@ function renderTriagePatientV2170(patient){
 
   const basicSex=document.getElementById('mciBasicSexV21730'); if(basicSex)basicSex.value=patient.sex||'';
   const basicAge=document.getElementById('mciBasicAgeV21730'); if(basicAge)basicAge.value=patient.ageGroup||'';
+  if(shouldPreserveMciInjuryLocalDraftV211035(patient)){
+    // 背景/輪詢資料回來時，不覆蓋使用者尚未儲存的人體圖、傷勢與處置。
+    setMciBodyRegionsV211015(getMciBodyRegionsV211015());
+    renderMciInjuryWorkspaceV211029();
+  }else{
+    setMciBodyRegionsV211015(String(patient.bodyRegions||'').split('、').filter(Boolean));
+    setMciInjuryRecordsV211026(parseMciInjuryRecordsV211026(patient.injuryRecords||[]),false);
+    setMciTreatmentRecordsV211027(parseMciTreatmentRecordsV211027(patient.treatmentRecords||[]),false);
+    renderMciInjuryWorkspaceV211029();
+  }
   const basicInjury=document.getElementById('mciBasicInjuryV21730'); if(basicInjury)basicInjury.value=patient.majorInjury||'';
   const basicName=document.getElementById('mciBasicNameV21730'); if(basicName)basicName.value=patient.name||'';
   const basicId=document.getElementById('mciBasicIdInfoV21730'); if(basicId)basicId.value=patient.idInfo||'';
   const basicFeature=document.getElementById('mciBasicFeatureV21730'); if(basicFeature)basicFeature.value=patient.identifyingFeatures||'';
   const basicBox=document.querySelector('.mci-patient-basic-v21730');
   if(basicBox){
-    basicBox.querySelectorAll('input,select,textarea').forEach(el=>el.disabled=!accessV21742Current.canEditBasic);
+    basicBox.querySelectorAll('input,select,textarea').forEach(el=>el.disabled=loadingAuthoritativeV211014 || !accessV21742Current.canEditBasic);
     const saveBtn=basicBox.querySelector('.mci-basic-save-v21730');
-    if(saveBtn)saveBtn.disabled=!accessV21742Current.canEditBasic;
+    if(saveBtn)saveBtn.disabled=loadingAuthoritativeV211014 || !accessV21742Current.canEditBasic;
+  }
+
+  if(loadingAuthoritativeV211014){
+    const patientPanel=document.getElementById('triagePatientPanelV2170');
+    if(patientPanel){
+      patientPanel.querySelectorAll('input,select,textarea,button').forEach(el=>{
+        // 重新讀取與返回類導航可保留；其餘操作先鎖住，避免權威資料回來前誤寫。
+        if(el.closest('.mci-cache-refresh-v21733'))return;
+        if(el.classList.contains('back-button'))return;
+        el.disabled=true;
+      });
+    }
   }
 
   const photo=document.getElementById('mciPatientPhotoThumbV21710');
@@ -21304,6 +22562,7 @@ async function saveMciVitalsV21710(btn){
       token:p.qrToken||'',
       hr:hr,bpSys:bpSys,bpDia:bpDia,rr:rr,spo2:spo2,gcs:gcs,
       mental:mental,treatment:treatment,
+      treatmentRecords:(document.getElementById('mciTreatmentRecordsV211027')?.value||'').trim(),
       operator:(currentUser&&currentUser.name)||'現場操作',
       operatorTask:currentMciPatientTaskV21702||'治療',
       opId:mciMakeOpIdV21720('vitals')
@@ -21482,8 +22741,642 @@ async function forceRefreshMciPatientV21733(btn){
 }
 
 
+
+const MCI_BODY_REGION_ORDER_V211015=[
+  '頭頸','後頭／頸後','胸部','腹部','背部','腰臀部','左上肢','右上肢','左下肢','右下肢'
+];
+
+const MCI_INJURY_TYPES_V211026=['擦傷','撕裂傷','穿刺傷','挫傷','骨折','開放性骨折','斷肢','壓砸傷','燒燙傷','大量出血','其他'];
+let mciActiveBodyRegionV211026='';
+function parseMciInjuryRecordsV211026(value){
+  if(Array.isArray(value))return value;
+  const s=String(value||'').trim();
+  if(!s)return [];
+  try{
+    const arr=JSON.parse(s);
+    return Array.isArray(arr)?arr:[];
+  }catch(_){return [];}
+}
+function initMciInjurySelectorsV211026(){const r=document.getElementById('mciInjuryRegionV211026');if(r&&!r.options.length)r.innerHTML='<option value="">選擇部位</option>'+MCI_BODY_REGION_ORDER_V211015.map(x=>`<option>${x}</option>`).join('');const t=document.getElementById('mciInjuryTypeV211026');if(t&&!t.options.length)t.innerHTML='<option value="">選擇傷勢</option>'+MCI_INJURY_TYPES_V211026.map(x=>`<option>${x}</option>`).join('');}
+const MCI_TREATMENT_TYPES_V211027=[
+  '加壓止血','止血帶','敷料覆蓋','夾板固定','頸圈固定','封閉性敷料',
+  '氧氣治療','保暖','CPR','AED','IV/IO','藥物','其他'
+];
+const MCI_TREATMENT_REGIONS_V211027=[
+  '頭頸','後頭／頸後','胸部','腹部','背部','腰臀部',
+  '左上肢','右上肢','左下肢','右下肢','呼吸道','全身／系統性'
+];
+
+let mciTreatmentSourceInjuryIndexV211028=null;
+
+function mciNowHmV211028(){
+  const d=new Date();
+  return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+}
+function resetMciTreatmentSourceV211028(){
+  mciTreatmentSourceInjuryIndexV211028=null;
+  const box=document.getElementById('mciTreatmentSourceInjuryV211028');
+  if(box){box.style.display='none';box.textContent='';}
+}
+function startTreatmentForInjuryV211028(index){
+  const injuries=getMciInjuryRecordsV211026();
+  const injury=injuries[index];
+  if(!injury)return;
+
+  mciTreatmentSourceInjuryIndexV211028=index;
+  initMciTreatmentSelectorsV211027();
+
+  const region=document.getElementById('mciTreatmentRegionV211027');
+  if(region)region.value=injury.region||'';
+
+  const time=document.getElementById('mciTreatmentTimeV211028');
+  if(time&&!time.value)time.value=mciNowHmV211028();
+
+  const box=document.getElementById('mciTreatmentSourceInjuryV211028');
+  if(box){
+    box.style.display='flex';
+    box.innerHTML=`<span>來源傷勢</span><strong>${escapeHtml(injury.region)}｜${escapeHtml(injury.type)}</strong><button type="button" onclick="resetMciTreatmentSourceV211028()">改為一般處置</button>`;
+  }
+
+  const panel=document.getElementById('mciTreatmentPanelV21710');
+  if(panel)panel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function parseMciTreatmentRecordsV211027(value){
+  if(Array.isArray(value))return value.map(r=>({
+    region:String(r?.region||'').trim(),
+    type:String(r?.type||'').trim(),
+    time:String(r?.time||'').trim(),
+    injuryRegion:String(r?.injuryRegion||'').trim(),
+    injuryType:String(r?.injuryType||'').trim()
+  }));
+  const s=String(value||'').trim();
+  if(!s)return [];
+  try{
+    const arr=JSON.parse(s);
+    return Array.isArray(arr)?arr.map(r=>({
+      region:String(r?.region||'').trim(),
+      type:String(r?.type||'').trim(),
+      time:String(r?.time||'').trim(),
+      injuryRegion:String(r?.injuryRegion||'').trim(),
+      injuryType:String(r?.injuryType||'').trim()
+    })):[];
+  }catch(_){return [];}
+}
+function initMciTreatmentSelectorsV211027(){
+  const region=document.getElementById('mciTreatmentRegionV211027');
+  if(region && !region.options.length)region.innerHTML='<option value="">選擇部位</option>'+MCI_TREATMENT_REGIONS_V211027.map(x=>`<option>${x}</option>`).join('');
+  const time=document.getElementById('mciTreatmentTimeV211028');
+  if(time&&!time.value)time.value=mciNowHmV211028();
+  const type=document.getElementById('mciTreatmentTypeV211027');
+  if(type && !type.options.length)type.innerHTML='<option value="">選擇處置</option>'+MCI_TREATMENT_TYPES_V211027.map(x=>`<option>${x}</option>`).join('');
+}
+function toggleMciTreatmentOtherV211027(){
+  const type=document.getElementById('mciTreatmentTypeV211027')?.value||'';
+  const other=document.getElementById('mciTreatmentOtherV211027');
+  if(other)other.style.display=type==='其他'?'block':'none';
+  const hint=document.getElementById('mciTreatmentTimeHintV211028');
+  if(hint)hint.textContent=type==='止血帶'?'止血帶時間會清楚保留，可手動修正':'新增時自動帶入目前時間';
+}
+function getMciTreatmentRecordsV211027(){return parseMciTreatmentRecordsV211027(document.getElementById('mciTreatmentRecordsV211027')?.value||'');}
+function setMciTreatmentRecordsV211027(records,shouldRender=true){
+  const arr=(records||[]).map(r=>({
+    region:String(r?.region||'').trim(),
+    type:String(r?.type||'').trim(),
+    time:String(r?.time||'').trim(),
+    injuryRegion:String(r?.injuryRegion||'').trim(),
+    injuryType:String(r?.injuryType||'').trim()
+  })).filter(r=>r.region&&r.type);
+  const hidden=document.getElementById('mciTreatmentRecordsV211027');
+  if(hidden)hidden.value=JSON.stringify(arr);
+  if(shouldRender && typeof renderMciInjuryWorkspaceV211029==='function')renderMciInjuryWorkspaceV211029();
+}
+function addMciTreatmentRecordV211027(){
+  initMciTreatmentSelectorsV211027();
+  const region=(document.getElementById('mciTreatmentRegionV211027')?.value||'').trim();
+  const raw=(document.getElementById('mciTreatmentTypeV211027')?.value||'').trim();
+  const other=(document.getElementById('mciTreatmentOtherV211027')?.value||'').trim();
+  const time=(document.getElementById('mciTreatmentTimeV211028')?.value||mciNowHmV211028()).trim();
+  const injuries=getMciInjuryRecordsV211026();
+  const source=(mciTreatmentSourceInjuryIndexV211028!==null)?injuries[mciTreatmentSourceInjuryIndexV211028]:null;
+  if(!region){triageMessageV2170('請選擇處置部位。','error');return;}
+  if(!raw){triageMessageV2170('請選擇處置項目。','error');return;}
+  const type=raw==='其他'?(other||'其他'):raw;
+  const arr=getMciTreatmentRecordsV211027();
+  if(!arr.some(r=>r.region===region&&r.type===type&&r.time===time)){
+    arr.push({
+      region,type,time,
+      injuryRegion:source?.region||'',
+      injuryType:source?.type||''
+    });
+  }
+  setMciTreatmentRecordsV211027(arr);
+  const t=document.getElementById('mciTreatmentTypeV211027');if(t)t.value='';
+  const o=document.getElementById('mciTreatmentOtherV211027');if(o){o.value='';o.style.display='none';}
+  const tm=document.getElementById('mciTreatmentTimeV211028');if(tm)tm.value=mciNowHmV211028();
+}
+function removeMciTreatmentRecordV211027(index){const arr=getMciTreatmentRecordsV211027();arr.splice(index,1);setMciTreatmentRecordsV211027(arr);}
+
+function toggleMciInjuryOtherV211026(){const t=document.getElementById('mciInjuryTypeV211026')?.value||'';const o=document.getElementById('mciInjuryOtherV211026');if(o)o.style.display=t==='其他'?'block':'none';}
+
+function injuryOptionsHtmlV211029(selected=''){
+  return '<option value="">選擇傷勢</option>'+MCI_INJURY_TYPES_V211026.map(x=>`<option value="${escapeAttr(x)}"${x===selected?' selected':''}>${escapeHtml(x)}</option>`).join('');
+}
+function treatmentOptionsHtmlV211029(selected='',region=''){
+  const map={
+    '呼吸道':['氧氣治療','藥物','其他'],
+    '頭頸':['加壓止血','敷料覆蓋','頸圈固定','其他'],
+    '後頭／頸後':['加壓止血','敷料覆蓋','頸圈固定','其他'],
+    '胸部':['敷料覆蓋','封閉性敷料','氧氣治療','其他'],
+    '腹部':['敷料覆蓋','保暖','其他'],
+    '背部':['敷料覆蓋','保暖','其他'],
+    '腰臀部':['敷料覆蓋','保暖','其他'],
+    '左上肢':['加壓止血','止血帶','敷料覆蓋','夾板固定','其他'],
+    '右上肢':['加壓止血','止血帶','敷料覆蓋','夾板固定','其他'],
+    '左下肢':['加壓止血','止血帶','敷料覆蓋','夾板固定','其他'],
+    '右下肢':['加壓止血','止血帶','敷料覆蓋','夾板固定','其他'],
+    '全身／系統性':['氧氣治療','保暖','CPR','AED','IV/IO','藥物','其他']
+  };
+  const items=map[region]||MCI_TREATMENT_TYPES_V211027;
+  return '<option value="">選擇處置</option>'+items.map(x=>`<option value="${escapeAttr(x)}"${x===selected?' selected':''}>${escapeHtml(x)}</option>`).join('');
+}
+function treatmentRowsForInjuryV211029(region,type){
+  return getMciTreatmentRecordsV211027().filter(r=>r.injuryRegion===region && r.injuryType===type);
+}
+function renderTreatmentItemsV211029(items){
+  if(!items.length)return '';
+  return `<div class="mci-inline-treatment-list-v211029">${items.map((r)=>{
+    const tm=r.time?`<time>${escapeHtml(r.time)}</time>`:'';
+    const cls=r.type==='止血帶'?' tourniquet':'';
+    return `<span class="mci-inline-treatment-item-v211029${cls}">${escapeHtml(r.type)}${tm}<button type="button" onclick="removeIntegratedTreatmentV211029('${escapeAttr(r.region)}','${escapeAttr(r.type)}','${escapeAttr(r.time||'')}','${escapeAttr(r.injuryRegion||'')}','${escapeAttr(r.injuryType||'')}')">×</button></span>`;
+  }).join('')}</div>`;
+}
+
+function preserveMciInjuryWorkspaceDraftV211033(){
+  // 人體圖重畫前，把目前已選的傷勢先寫回 hidden JSON，避免第一次點圖時視覺重畫造成未存選項消失。
+  const rows=document.querySelectorAll('#mciInjuryRecordListV211026 .mci-injury-region-card-v211029');
+  if(!rows.length)return;
+
+  const existing=getMciInjuryRecordsV211026();
+  const next=[];
+  const seen=new Set();
+
+  rows.forEach(card=>{
+    const main=card.querySelector('.mci-injury-region-main-v211029');
+    if(main){
+      const region=String(main.querySelector('.mci-injury-region-name-v211029')?.textContent||'').trim();
+      const type=String(main.querySelector('.mci-injury-type-select-v211029')?.value||'').trim();
+      if(region&&type){
+        const key=region+'|'+type;
+        if(!seen.has(key)){next.push({region,type});seen.add(key);}
+      }
+    }
+    card.querySelectorAll('.mci-extra-injury-main-v211029').forEach(extra=>{
+      const region=String(extra.querySelector('span')?.textContent||'').trim();
+      const type=String(extra.querySelector('select')?.value||'').trim();
+      if(region&&type){
+        const key=region+'|'+type;
+        if(!seen.has(key)){next.push({region,type});seen.add(key);}
+      }
+    });
+  });
+
+  // 保留 DOM 尚未呈現但已存在的紀錄。
+  existing.forEach(r=>{
+    const region=String(r?.region||'').trim(), type=String(r?.type||'').trim();
+    const key=region+'|'+type;
+    if(region&&type&&!seen.has(key)){next.push({region,type});seen.add(key);}
+  });
+
+  setMciInjuryRecordsV211026(next,false);
+}
+
+function addCustomMciBodyRegionV211033(){
+  markMciInjuryLocalDirtyV211035();
+  preserveMciInjuryWorkspaceDraftV211033();
+  const input=document.getElementById('mciCustomBodyRegionV211033');
+  const region=String(input?.value||'').trim();
+  if(!region){
+    triageMessageV2170('請輸入受傷部位。','error');
+    return;
+  }
+  const current=getMciBodyRegionsV211015();
+  if(!current.includes(region)){
+    setMciBodyRegionsV211015(current.concat(region));
+  }
+  if(input)input.value='';
+  renderMciInjuryWorkspaceV211029();
+}
+
+function removeCustomMciBodyRegionV211033(region){
+  markMciInjuryLocalDirtyV211035();
+  preserveMciInjuryWorkspaceDraftV211033();
+  const injuries=getMciInjuryRecordsV211026().filter(r=>r.region===region);
+  const treatments=getMciTreatmentRecordsV211027().filter(r=>r.region===region || r.injuryRegion===region);
+  if((injuries.length||treatments.length) && !confirm(`${region} 已有傷勢或處置紀錄，確定移除此部位並一併刪除相關紀錄嗎？`)){
+    return;
+  }
+
+  setMciInjuryRecordsV211026(getMciInjuryRecordsV211026().filter(r=>r.region!==region),false);
+  setMciTreatmentRecordsV211027(getMciTreatmentRecordsV211027().filter(r=>r.region!==region && r.injuryRegion!==region),false);
+  setMciBodyRegionsV211015(getMciBodyRegionsV211015().filter(x=>x!==region));
+  renderMciInjuryWorkspaceV211029();
+}
+
+function isCustomMciBodyRegionV211033(region){
+  return !MCI_BODY_REGION_ORDER_V211015.includes(String(region||'').trim());
+}
+
+function renderMciInjuryWorkspaceV211029(){
+  const list=document.getElementById('mciInjuryRecordListV211026');
+  if(!list)return;
+
+  const regions=getMciBodyRegionsV211015();
+  const injuries=getMciInjuryRecordsV211026();
+  const treatments=getMciTreatmentRecordsV211027();
+  const access=(typeof getMciPatientAccessV21742==='function')
+    ? getMciPatientAccessV21742(currentMciPatientTaskV21702,mciTriageCurrentPatientV2170||{})
+    : {canTreat:false,canEditBasic:true,canCommand:false};
+  const canTreat=!!(access.canTreat||access.canCommand);
+  const canEditInjury=access.canEditBasic!==false;
+
+  if(!regions.length){
+    list.innerHTML='<div class="mci-injury-workspace-empty-v211029">請先在人體圖點選受傷部位。</div>';
+  }else{
+    list.innerHTML=regions.map(region=>{
+      const regionInjuries=injuries.filter(r=>r.region===region);
+      const primary=regionInjuries[0]||{region,type:''};
+      const extra=regionInjuries.slice(1);
+
+      const primaryTreat=primary.type?treatmentRowsForInjuryV211029(region,primary.type):[];
+      const rowId=`mciDirectTreatment_${safeDomIdV211029(region)}_0`;
+
+      return `<div class="mci-injury-region-card-v211029">
+        <div class="mci-injury-region-main-v211029 mci-three-col-v211031">
+          <div class="mci-injury-region-name-v211029">${escapeHtml(region)}${isCustomMciBodyRegionV211033(region)?`<button type="button" class="mci-custom-region-remove-v211033" onclick="event.stopPropagation();removeCustomMciBodyRegionV211033('${escapeAttr(region)}')" title="移除此部位">×</button>`:''}</div>
+          <select class="mci-injury-type-select-v211029" ${canEditInjury?'':'disabled'} onchange="updatePrimaryInjuryV211029('${escapeAttr(region)}',this.value)">${injuryOptionsHtmlV211029(primary.type)}</select>
+          <select id="${rowId}" class="mci-direct-treatment-select-v211031" ${canTreat&&primary.type?'':'disabled'} onchange="handleDirectTreatmentChoiceV211031('${escapeAttr(region)}','${escapeAttr(primary.type)}','${rowId}',this.value)">
+            ${treatmentOptionsHtmlV211029('',region)}
+          </select>
+        </div>
+        ${primary.type?renderTreatmentItemsV211029(primaryTreat):''}
+        <div id="${rowId}_detail" class="mci-direct-treatment-detail-v211031"></div>
+
+        ${extra.map((inj,idx)=>{
+          const eid=`mciDirectTreatment_${safeDomIdV211029(region)}_${idx+1}`;
+          return `<div class="mci-extra-injury-v211029">
+            <div class="mci-extra-injury-main-v211029 mci-three-col-extra-v211031">
+              <span>${escapeHtml(region)}</span>
+              <select ${canEditInjury?'':'disabled'} onchange="updateExtraInjuryV211029('${escapeAttr(region)}',${idx},this.value)">${injuryOptionsHtmlV211029(inj.type)}</select>
+              <select id="${eid}" class="mci-direct-treatment-select-v211031" ${canTreat?'':'disabled'} onchange="handleDirectTreatmentChoiceV211031('${escapeAttr(region)}','${escapeAttr(inj.type)}','${eid}',this.value)">
+                ${treatmentOptionsHtmlV211029('',region)}
+              </select>
+              <button type="button" class="remove" ${canEditInjury?'':'disabled'} onclick="removeExtraInjuryV211029('${escapeAttr(region)}',${idx})">×</button>
+            </div>
+            ${renderTreatmentItemsV211029(treatmentRowsForInjuryV211029(region,inj.type))}
+            <div id="${eid}_detail" class="mci-direct-treatment-detail-v211031"></div>
+          </div>`;
+        }).join('')}
+        <button type="button" class="mci-add-extra-injury-v211029" ${canEditInjury?'':'disabled'} onclick="addExtraInjuryV211029('${escapeAttr(region)}')">＋ 同部位另一傷勢</button>
+      </div>`;
+    }).join('');
+  }
+
+  const general=treatments.filter(r=>!r.injuryRegion && ['呼吸道','全身／系統性'].includes(r.region));
+  const generalBtn=document.getElementById('mciGeneralTreatmentBtnV211029');
+  if(generalBtn)generalBtn.disabled=!canTreat;
+  if(general.length){
+    const g=document.querySelector('.mci-general-treatment-v211029');
+    let old=g?.querySelector('.mci-general-treatment-list-v211029');
+    if(old)old.remove();
+    if(g){
+      const div=document.createElement('div');
+      div.className='mci-general-treatment-list-v211029';
+      div.innerHTML=renderTreatmentItemsV211029(general);
+      g.appendChild(div);
+    }
+  }else{
+    document.querySelector('.mci-general-treatment-list-v211029')?.remove();
+  }
+}
+function safeDomIdV211029(s){
+  return String(s||'').replace(/[^a-zA-Z0-9\u4e00-\u9fff]/g,'_');
+}
+function updatePrimaryInjuryV211029(region,type){
+  markMciInjuryLocalDirtyV211035();
+  const arr=getMciInjuryRecordsV211026();
+  const regionRows=arr.filter(r=>r.region===region);
+  const others=arr.filter(r=>r.region!==region);
+  const old=regionRows[0];
+  if(old && old.type && old.type!==type){
+    const linked=getMciTreatmentRecordsV211027().filter(r=>r.injuryRegion===region&&r.injuryType===old.type);
+    if(linked.length && !confirm(`${region}｜${old.type} 已有處置紀錄，變更傷勢會一併移除這些處置，確定嗎？`)){
+      renderMciInjuryWorkspaceV211029(); return;
+    }
+    if(linked.length)setMciTreatmentRecordsV211027(getMciTreatmentRecordsV211027().filter(r=>!(r.injuryRegion===region&&r.injuryType===old.type)),false);
+  }
+  const next=[];
+  if(type)next.push({region,type});
+  next.push(...regionRows.slice(1));
+  setMciInjuryRecordsV211026([...others,...next]);
+}
+function addExtraInjuryV211029(region){
+  markMciInjuryLocalDirtyV211035();
+  const arr=getMciInjuryRecordsV211026();
+  arr.push({region,type:'其他'});
+  setMciInjuryRecordsV211026(arr);
+}
+function updateExtraInjuryV211029(region,extraIndex,type){
+  markMciInjuryLocalDirtyV211035();
+  const arr=getMciInjuryRecordsV211026();
+  const indices=arr.map((r,i)=>r.region===region?i:-1).filter(i=>i>=0);
+  const target=indices[extraIndex+1];
+  if(target===undefined)return;
+  const old=arr[target];
+  if(old.type!==type){
+    const linked=getMciTreatmentRecordsV211027().filter(r=>r.injuryRegion===region&&r.injuryType===old.type);
+    if(linked.length && !confirm(`${region}｜${old.type} 已有處置紀錄，變更傷勢會一併移除這些處置，確定嗎？`)){
+      renderMciInjuryWorkspaceV211029(); return;
+    }
+    if(linked.length)setMciTreatmentRecordsV211027(getMciTreatmentRecordsV211027().filter(r=>!(r.injuryRegion===region&&r.injuryType===old.type)),false);
+  }
+  if(type)arr[target]={region,type}; else arr.splice(target,1);
+  setMciInjuryRecordsV211026(arr);
+}
+function removeExtraInjuryV211029(region,extraIndex){
+  markMciInjuryLocalDirtyV211035();
+  const arr=getMciInjuryRecordsV211026();
+  const indices=arr.map((r,i)=>r.region===region?i:-1).filter(i=>i>=0);
+  const target=indices[extraIndex+1];
+  if(target===undefined)return;
+  const old=arr[target];
+  const linked=getMciTreatmentRecordsV211027().filter(r=>r.injuryRegion===region&&r.injuryType===old.type);
+  if(linked.length && !confirm(`${region}｜${old.type} 已有處置紀錄，確定一併刪除嗎？`))return;
+  arr.splice(target,1);
+  if(linked.length)setMciTreatmentRecordsV211027(getMciTreatmentRecordsV211027().filter(r=>!(r.injuryRegion===region&&r.injuryType===old.type)),false);
+  setMciInjuryRecordsV211026(arr);
+}
+
+function treatmentDetailHtmlV211030(type){
+  if(type==='藥物'){
+    return '<input data-role="detail" type="text" placeholder="輸入藥物名稱">';
+  }
+  if(type==='其他'){
+    return '<input data-role="detail" type="text" placeholder="輸入處置內容">';
+  }
+  if(type==='氧氣治療'){
+    return '<select data-role="detail"><option value="">選擇給氧方式</option><option>鼻導管</option><option>簡易面罩</option><option>非再吸入型面罩</option><option>其他</option></select>';
+  }
+  return '';
+}
+function refreshTreatmentDetailV211030(editorId){
+  const el=document.getElementById(editorId);if(!el)return;
+  const type=(el.querySelector('[data-role="type"]')?.value||'').trim();
+  const slot=el.querySelector('[data-role="detail-slot"]');
+  if(slot)slot.innerHTML=treatmentDetailHtmlV211030(type);
+}
+
+
+function handleDirectTreatmentChoiceV211031(region,injuryType,selectId,baseType){
+  markMciInjuryLocalDirtyV211035();
+  const sel=document.getElementById(selectId);
+  const detail=document.getElementById(selectId+'_detail');
+  if(!sel||!detail)return;
+  baseType=String(baseType||'').trim();
+
+  if(!baseType){
+    detail.innerHTML='';
+    return;
+  }
+
+  const time=mciNowHmV211028();
+
+  if(['藥物','其他','氧氣治療'].includes(baseType)){
+    let detailField='';
+    if(baseType==='藥物'){
+      detailField='<input data-role="detail" type="text" placeholder="輸入藥物名稱">';
+    }else if(baseType==='其他'){
+      detailField='<input data-role="detail" type="text" placeholder="輸入處置內容">';
+    }else{
+      detailField='<select data-role="detail"><option value="">給氧方式</option><option>鼻導管</option><option>簡易面罩</option><option>非再吸入型面罩</option><option>其他</option></select>';
+    }
+
+    detail.innerHTML=`${detailField}
+      <input data-role="time" type="time" value="${time}" aria-label="施作時間">
+      <button type="button" onclick="saveDirectTreatmentV211031('${escapeAttr(region)}','${escapeAttr(injuryType)}','${selectId}','${escapeAttr(baseType)}')">＋ 新增</button>`;
+    return;
+  }
+
+  const arr=getMciTreatmentRecordsV211027();
+  arr.push({region,type:baseType,time,injuryRegion:region,injuryType});
+  setMciTreatmentRecordsV211027(arr);
+}
+function saveDirectTreatmentV211031(region,injuryType,selectId,baseType){
+  markMciInjuryLocalDirtyV211035();
+  const detail=document.getElementById(selectId+'_detail');
+  if(!detail)return;
+  const extra=(detail.querySelector('[data-role="detail"]')?.value||'').trim();
+  const time=(detail.querySelector('[data-role="time"]')?.value||mciNowHmV211028()).trim();
+
+  if(!extra){
+    triageMessageV2170(baseType==='藥物'?'請輸入藥物名稱。':baseType==='氧氣治療'?'請選擇給氧方式。':'請輸入處置內容。','error');
+    return;
+  }
+
+  const arr=getMciTreatmentRecordsV211027();
+  arr.push({region,type:`${baseType}｜${extra}`,time,injuryRegion:region,injuryType});
+  setMciTreatmentRecordsV211027(arr);
+}
+
+function toggleInlineTreatmentEditorV211029(region,injuryType,editorId){
+  const el=document.getElementById(editorId);
+  if(!el)return;
+  if(el.style.display!=='none'){el.style.display='none';el.innerHTML='';return;}
+  document.querySelectorAll('.mci-inline-treatment-editor-v211029').forEach(x=>{x.style.display='none';x.innerHTML='';});
+  el.style.display='grid';
+  el.innerHTML=`<select data-role="type" onchange="refreshTreatmentDetailV211030('${editorId}')">${treatmentOptionsHtmlV211029('',region)}</select>
+    <span data-role="detail-slot"></span>
+    <input data-role="time" type="time" value="${mciNowHmV211028()}" aria-label="施作時間">
+    <button type="button" onclick="saveInlineTreatmentV211029('${escapeAttr(region)}','${escapeAttr(injuryType)}','${editorId}')">＋ 新增</button>`;
+}
+function saveInlineTreatmentV211029(region,injuryType,editorId){
+  const el=document.getElementById(editorId);if(!el)return;
+  const baseType=(el.querySelector('[data-role="type"]')?.value||'').trim();
+  const detail=(el.querySelector('[data-role="detail"]')?.value||'').trim();
+  const time=(el.querySelector('[data-role="time"]')?.value||mciNowHmV211028()).trim();
+  if(!baseType){triageMessageV2170('請選擇處置。','error');return;}
+  if(['藥物','其他','氧氣治療'].includes(baseType) && !detail){
+    triageMessageV2170(baseType==='藥物'?'請輸入藥物名稱。':baseType==='氧氣治療'?'請選擇給氧方式。':'請輸入處置內容。','error');return;
+  }
+  const type=detail?`${baseType}｜${detail}`:baseType;
+  const arr=getMciTreatmentRecordsV211027();
+  arr.push({region,type,time,injuryRegion:region,injuryType});
+  setMciTreatmentRecordsV211027(arr);
+}
+function removeIntegratedTreatmentV211029(region,type,time,injuryRegion,injuryType){
+  markMciInjuryLocalDirtyV211035();
+  const arr=getMciTreatmentRecordsV211027();
+  const idx=arr.findIndex(r=>r.region===region&&r.type===type&&(r.time||'')===(time||'')&&(r.injuryRegion||'')===(injuryRegion||'')&&(r.injuryType||'')===(injuryType||''));
+  if(idx>=0){arr.splice(idx,1);setMciTreatmentRecordsV211027(arr);}
+}
+function toggleGeneralTreatmentEditorV211029(){
+  const el=document.getElementById('mciGeneralTreatmentEditorV211029');if(!el)return;
+  if(el.style.display!=='none'){el.style.display='none';el.innerHTML='';return;}
+  el.style.display='grid';
+  el.innerHTML=`<select data-role="region" onchange="refreshGeneralTreatmentTypeV211030()"><option value="全身／系統性">全身／系統性</option><option value="呼吸道">呼吸道</option></select>
+    <select data-role="type" onchange="refreshGeneralTreatmentDetailV211030()">${treatmentOptionsHtmlV211029('','全身／系統性')}</select>
+    <span data-role="detail-slot"></span>
+    <input data-role="time" type="time" value="${mciNowHmV211028()}" aria-label="施作時間">
+    <button type="button" onclick="saveGeneralTreatmentV211029()">＋ 新增</button>`;
+}
+function refreshGeneralTreatmentTypeV211030(){
+  const el=document.getElementById('mciGeneralTreatmentEditorV211029');if(!el)return;
+  const region=(el.querySelector('[data-role="region"]')?.value||'全身／系統性').trim();
+  const type=el.querySelector('[data-role="type"]');
+  if(type)type.innerHTML=treatmentOptionsHtmlV211029('',region);
+  refreshGeneralTreatmentDetailV211030();
+}
+function refreshGeneralTreatmentDetailV211030(){
+  const el=document.getElementById('mciGeneralTreatmentEditorV211029');if(!el)return;
+  const type=(el.querySelector('[data-role="type"]')?.value||'').trim();
+  const slot=el.querySelector('[data-role="detail-slot"]');
+  if(slot)slot.innerHTML=treatmentDetailHtmlV211030(type);
+}
+function saveGeneralTreatmentV211029(){
+  markMciInjuryLocalDirtyV211035();
+  const el=document.getElementById('mciGeneralTreatmentEditorV211029');if(!el)return;
+  const region=(el.querySelector('[data-role="region"]')?.value||'全身／系統性').trim();
+  const baseType=(el.querySelector('[data-role="type"]')?.value||'').trim();
+  const detail=(el.querySelector('[data-role="detail"]')?.value||'').trim();
+  const time=(el.querySelector('[data-role="time"]')?.value||mciNowHmV211028()).trim();
+  if(!baseType){triageMessageV2170('請選擇處置。','error');return;}
+  if(['藥物','其他','氧氣治療'].includes(baseType) && !detail){
+    triageMessageV2170(baseType==='藥物'?'請輸入藥物名稱。':baseType==='氧氣治療'?'請選擇給氧方式。':'請輸入處置內容。','error');return;
+  }
+  const type=detail?`${baseType}｜${detail}`:baseType;
+  const arr=getMciTreatmentRecordsV211027();
+  arr.push({region,type,time,injuryRegion:'',injuryType:''});
+  setMciTreatmentRecordsV211027(arr);
+  el.style.display='none';el.innerHTML='';
+}
+
+function getMciInjuryRecordsV211026(){return parseMciInjuryRecordsV211026(document.getElementById('mciBasicInjuryRecordsV211026')?.value||'');}
+function setMciInjuryRecordsV211026(records,shouldRender=true){
+  const arr=(records||[]).map(r=>({
+    region:String(r?.region||'').trim(),
+    type:String(r?.type||'').trim()
+  })).filter(r=>r.region&&r.type);
+  const h=document.getElementById('mciBasicInjuryRecordsV211026');
+  if(h)h.value=JSON.stringify(arr);
+  if(shouldRender && typeof renderMciInjuryWorkspaceV211029==='function')renderMciInjuryWorkspaceV211029();
+}
+function addMciInjuryRecordV211026(){initMciInjurySelectorsV211026();const region=(document.getElementById('mciInjuryRegionV211026')?.value||mciActiveBodyRegionV211026||'').trim();const raw=(document.getElementById('mciInjuryTypeV211026')?.value||'').trim();const other=(document.getElementById('mciInjuryOtherV211026')?.value||'').trim();if(!region){triageMessageV2170('請先點選人體部位，或從部位選單選擇。','error');return;}if(!raw){triageMessageV2170('請選擇傷勢類型。','error');return;}const type=raw==='其他'?(other||'其他'):raw;const arr=getMciInjuryRecordsV211026();if(!arr.some(r=>r.region===region&&r.type===type))arr.push({region,type});setMciInjuryRecordsV211026(arr);const t=document.getElementById('mciInjuryTypeV211026');if(t)t.value='';const o=document.getElementById('mciInjuryOtherV211026');if(o){o.value='';o.style.display='none';}}
+function removeMciInjuryRecordV211026(index){const arr=getMciInjuryRecordsV211026();arr.splice(index,1);setMciInjuryRecordsV211026(arr);}
+
+function getMciBodyRegionsV211015(){
+  const input=document.getElementById('mciBasicBodyRegionsV211015');
+  return String(input?.value||'').split('、').map(s=>s.trim()).filter(Boolean);
+}
+function setMciBodyRegionsV211015(regions){
+  const unique=[...new Set((regions||[]).map(x=>String(x||'').trim()).filter(Boolean))];
+  unique.sort((a,b)=>{
+    const ra=MCI_BODY_REGION_ORDER_V211015.indexOf(a), rb=MCI_BODY_REGION_ORDER_V211015.indexOf(b);
+    const aa=ra<0?999:ra, bb=rb<0?999:rb;
+    if(aa!==bb)return aa-bb;
+    return a.localeCompare(b,'zh-Hant');
+  });
+
+  const input=document.getElementById('mciBasicBodyRegionsV211015');
+  if(input)input.value=unique.join('、');
+
+  document.querySelectorAll('.mci-body-hotspots-v211015 [data-region]').forEach(el=>{
+    el.classList.toggle('selected',unique.includes(el.dataset.region));
+  });
+
+  const out=document.getElementById('mciBodyRegionSelectedV211015');
+  if(out){
+    out.innerHTML=unique.length
+      ? unique.map(x=>`<span>${escapeHtml(x)}</span>`).join('')
+      : '尚未標記受傷位置';
+    out.classList.toggle('has-value',unique.length>0);
+  }
+}
+
+let mciInjuryLocalDirtyV211035=false;
+let mciInjuryLocalDirtyPatientKeyV211035='';
+
+function getMciCurrentPatientKeyV211035(){
+  const p=mciTriageCurrentPatientV2170||{};
+  return String(p.patientId||p.qrToken||document.getElementById('triageLabelInputV2170')?.value||'').trim();
+}
+function markMciInjuryLocalDirtyV211035(){
+  mciInjuryLocalDirtyV211035=true;
+  mciInjuryLocalDirtyPatientKeyV211035=getMciCurrentPatientKeyV211035();
+}
+function clearMciInjuryLocalDirtyV211035(){
+  mciInjuryLocalDirtyV211035=false;
+  mciInjuryLocalDirtyPatientKeyV211035='';
+}
+function shouldPreserveMciInjuryLocalDraftV211035(patient){
+  if(!mciInjuryLocalDirtyV211035)return false;
+  const incoming=String(patient?.patientId||patient?.qrToken||'').trim();
+  const local=String(mciInjuryLocalDirtyPatientKeyV211035||'').trim();
+  return !!incoming && !!local && incoming===local;
+}
+
+function selectMciBodyHotspotV211034(event,el){
+  if(event){
+    event.preventDefault();
+    event.stopPropagation();
+    if(typeof event.stopImmediatePropagation==='function')event.stopImmediatePropagation();
+  }
+  const region=String(el?.dataset?.region||'').trim();
+  if(!region)return false;
+
+  // 明確只接受「實際被點到的 SVG hotspot」的 data-region，
+  // 避免行動裝置 SVG touch hit-test / bubbling 誤抓相鄰部位。
+  toggleMciBodyRegionV211015(region);
+  return false;
+}
+
+function toggleMciBodyRegionV211015(region){
+  markMciInjuryLocalDirtyV211035();
+  preserveMciInjuryWorkspaceDraftV211033();
+
+  const current=getMciBodyRegionsV211015();
+  const removing=current.includes(region);
+
+  if(removing){
+    const injuries=getMciInjuryRecordsV211026().filter(r=>r.region===region);
+    const treatments=getMciTreatmentRecordsV211027().filter(r=>r.region===region || r.injuryRegion===region);
+    if((injuries.length||treatments.length) && !confirm(`${region} 已有傷勢或處置紀錄，確定取消這個受傷部位並一併移除相關紀錄嗎？`)){
+      return;
+    }
+    if(injuries.length)setMciInjuryRecordsV211026(getMciInjuryRecordsV211026().filter(r=>r.region!==region),false);
+    if(treatments.length)setMciTreatmentRecordsV211027(getMciTreatmentRecordsV211027().filter(r=>r.region!==region && r.injuryRegion!==region),false);
+  }
+
+  const next=removing?current.filter(x=>x!==region):current.concat(region);
+  setMciBodyRegionsV211015(next);
+
+  // V21.10.33：只重畫傷勢區一次，避免第一次點人體圖時重複 render 造成閃動。
+  renderMciInjuryWorkspaceV211029();
+}
+function clearMciBodyRegionsV211015(){
+  markMciInjuryLocalDirtyV211035();
+  preserveMciInjuryWorkspaceDraftV211033();
+  const injuries=getMciInjuryRecordsV211026();
+  const treatments=getMciTreatmentRecordsV211027();
+  if((injuries.length||treatments.length) && !confirm('目前已有傷勢或處置紀錄，確定清除所有受傷位置及相關紀錄嗎？'))return;
+  setMciInjuryRecordsV211026([],false);
+  setMciTreatmentRecordsV211027([],false);
+  setMciBodyRegionsV211015([]);
+  renderMciInjuryWorkspaceV211029();
+}
+
+
 function mciHasBasicDraftV21101(){
-  const ids=['mciBasicSexV21730','mciBasicAgeV21730','mciBasicInjuryV21730','mciBasicNameV21730','mciBasicIdInfoV21730','mciBasicFeatureV21730'];
+  const ids=['mciBasicSexV21730','mciBasicAgeV21730','mciBasicBodyRegionsV211015','mciBasicInjuryRecordsV211026','mciBasicInjuryV21730','mciBasicNameV21730','mciBasicIdInfoV21730','mciBasicFeatureV21730'];
   return ids.some(id=>String(document.getElementById(id)?.value||'').trim());
 }
 function mciHasTreatmentDraftV21101(){
@@ -21492,6 +23385,7 @@ function mciHasTreatmentDraftV21101(){
     !!String(document.getElementById('mciVitalMentalV21710')?.value||'').trim();
 }
 async function saveMciCombinedRecordV21101(btn,goNext){
+  preserveMciInjuryWorkspaceDraftV211033();
   const p=mciTriageCurrentPatientV2170;
   if(!p||!currentMciEvent)return;
 
@@ -21548,9 +23442,24 @@ async function saveMciCombinedRecordV21101(btn,goNext){
 
 async function saveMciPatientBasicV21730(btn){
   const p=mciTriageCurrentPatientV2170;if(!p||!currentMciEvent)return;
-  const sex=(document.getElementById('mciBasicSexV21730')?.value||'').trim(),ageGroup=(document.getElementById('mciBasicAgeV21730')?.value||'').trim(),majorInjury=(document.getElementById('mciBasicInjuryV21730')?.value||'').trim(),name=(document.getElementById('mciBasicNameV21730')?.value||'').trim(),idInfo=(document.getElementById('mciBasicIdInfoV21730')?.value||'').trim(),identifyingFeatures=(document.getElementById('mciBasicFeatureV21730')?.value||'').trim();
-  Object.assign(p,{sex,ageGroup,majorInjury,name,idInfo,identifyingFeatures});cacheMciPatientV21730(p);triageMessageV2170('基本資料已記錄｜☁️ 背景同步中','success');
-  mciEnqueueBgV21720('saveMciPatientBasicV21730',{eventId:currentMciEvent.eventId,patientId:p.patientId,token:p.qrToken||'',sex,ageGroup,majorInjury,name,idInfo,identifyingFeatures,operator:(currentUser&&currentUser.name)||'現場操作',opId:mciMakeOpIdV21720('basic')},`傷患 ${p.patientId} 基本資料`);
+  const sex=(document.getElementById('mciBasicSexV21730')?.value||'').trim(),
+        ageGroup=(document.getElementById('mciBasicAgeV21730')?.value||'').trim(),
+        bodyRegions=(document.getElementById('mciBasicBodyRegionsV211015')?.value||'').trim(),
+        injuryRecords=(document.getElementById('mciBasicInjuryRecordsV211026')?.value||'').trim(),
+        majorInjury=(document.getElementById('mciBasicInjuryV21730')?.value||'').trim(),
+        name=(document.getElementById('mciBasicNameV21730')?.value||'').trim(),
+        idInfo=(document.getElementById('mciBasicIdInfoV21730')?.value||'').trim(),
+        identifyingFeatures=(document.getElementById('mciBasicFeatureV21730')?.value||'').trim();
+  Object.assign(p,{sex,ageGroup,bodyRegions,injuryRecords,majorInjury,name,idInfo,identifyingFeatures});
+  cacheMciPatientV21730(p);
+  triageMessageV2170('基本資料已記錄｜☁️ 背景同步中','success');
+  clearMciInjuryLocalDirtyV211035();
+  mciEnqueueBgV21720('saveMciPatientBasicV21730',{
+    eventId:currentMciEvent.eventId,patientId:p.patientId,token:p.qrToken||'',
+    sex,ageGroup,bodyRegions,injuryRecords,majorInjury,name,idInfo,identifyingFeatures,
+    operator:(currentUser&&currentUser.name)||'現場操作',
+    opId:mciMakeOpIdV21720('basic')
+  },`傷患 ${p.patientId} 基本資料`);
 }
 
 
@@ -21998,6 +23907,16 @@ document.addEventListener('DOMContentLoaded',()=>{
   }catch(err){}
   // 沒有共享登入狀態才顯示 MCI 專用登入頁；後送車輛仍可免登入使用。
   try{showSection('loginSection');}catch(err){}
+});
+</script>
+
+
+<script>
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter' && e.target && e.target.id==='mciCustomBodyRegionV211033'){
+    e.preventDefault();
+    addCustomMciBodyRegionV211033();
+  }
 });
 </script>
 

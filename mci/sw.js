@@ -1,4 +1,4 @@
-const CACHE_NAME = 'phoenix-mci-v1-1-10';
+const CACHE_NAME = 'phoenix-mci-v1-1-35';
 const APP_SHELL = [
   './',
   './index.html',
