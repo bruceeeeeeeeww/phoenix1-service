@@ -8812,9 +8812,44 @@ button.mci-stat-card.mci-completed-stat-v21102{
 }
 </style>
 
+
+
+<style>
+/* V21.10.36｜災害離線模式狀態列 */
+.mci-offline-banner-v211036{
+  position:sticky;top:0;z-index:10020;display:none;
+  padding:10px 14px;border-bottom:1px solid #e6d8a7;
+  background:#fff8dc;color:#68530d;font-size:13px;font-weight:800;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+}
+.mci-offline-banner-v211036.show{display:block}
+.mci-offline-banner-v211036.online{background:#edf8ef;color:#237142;border-color:#cbe7d1}
+.mci-offline-banner-v211036.offline{background:#fff4d6;color:#735b0b;border-color:#ead79c}
+.mci-offline-banner-v211036.syncing{background:#eef7f4;color:#286f62;border-color:#cde5df}
+.mci-offline-row-v211036{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:1180px;margin:auto}
+.mci-offline-main-v211036{display:flex;align-items:center;gap:8px;min-width:0}
+.mci-offline-title-v211036{font-weight:950}
+.mci-offline-detail-v211036{font-weight:700;opacity:.9}
+.mci-offline-count-v211036{white-space:nowrap;font-variant-numeric:tabular-nums}
+@media(max-width:620px){
+  .mci-offline-row-v211036{align-items:flex-start;flex-direction:column;gap:3px}
+  .mci-offline-count-v211036{padding-left:25px}
+}
+</style>
+
 </head>
 
 <body><div class="mci-standalone-top-v2190"><strong>Phoenix MCI 災害應變系統</strong><a href="../">← 返回隊員服務系統</a></div>
+<div id="mciOfflineBannerV211036" class="mci-offline-banner-v211036" role="status" aria-live="polite">
+  <div class="mci-offline-row-v211036">
+    <div class="mci-offline-main-v211036">
+      <span id="mciOfflineIconV211036">⚠️</span>
+      <span id="mciOfflineTitleV211036" class="mci-offline-title-v211036">災害離線模式</span>
+      <span id="mciOfflineDetailV211036" class="mci-offline-detail-v211036">資料將保存在此裝置</span>
+    </div>
+    <div id="mciOfflineCountV211036" class="mci-offline-count-v211036">待同步 0 筆</div>
+  </div>
+</div>
 
   <div id="appLoadingScreen" aria-label="系統載入中">
     <div class="app-loading-card">
@@ -14242,22 +14277,244 @@ async function submitLimingDutyForm() {
   }
 
   
+// V21.10.38｜IndexedDB 穩定離線資料層
+const MCI_OFFLINE_DB_NAME_V211038='PhoenixMCI_OfflineDB';
+const MCI_OFFLINE_DB_VERSION_V211038=1;
+const MCI_OFFLINE_KV_STORE_V211038='kv';
+const MCI_OFFLINE_QUEUE_STORE_V211038='queue';
+let mciOfflineDbV211038=null;
+let mciOfflineDbReadyFlagV211038=false;
+let mciOfflineDbErrorV211038='';
+const mciOfflineKvMirrorV211038=new Map();
+let mciBgQueueMirrorV211038=[];
+let mciQueueWriteChainV211038=Promise.resolve();
+
+function mciOpenOfflineDbV211038(){
+  return new Promise((resolve,reject)=>{
+    if(!('indexedDB' in window)){reject(new Error('此瀏覽器不支援 IndexedDB'));return;}
+    const req=indexedDB.open(MCI_OFFLINE_DB_NAME_V211038,MCI_OFFLINE_DB_VERSION_V211038);
+    req.onupgradeneeded=()=>{
+      const db=req.result;
+      if(!db.objectStoreNames.contains(MCI_OFFLINE_KV_STORE_V211038))db.createObjectStore(MCI_OFFLINE_KV_STORE_V211038,{keyPath:'key'});
+      if(!db.objectStoreNames.contains(MCI_OFFLINE_QUEUE_STORE_V211038)){
+        const st=db.createObjectStore(MCI_OFFLINE_QUEUE_STORE_V211038,{keyPath:'id'});
+        st.createIndex('createdAt','createdAt',{unique:false});
+        st.createIndex('state','state',{unique:false});
+      }
+    };
+    req.onsuccess=()=>{mciOfflineDbV211038=req.result;resolve(req.result);};
+    req.onerror=()=>reject(req.error||new Error('IndexedDB 開啟失敗'));
+    req.onblocked=()=>reject(new Error('IndexedDB 升級被其他分頁阻擋'));
+  });
+}
+function mciIdbRequestV211038(req){
+  return new Promise((resolve,reject)=>{req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error||new Error('IndexedDB 操作失敗'));});
+}
+async function mciIdbGetAllV211038(storeName){
+  if(!mciOfflineDbV211038)return [];
+  const tx=mciOfflineDbV211038.transaction(storeName,'readonly');
+  return await mciIdbRequestV211038(tx.objectStore(storeName).getAll());
+}
+async function mciIdbPutV211038(storeName,value){
+  if(!mciOfflineDbV211038)return;
+  return await new Promise((resolve,reject)=>{
+    const tx=mciOfflineDbV211038.transaction(storeName,'readwrite');
+    tx.objectStore(storeName).put(value);
+    tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error||new Error('IndexedDB 寫入失敗'));tx.onabort=()=>reject(tx.error||new Error('IndexedDB 寫入中止'));
+  });
+}
+async function mciIdbDeleteV211038(storeName,key){
+  if(!mciOfflineDbV211038)return;
+  return await new Promise((resolve,reject)=>{
+    const tx=mciOfflineDbV211038.transaction(storeName,'readwrite');
+    tx.objectStore(storeName).delete(key);
+    tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error||new Error('IndexedDB 刪除失敗'));tx.onabort=()=>reject(tx.error||new Error('IndexedDB 刪除中止'));
+  });
+}
+function mciIdbKvSetV211038(key,value){
+  mciOfflineKvMirrorV211038.set(String(key),value);
+  mciOfflineDbReadyV211038.then(()=>mciIdbPutV211038(MCI_OFFLINE_KV_STORE_V211038,{key:String(key),value,updatedAt:Date.now()})).catch(err=>{mciOfflineDbErrorV211038=String(err?.message||err||'IndexedDB 寫入失敗');});
+}
+function mciIdbKvGetV211038(key,fallback=null){
+  const k=String(key);
+  if(mciOfflineKvMirrorV211038.has(k))return mciOfflineKvMirrorV211038.get(k);
+  return fallback;
+}
+function mciIdbKvDeleteV211038(key){
+  const k=String(key);mciOfflineKvMirrorV211038.delete(k);
+  mciOfflineDbReadyV211038.then(()=>mciIdbDeleteV211038(MCI_OFFLINE_KV_STORE_V211038,k)).catch(()=>{});
+}
+async function mciPersistFullQueueV211038(queue){
+  if(!mciOfflineDbV211038)return;
+  await new Promise((resolve,reject)=>{
+    const tx=mciOfflineDbV211038.transaction(MCI_OFFLINE_QUEUE_STORE_V211038,'readwrite');
+    const st=tx.objectStore(MCI_OFFLINE_QUEUE_STORE_V211038);st.clear();
+    (queue||[]).forEach(item=>st.put(item));
+    tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error||new Error('IndexedDB Queue 寫入失敗'));tx.onabort=()=>reject(tx.error||new Error('IndexedDB Queue 寫入中止'));
+  });
+}
+function mciQueuePersistSoonV211038(queue){
+  const snapshot=JSON.parse(JSON.stringify(queue||[]));
+  mciQueueWriteChainV211038=mciQueueWriteChainV211038.catch(()=>{}).then(()=>mciOfflineDbReadyV211038).then(()=>mciPersistFullQueueV211038(snapshot)).catch(err=>{mciOfflineDbErrorV211038=String(err?.message||err||'IndexedDB Queue 寫入失敗');});
+  return mciQueueWriteChainV211038;
+}
+function mciLegacyJsonV211038(key,fallback){
+  try{const raw=localStorage.getItem(key);return raw?JSON.parse(raw):fallback;}catch(err){return fallback;}
+}
+async function mciMigrateLegacyOfflineDataV211038(){
+  // Queue：從舊 localStorage 匯入一次，依 operation id 去重。
+  const legacyQ=mciLegacyJsonV211038('phoenixMciBgQueueV21720',[]);
+  if(Array.isArray(legacyQ)&&legacyQ.length){
+    const ids=new Set(mciBgQueueMirrorV211038.map(x=>x.id));
+    legacyQ.forEach(x=>{if(x?.id&&!ids.has(x.id)){mciBgQueueMirrorV211038.push(x);ids.add(x.id);}});
+    await mciPersistFullQueueV211038(mciBgQueueMirrorV211038);
+    try{localStorage.removeItem('phoenixMciBgQueueV21720');}catch(err){}
+  }
+  // 其餘 MCI 離線關鍵資料一次性搬入 IndexedDB KV。
+  const exact=['phoenixMciPatientCacheV21730','phoenixMciPendingPhotoV21751'];
+  const prefixes=['phoenixMciTransportV21760:','phoenixMciEventCacheV21814:'];
+  const keys=[];
+  try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&(exact.includes(k)||prefixes.some(p=>k.startsWith(p))))keys.push(k);}}catch(err){}
+  for(const k of keys){
+    if(mciOfflineKvMirrorV211038.has(k))continue;
+    const v=mciLegacyJsonV211038(k,null);
+    if(v!==null){mciOfflineKvMirrorV211038.set(k,v);await mciIdbPutV211038(MCI_OFFLINE_KV_STORE_V211038,{key:k,value:v,updatedAt:Date.now()});}
+  }
+  keys.forEach(k=>{try{localStorage.removeItem(k);}catch(err){}});
+}
+async function mciRequestPersistentStorageV211038(){
+  try{
+    if(navigator.storage?.persist){await navigator.storage.persist();}
+  }catch(err){}
+}
+const mciOfflineDbReadyV211038=(async()=>{
+  try{
+    await mciOpenOfflineDbV211038();
+    const kvRows=await mciIdbGetAllV211038(MCI_OFFLINE_KV_STORE_V211038);
+    kvRows.forEach(r=>mciOfflineKvMirrorV211038.set(String(r.key),r.value));
+    mciBgQueueMirrorV211038=await mciIdbGetAllV211038(MCI_OFFLINE_QUEUE_STORE_V211038);
+    mciBgQueueMirrorV211038.sort((a,b)=>Number(a.createdAt||0)-Number(b.createdAt||0));
+    await mciMigrateLegacyOfflineDataV211038();
+    await mciRequestPersistentStorageV211038();
+    mciOfflineDbReadyFlagV211038=true;
+    setTimeout(()=>{try{mciRenderBgSyncV21720();mciRenderConnectivityV211036();}catch(err){}},0);
+    return true;
+  }catch(err){
+    mciOfflineDbErrorV211038=String(err?.message||err||'IndexedDB 初始化失敗');
+    console.error('Phoenix MCI IndexedDB init failed',err);
+    return false;
+  }
+})();
+
 const MCI_BG_QUEUE_KEY_V21720='phoenixMciBgQueueV21720';
 let mciBgQueueBusyV21720=false;
 let mciBgQueueTimerV21720=null;
+
+// V21.10.36｜災害離線模式：瀏覽器網路狀態 + Phoenix API heartbeat 雙重判斷。
+let mciApiReachableV211036 = navigator.onLine !== false;
+let mciConnectivityTimerV211036 = null;
+let mciHeartbeatBusyV211036 = false;
+let mciLastApiOkAtV211036 = 0;
+let mciConsecutiveApiFailV211036 = 0;
+
+function mciIsOnlineV211036(){
+  return navigator.onLine !== false && mciApiReachableV211036;
+}
+function mciPendingPhotoCountV211038(){
+  const store=mciIdbKvGetV211038('phoenixMciPendingPhotoV21751',{})||{};
+  return Object.keys(store).length;
+}
+function mciPendingCountV211036(){
+  return mciLoadBgQueueV21720().length + mciPendingPhotoCountV211038();
+}
+function mciConnectivityTextV211036(){
+  return mciIsOnlineV211036() ? '☁️ 背景同步中' : '📱 已儲存於本機｜待網路恢復後同步';
+}
+function mciRenderConnectivityV211036(forceVisible=false){
+  const banner=document.getElementById('mciOfflineBannerV211036');
+  const icon=document.getElementById('mciOfflineIconV211036');
+  const title=document.getElementById('mciOfflineTitleV211036');
+  const detail=document.getElementById('mciOfflineDetailV211036');
+  const count=document.getElementById('mciOfflineCountV211036');
+  if(!banner||!icon||!title||!detail||!count)return;
+  const q=mciLoadBgQueueV21720();
+  const pendingPhotos=mciPendingPhotoCountV211038();
+  const pendingTotal=q.length+pendingPhotos;
+  const online=mciIsOnlineV211036();
+  const syncing=online && (mciBgQueueBusyV21720 || q.length>0 || pendingPhotos>0);
+  if(mciOfflineDbErrorV211038){
+    banner.className='mci-offline-banner-v211036 show offline';
+    icon.textContent='❌';title.textContent='本機資料庫異常';
+    detail.textContent='IndexedDB 無法使用，請勿進行災害離線作業';
+    count.textContent=`待同步 ${pendingTotal} 筆`;
+    return;
+  }
+  count.textContent=`待同步 ${pendingTotal} 筆`;
+  if(!online){
+    banner.className='mci-offline-banner-v211036 show offline';
+    icon.textContent='⚠️';title.textContent='災害離線模式';
+    detail.textContent='IndexedDB 本機資料庫保存｜指揮官即時看板暫停';
+  }else if(syncing){
+    banner.className='mci-offline-banner-v211036 show syncing';
+    icon.textContent='🔄';title.textContent='網路已恢復';
+    detail.textContent='正在補送離線期間紀錄';
+  }else{
+    banner.className='mci-offline-banner-v211036 online'+(forceVisible?' show':'');
+    icon.textContent='🟢';title.textContent='線上';
+    detail.textContent='資料即時同步';
+    count.textContent='待同步 0 筆';
+  }
+}
+async function mciHeartbeatV211036(){
+  if(mciHeartbeatBusyV211036)return mciIsOnlineV211036();
+  if(navigator.onLine===false){
+    mciApiReachableV211036=false;mciConsecutiveApiFailV211036=2;
+    mciRenderConnectivityV211036();mciRenderBgSyncV21720();return false;
+  }
+  mciHeartbeatBusyV211036=true;
+  let controller=null,timer=null;
+  try{
+    if(typeof AbortController!=='undefined'){controller=new AbortController();timer=setTimeout(()=>controller.abort(),5000);}
+    const q=new URLSearchParams({action:'mciWarmupV2195',heartbeat:'1',t:String(Date.now())});
+    const r=await fetch(`${API_URL}?${q.toString()}`,Object.assign({cache:'no-store'},controller?{signal:controller.signal}:{}));
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const x=await r.json();
+    if(x && x.success===false)throw new Error(x.message||'heartbeat failed');
+    mciApiReachableV211036=true;mciConsecutiveApiFailV211036=0;mciLastApiOkAtV211036=Date.now();
+    mciRenderConnectivityV211036();mciRenderBgSyncV21720();
+    setTimeout(()=>mciProcessBgQueueV21720(),30);
+    return true;
+  }catch(err){
+    mciConsecutiveApiFailV211036++;
+    // 避免瞬間抖動：連續 2 次 API 無法連線才切入災害離線模式。
+    if(mciConsecutiveApiFailV211036>=2)mciApiReachableV211036=false;
+    mciRenderConnectivityV211036();mciRenderBgSyncV21720();
+    return mciIsOnlineV211036();
+  }finally{
+    if(timer)clearTimeout(timer);mciHeartbeatBusyV211036=false;
+  }
+}
+function mciStartConnectivityMonitorV211036(){
+  if(mciConnectivityTimerV211036)return;
+  const refresh=()=>{
+    if(navigator.onLine===false){mciApiReachableV211036=false;mciConsecutiveApiFailV211036=2;mciRenderConnectivityV211036();mciRenderBgSyncV21720();}
+    else mciHeartbeatV211036();
+  };
+  window.addEventListener('offline',refresh);
+  window.addEventListener('online',()=>{mciConsecutiveApiFailV211036=0;mciHeartbeatV211036();});
+  mciConnectivityTimerV211036=setInterval(refresh,15000);
+  refresh();
+}
 
 function mciMakeOpIdV21720(prefix){
   return `${prefix||'op'}_${Date.now()}_${Math.random().toString(36).slice(2,10)}`;
 }
 function mciLoadBgQueueV21720(){
-  try{
-    const raw=localStorage.getItem(MCI_BG_QUEUE_KEY_V21720);
-    const arr=raw?JSON.parse(raw):[];
-    return Array.isArray(arr)?arr:[];
-  }catch(err){return [];}
+  return Array.isArray(mciBgQueueMirrorV211038)?mciBgQueueMirrorV211038.slice():[];
 }
 function mciSaveBgQueueV21720(queue){
-  try{localStorage.setItem(MCI_BG_QUEUE_KEY_V21720,JSON.stringify(queue||[]));}catch(err){}
+  mciBgQueueMirrorV211038=Array.isArray(queue)?queue.slice():[];
+  mciQueuePersistSoonV211038(mciBgQueueMirrorV211038);
   mciRenderBgSyncV21720();
 }
 function mciEnqueueBgV21720(action,params,label){
@@ -14282,16 +14539,23 @@ function mciRenderBgSyncV21720(){
   const icon=document.getElementById('mciBgSyncIconV21720');
   if(!chip||!text||!icon)return;
   const q=mciLoadBgQueueV21720();
-  if(!q.length){chip.style.display='none';return;}
+  const pendingPhotos=mciPendingPhotoCountV211038();
+  const pendingTotal=q.length+pendingPhotos;
   const failed=q.filter(x=>x.state==='failed').length;
+  const online=mciIsOnlineV211036();
+  if(!pendingTotal && online){chip.style.display='none';mciRenderConnectivityV211036();return;}
   chip.style.display='flex';
-  if(failed){
-    icon.textContent='⚠️';text.textContent=`${failed} 筆同步失敗｜共 ${q.length} 筆待處理`;
+  if(!online){
+    icon.textContent='📱';text.textContent=`災害離線｜IndexedDB 已保存 ${pendingTotal} 筆${pendingPhotos?`（含照片 ${pendingPhotos}）`:''}`;
+    chip.className='mci-bg-sync-chip-v21720 syncing';
+  }else if(failed){
+    icon.textContent='⚠️';text.textContent=`${failed} 筆同步失敗｜共 ${pendingTotal} 筆待處理`;
     chip.className='mci-bg-sync-chip-v21720 failed';
   }else{
-    icon.textContent='☁️';text.textContent=`背景同步中｜${q.length} 筆`;
+    icon.textContent='☁️';text.textContent=`背景同步中｜${pendingTotal} 筆`;
     chip.className='mci-bg-sync-chip-v21720 syncing';
   }
+  mciRenderConnectivityV211036();
 }
 async function mciSendBgItemV21720(item){
   const params=new URLSearchParams(Object.assign({},item.params||{},{
@@ -14306,7 +14570,8 @@ async function mciSendBgItemV21720(item){
   return result;
 }
 async function mciProcessBgQueueV21720(){
-  if(mciBgQueueBusyV21720 || !navigator.onLine)return;
+  await mciOfflineDbReadyV211038;
+  if(mciBgQueueBusyV21720 || !mciIsOnlineV211036())return;
   let q=mciLoadBgQueueV21720();
   if(!q.length){mciRenderBgSyncV21720();return;}
   mciBgQueueBusyV21720=true;
@@ -14336,12 +14601,13 @@ async function mciProcessBgQueueV21720(){
   }finally{
     mciBgQueueBusyV21720=false;
     mciRenderBgSyncV21720();
+    if(mciIsOnlineV211036())setTimeout(()=>mciProcessPendingPhotosV211038(),80);
   }
 }
 function mciStartBgSyncV21720(){
   if(mciBgQueueTimerV21720)return;
-  mciBgQueueTimerV21720=setInterval(()=>mciProcessBgQueueV21720(),3000);
-  window.addEventListener('online',()=>mciProcessBgQueueV21720());
+  mciBgQueueTimerV21720=setInterval(()=>{mciProcessBgQueueV21720();mciProcessPendingPhotosV211038();},3000);
+  window.addEventListener('online',()=>{mciHeartbeatV211036();setTimeout(()=>{mciProcessBgQueueV21720();mciProcessPendingPhotosV211038();},150);});
   mciRenderBgSyncV21720();
 }
 
@@ -14357,7 +14623,7 @@ let mciTransportDashboardLiteBusyV21811=false;
   let mciCommanderEditingUntilV21740=0;
   let mciMemberDraftDirty = false;
   let mciLastAssignedTask = '';
-  setTimeout(()=>mciStartBgSyncV21720(),300);
+  setTimeout(async()=>{await mciOfflineDbReadyV211038;mciStartBgSyncV21720();mciStartConnectivityMonitorV211036();},300);
 
   function startMciMemberAutoSync() {
     stopMciMemberAutoSync();
@@ -15179,13 +15445,9 @@ window.mciEvacDashboardListV21760=[];
 window.mciHospitalDashboardListV21760=[];
 
 function mciTransportStoreKeyV21760(eventId){return 'phoenixMciTransportV21760:'+String(eventId||'');}
-function getMciTransportStoredV21760(eventId){
-  try{return JSON.parse(localStorage.getItem(mciTransportStoreKeyV21760(eventId))||'null');}catch(e){return null;}
-}
-function saveMciTransportStoredV21760(eventId,data){
-  localStorage.setItem(mciTransportStoreKeyV21760(eventId),JSON.stringify(data||{}));
-}
-function clearMciTransportStoredV21760(eventId){localStorage.removeItem(mciTransportStoreKeyV21760(eventId));}
+function getMciTransportStoredV21760(eventId){return mciIdbKvGetV211038(mciTransportStoreKeyV21760(eventId),null);}
+function saveMciTransportStoredV21760(eventId,data){mciIdbKvSetV211038(mciTransportStoreKeyV21760(eventId),data||{});}
+function clearMciTransportStoredV21760(eventId){mciIdbKvDeleteV211038(mciTransportStoreKeyV21760(eventId));}
 function stopMciTransportPollingV21760(){if(mciTransportPollTimerV21760){clearInterval(mciTransportPollTimerV21760);mciTransportPollTimerV21760=null;}}
 function startMciTransportPollingV21760(){
   stopMciTransportPollingV21760();
@@ -15532,30 +15794,21 @@ function mciEventCacheKeyV21814(){
 function saveMciEventCacheV21814(data){
   if(!data?.event)return;
   mciLastEventDataV21814=data;
-  try{
-    localStorage.setItem(mciEventCacheKeyV21814(),JSON.stringify({
-      savedAt:Date.now(),
-      data
-    }));
-  }catch(err){}
+  mciIdbKvSetV211038(mciEventCacheKeyV21814(),{savedAt:Date.now(),data});
 }
 function getMciEventCacheV21814(){
   if(mciLastEventDataV21814?.event)return mciLastEventDataV21814;
   try{
-    const raw=localStorage.getItem(mciEventCacheKeyV21814());
-    if(!raw)return null;
-    const parsed=JSON.parse(raw);
+    const parsed=mciIdbKvGetV211038(mciEventCacheKeyV21814(),null);
     if(!parsed?.data?.event)return null;
     // 僅供快速首屏；權威資料仍會立即在背景重新讀取。
     if(Date.now()-Number(parsed.savedAt||0)>24*60*60*1000)return null;
     return parsed.data;
-  }catch(err){
-    return null;
-  }
+  }catch(err){return null;}
 }
 function clearMciEventCacheV21814(){
   mciLastEventDataV21814=null;
-  try{localStorage.removeItem(mciEventCacheKeyV21814());}catch(err){}
+  mciIdbKvDeleteV211038(mciEventCacheKeyV21814());
 }
 function buildGoogleMapsAddressLinkV21814(address){
   const a=String(address||'').trim();
@@ -16078,7 +16331,9 @@ function showMciCommanderView() {
 
     } catch (error) {
       successBox.style.display = 'none';
-      errorBox.innerText = '系統連線異常，請稍後再試';
+      errorBox.innerText = (typeof mciIsOnlineV211036 === 'function' && !mciIsOnlineV211036())
+        ? '目前為災害離線模式：指揮官即時看板暫停，現場操作仍可先儲存在各裝置。'
+        : '系統連線異常，請稍後再試';
       errorBox.style.display = 'block';
     } finally {
       if (submitBtn) {
@@ -16256,6 +16511,13 @@ async function loadMciDashboard() {
 
     if (!currentMciEvent) {
       errorBox.innerText = '目前沒有啟動中的災害應變事件';
+      errorBox.style.display = 'block';
+      return;
+    }
+
+    // V21.10.37｜單機離線時，指揮官無法取得其他裝置即時資料；明確提示，不再顯示模糊的連線錯誤。
+    if (typeof mciIsOnlineV211036 === 'function' && !mciIsOnlineV211036()) {
+      errorBox.innerText = '目前為災害離線模式：現場檢傷／治療／後送操作可先儲存在各裝置，但指揮官即時看板需恢復 Phoenix 連線後才能取得全場資料。';
       errorBox.style.display = 'block';
       return;
     }
@@ -21434,7 +21696,7 @@ let mciTriageActivationErrorV21711 = null;
 let mciEvacDraftV21722 = '';
 
 const MCI_PATIENT_CACHE_KEY_V21730='phoenixMciPatientCacheV21730';
-function mciPatientCacheStoreV21730(){try{return JSON.parse(localStorage.getItem(MCI_PATIENT_CACHE_KEY_V21730)||'{}')||{};}catch(err){return {};}}
+function mciPatientCacheStoreV21730(){return mciIdbKvGetV211038(MCI_PATIENT_CACHE_KEY_V21730,{})||{};}
 function mciPatientCacheKeyV21730(eventId,key){return `${String(eventId||'').trim()}::${String(key||'').trim()}`;}
 function cacheMciPatientV21730(p){
   if(!p||!currentMciEvent)return;
@@ -21445,7 +21707,7 @@ function cacheMciPatientV21730(p){
     photoDataUrl:p.photoDataUrl||'',photoFileId:p.photoFileId||'',sex:p.sex||'',ageGroup:p.ageGroup||'',majorInjury:p.majorInjury||'',name:p.name||'',idInfo:p.idInfo||'',identifyingFeatures:p.identifyingFeatures||'',cachedAt:Date.now()
   };
   [p.patientId,p.qrToken].filter(Boolean).forEach(k=>c[mciPatientCacheKeyV21730(eventId,k)]=slim);
-  try{localStorage.setItem(MCI_PATIENT_CACHE_KEY_V21730,JSON.stringify(c));}catch(err){}
+  mciIdbKvSetV211038(MCI_PATIENT_CACHE_KEY_V21730,c);
 }
 function getCachedMciPatientV21730(key){if(!currentMciEvent)return null;return mciPatientCacheStoreV21730()[mciPatientCacheKeyV21730(currentMciEvent.eventId,key)]||null;}
 
@@ -21465,7 +21727,7 @@ function removeMciPatientCacheV21733(patientOrKey){
     if(patientOrKey.qrToken)keys.add(mciPatientCacheKeyV21730(eventId,patientOrKey.qrToken));
   }
   keys.forEach(k=>delete cache[k]);
-  try{localStorage.setItem(MCI_PATIENT_CACHE_KEY_V21730,JSON.stringify(cache));}catch(err){}
+  mciIdbKvSetV211038(MCI_PATIENT_CACHE_KEY_V21730,cache);
 }
 
 
@@ -21475,24 +21737,18 @@ function mciPendingPhotoKeyV21751(patient){
 }
 function setPendingMciPhotoV21751(patient,dataUrl,state='syncing'){
   if(!patient||!dataUrl)return;
-  try{
-    const store=JSON.parse(localStorage.getItem(MCI_PENDING_PHOTO_KEY_V21751)||'{}')||{};
-    store[mciPendingPhotoKeyV21751(patient)]={dataUrl:dataUrl,state:state,updatedAt:Date.now()};
-    localStorage.setItem(MCI_PENDING_PHOTO_KEY_V21751,JSON.stringify(store));
-  }catch(err){}
+  const store=Object.assign({},mciIdbKvGetV211038(MCI_PENDING_PHOTO_KEY_V21751,{})||{});
+  store[mciPendingPhotoKeyV21751(patient)]={dataUrl:dataUrl,state:state,updatedAt:Date.now(),eventId:String(currentMciEvent?.eventId||''),patientId:String(patient?.patientId||''),token:String(patient?.qrToken||''),operator:String(currentUser?.name||'現場操作')};
+  mciIdbKvSetV211038(MCI_PENDING_PHOTO_KEY_V21751,store);
 }
 function getPendingMciPhotoV21751(patient){
-  try{
-    const store=JSON.parse(localStorage.getItem(MCI_PENDING_PHOTO_KEY_V21751)||'{}')||{};
-    return store[mciPendingPhotoKeyV21751(patient)]||null;
-  }catch(err){return null;}
+  const store=mciIdbKvGetV211038(MCI_PENDING_PHOTO_KEY_V21751,{})||{};
+  return store[mciPendingPhotoKeyV21751(patient)]||null;
 }
 function clearPendingMciPhotoV21751(patient){
-  try{
-    const store=JSON.parse(localStorage.getItem(MCI_PENDING_PHOTO_KEY_V21751)||'{}')||{};
-    delete store[mciPendingPhotoKeyV21751(patient)];
-    localStorage.setItem(MCI_PENDING_PHOTO_KEY_V21751,JSON.stringify(store));
-  }catch(err){}
+  const store=Object.assign({},mciIdbKvGetV211038(MCI_PENDING_PHOTO_KEY_V21751,{})||{});
+  delete store[mciPendingPhotoKeyV21751(patient)];
+  mciIdbKvSetV211038(MCI_PENDING_PHOTO_KEY_V21751,store);
 }
 
 function normalizeMciServerPatientV21750(patient){
@@ -21551,7 +21807,7 @@ function cacheMciPatientAliasV21731(alias,p){
     photoDataUrl:p.photoDataUrl||'',photoFileId:p.photoFileId||'',sex:p.sex||'',ageGroup:p.ageGroup||'',majorInjury:p.majorInjury||'',name:p.name||'',idInfo:p.idInfo||'',identifyingFeatures:p.identifyingFeatures||'',cachedAt:Date.now()
   };
   c[k]=slim;
-  try{localStorage.setItem(MCI_PATIENT_CACHE_KEY_V21730,JSON.stringify(c));}catch(err){}
+  mciIdbKvSetV211038(MCI_PATIENT_CACHE_KEY_V21730,c);
 }
 
 function openCachedMciPatientV21730(p){
@@ -22100,13 +22356,15 @@ async function activateTriageLabelV2170(labelNumber, btn, quickStart=false){
   startTriageFlowV2170('首次檢傷');
   triageMessageV2170(`${isNumeric?'傷患 '+normalized:'QR 已讀取'}｜立即開始檢傷，資料背景建立中…`,'info');
 
-  const params=new URLSearchParams({
-    action:'activateTriageLabelV2170',
+  const activationOpId=mciMakeOpIdV21720('activate');
+  const activationPayload={
     eventId:currentMciEvent.eventId,
     label:rawLabel,
     initialLocation:initialLocation,
-    operator:(currentUser&&currentUser.name)||'現場操作'
-  });
+    operator:(currentUser&&currentUser.name)||'現場操作',
+    opId:activationOpId
+  };
+  const params=new URLSearchParams(Object.assign({action:'activateTriageLabelV2170'},activationPayload));
 
   mciTriageActivationPromiseV21711=(async()=>{
     try{
@@ -22132,7 +22390,14 @@ async function activateTriageLabelV2170(labelNumber, btn, quickStart=false){
       throw new Error('後端未回傳傷患資料');
     }catch(err){
       mciTriageActivationErrorV21711=err;
-      triageMessageV2170(`傷患背景建立失敗：${err.message||'請稍後再試'}`,'error');
+      // V21.10.36：離線時傷患建立本身也排入 Queue，後續檢傷紀錄可依序補送。
+      const exists=mciLoadBgQueueV21720().some(x=>x.id===activationOpId);
+      if(!exists)mciEnqueueBgV21720('activateTriageLabelV2170',activationPayload,`傷患 ${normalized||rawLabel||'QR'} 建立`);
+      if(navigator.onLine===false || !mciIsOnlineV211036()){
+        triageMessageV2170(`${isNumeric?'傷患 '+normalized:'QR 已讀取'}｜📱 已建立本機作業，待網路恢復後同步。`,'info');
+      }else{
+        triageMessageV2170(`傷患背景建立暫時失敗；已保留於本機待同步。`,'info');
+      }
       throw err;
     }
   })();
@@ -22545,7 +22810,7 @@ async function saveMciVitalsV21710(btn){
     p.latestHr=hr; p.latestBp=(bpSys&&bpDia)?`${bpSys}/${bpDia}`:'';
     p.latestRr=rr; p.latestSpo2=spo2; p.latestGcs=gcs;
     p.latestMental=mental; p.latestTreatment=treatment;
-    p.latestVitalsText='剛剛｜☁️ 同步中';
+    p.latestVitalsText=mciIsOnlineV211036()?'剛剛｜☁️ 同步中':'剛剛｜📱 已存本機';
   }
   p.evacNeed=evacNeed;
   renderTriagePatientV2170(p);
@@ -22581,7 +22846,7 @@ async function saveMciVitalsV21710(btn){
     },`傷患 ${p.patientId} 後送需求`);
   }
 
-  triageMessageV2170('此次紀錄已完成｜☁️ 背景同步中','success');
+  triageMessageV2170(`此次紀錄已完成｜${mciConnectivityTextV211036()}`,'success');
 }
 
 function selectMciEvacNeedV21722(value,btn){
@@ -23452,7 +23717,7 @@ async function saveMciPatientBasicV21730(btn){
         identifyingFeatures=(document.getElementById('mciBasicFeatureV21730')?.value||'').trim();
   Object.assign(p,{sex,ageGroup,bodyRegions,injuryRecords,majorInjury,name,idInfo,identifyingFeatures});
   cacheMciPatientV21730(p);
-  triageMessageV2170('基本資料已記錄｜☁️ 背景同步中','success');
+  triageMessageV2170(`基本資料已記錄｜${mciConnectivityTextV211036()}`,'success');
   clearMciInjuryLocalDirtyV211035();
   mciEnqueueBgV21720('saveMciPatientBasicV21730',{
     eventId:currentMciEvent.eventId,patientId:p.patientId,token:p.qrToken||'',
@@ -23494,6 +23759,53 @@ async function retryPendingMciPhotoV21751(btn){
     renderTriagePatientV2170(p);
   }finally{
     if(btn){btn.disabled=false;btn.textContent='↻ 重新同步照片';}
+  }
+}
+
+let mciPendingPhotoAutoBusyV211038=false;
+async function mciProcessPendingPhotosV211038(){
+  await mciOfflineDbReadyV211038;
+  if(mciPendingPhotoAutoBusyV211038 || !mciIsOnlineV211036())return;
+  const store=Object.assign({},mciIdbKvGetV211038(MCI_PENDING_PHOTO_KEY_V21751,{})||{});
+  const entries=Object.entries(store);
+  if(!entries.length)return;
+  mciPendingPhotoAutoBusyV211038=true;
+  try{
+    const storage=await checkMciPhotoStorageV21713();
+    if(!storage.success)return;
+    for(const [key,pending] of entries){
+      if(!mciIsOnlineV211036())break;
+      if(!pending?.dataUrl)continue;
+      const parts=String(key).split('::');
+      const eventId=String(pending.eventId||parts[0]||'');
+      const patientId=String(pending.patientId||parts.slice(1).join('::')||'');
+      if(!eventId||!patientId)continue;
+      try{
+        pending.state='syncing';pending.updatedAt=Date.now();store[key]=pending;
+        mciIdbKvSetV211038(MCI_PENDING_PHOTO_KEY_V21751,Object.assign({},store));
+        await postMciPhotoNoCorsV21713({
+          action:'uploadMciPatientPhotoV21710',eventId,patientId,
+          token:pending.token||'',photoDataUrl:pending.dataUrl,
+          operator:pending.operator||'離線補傳'
+        });
+        let confirmed=false;
+        for(let i=0;i<10;i++){
+          await new Promise(r=>setTimeout(r,i?900:450));
+          const q=new URLSearchParams({action:'getMciPatientPhotoV21712',eventId,patientId,token:pending.token||'',t:String(Date.now())});
+          const res=await fetch(`${API_URL}?${q.toString()}`,{cache:'no-store'});
+          const result=await res.json();
+          if(result?.success && result?.data?.photoDataUrl){confirmed=true;break;}
+        }
+        if(confirmed){delete store[key];mciIdbKvSetV211038(MCI_PENDING_PHOTO_KEY_V21751,Object.assign({},store));}
+        else{pending.state='failed';pending.updatedAt=Date.now();store[key]=pending;mciIdbKvSetV211038(MCI_PENDING_PHOTO_KEY_V21751,Object.assign({},store));break;}
+      }catch(err){
+        pending.state='failed';pending.updatedAt=Date.now();pending.lastError=String(err?.message||err||'照片同步失敗');store[key]=pending;
+        mciIdbKvSetV211038(MCI_PENDING_PHOTO_KEY_V21751,Object.assign({},store));break;
+      }
+    }
+  }finally{
+    mciPendingPhotoAutoBusyV211038=false;
+    try{mciRenderBgSyncV21720();mciRenderConnectivityV211036();}catch(err){}
   }
 }
 
@@ -23799,8 +24111,9 @@ async function submitTriageAssessmentV2170(btn){
 
   if(mciTriageActivationPromiseV21711){
     mciTriageActivationPromiseV21711.then(enqueueAssessment).catch(()=>{
-      // 啟用失敗時仍保留檢傷畫面與本機資料，不讓使用者被踢回前一步。
-      triageMessageV2170(`傷患 ${p.patientId||'QR'}｜${finalLevel} 已暫存在本機；傷患建立尚未同步，請保持此頁稍後重試。`,'error');
+      // V21.10.36：傷患建立失敗也照樣把檢傷紀錄排隊；Queue 會先建立傷患、再送檢傷。
+      enqueueAssessment(null);
+      triageMessageV2170(`傷患 ${p.patientId||'QR'}｜${finalLevel} 已儲存於本機｜待網路恢復後自動同步。`,'success');
     });
   }else{
     enqueueAssessment(null);
