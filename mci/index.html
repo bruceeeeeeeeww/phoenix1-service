@@ -11072,6 +11072,28 @@ button.mci-stat-card.mci-completed-stat-v21102{
   // 這裡一定要改成你自己的 Google Apps Script Web App URL
   // ===== 必填：請將下方文字替換成 Google Apps Script 部署後的 /exec 網址 =====
   const API_URL = 'https://script.google.com/macros/s/AKfycbwpK6gbvgIttX-_U4RSED-_JDlCgi8HDexPBzXSfJMG4_tmee0rrl_FLWR2OTp_yN1v/exec';
+  // V21.11.9 API request governor：限制同時打到 Apps Script 的請求，避免登入後瞬間塞車。
+  const __nativeFetchV21119 = window.fetch.bind(window);
+  const __apiQueueV21119 = [];
+  let __apiActiveV21119 = 0;
+  const __apiMaxConcurrentV21119 = 3;
+  function __drainApiQueueV21119(){
+    while(__apiActiveV21119 < __apiMaxConcurrentV21119 && __apiQueueV21119.length){
+      const job=__apiQueueV21119.shift();
+      __apiActiveV21119++;
+      __nativeFetchV21119(job.input,job.init).then(job.resolve,job.reject).finally(()=>{__apiActiveV21119--;__drainApiQueueV21119();});
+    }
+  }
+  window.fetch=function(input,init){
+    try{
+      const url=typeof input==='string'?input:(input&&input.url)||'';
+      if(API_URL && url.indexOf(API_URL)===0){
+        return new Promise((resolve,reject)=>{__apiQueueV21119.push({input,init,resolve,reject});__drainApiQueueV21119();});
+      }
+    }catch(_e){}
+    return __nativeFetchV21119(input,init);
+  };
+
   // 範例：https://script.google.com/macros/s/AKfycbxxxxxxxxxxxxxxxx/exec
 
   let currentUser = null;
@@ -11323,7 +11345,7 @@ function touchLastLoginV2191(name){
 
 async function hydrateLoginHomeV2191(name){
   try{
-    const q=new URLSearchParams({action:'getLoginDeferredV2191',name,t:String(Date.now())});
+    const q=new URLSearchParams({action:'getLoginDeferredV2191',name,includeHours:'false',t:String(Date.now())});
     const result=await fetchJsonWithTimeoutV2191(`${API_URL}?${q.toString()}`,15000);
     if(!result?.success||!currentUser||currentUser.name!==name)return;
     const h=result.data?.hours;
@@ -11389,7 +11411,7 @@ async function loginMember() {
 
     try{
       const q=new URLSearchParams({action:'loginFastV2191',name,loginCode,t:String(Date.now())});
-      const result=await fetchJsonWithTimeoutV2191(`${API_URL}?${q.toString()}`,12000);
+      const result=await fetchJsonWithTimeoutV2191(`${API_URL}?${q.toString()}`,25000,1);
       if(!result.success){
         clearCurrentSession();
         errorBox.innerText=result.message||'登入失敗，請確認姓名與登入驗證碼';
@@ -19575,6 +19597,12 @@ function updateMciLaunchPanelVisibility() {
     }
   }
 
+  let __homeRankingTimerV21119=null;
+  function scheduleHomeRankingsV21119_(){
+    clearTimeout(__homeRankingTimerV21119);
+    __homeRankingTimerV21119=setTimeout(()=>{try{loadHomeHourRanking();}catch(_e){}},1500);
+  }
+
   function updateMemberDisplay() {
     if (!currentUser) return;
 
@@ -19587,7 +19615,7 @@ function updateMciLaunchPanelVisibility() {
 
     const rankingGrid = document.getElementById('homeRankingGrid');
     if (rankingGrid) rankingGrid.style.display = 'grid';
-    loadHomeHourRanking();
+    scheduleHomeRankingsV21119_();
 
     setTimeout(updateHomeCertSummaryFromContent, 300);
     setTimeout(updateHomeCertSummaryFromContent, 800);
