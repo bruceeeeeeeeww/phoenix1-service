@@ -5529,7 +5529,17 @@
 @media(max-width:640px){.liming-month-nav-v2120{grid-template-columns:84px 1fr 46px}.liming-month-nav-btn-v2124,.liming-month-current-btn-v2124{height:38px;padding:0 10px}.duty-member-filter-v2124{padding:8px 12px}}
 
 
-    /* V21.12.7｜首頁年度排行榜摘要化 */
+    
+/* V21.13.3｜黎明勤務原紀錄載入編輯 */
+.liming-precheck-row-v2132{display:flex;align-items:center;gap:10px;margin:12px 0 4px;flex-wrap:wrap}
+.liming-precheck-btn-v2132{width:auto!important;min-width:168px;margin:0!important;padding:10px 16px!important;border-radius:10px!important}
+.liming-precheck-status-v2132{flex:1;min-width:220px;padding:10px 12px;border-radius:10px;font-size:14px;line-height:1.5;display:none}
+.liming-precheck-status-v2132.ok{display:block;background:#eef9f2;border:1px solid #bfe1c8;color:#25653a}
+.liming-precheck-status-v2132.warn{display:block;background:#fff8e7;border:1px solid #ecd49a;color:#765b19}
+.liming-precheck-status-v2132.info{display:block;background:#eef6fb;border:1px solid #c5ddea;color:#315d72}
+.liming-precheck-status-v2132.error{display:block;background:#fff0f0;border:1px solid #e7bcbc;color:#8b3535}
+@media(max-width:640px){.liming-precheck-row-v2132{display:block}.liming-precheck-btn-v2132{width:100%!important}.liming-precheck-status-v2132{margin-top:8px;min-width:0}}
+/* V21.13.0｜首頁年度排行榜摘要化 */
     .home-ranking-summary-card-v2127{
       margin:0 0 18px;padding:16px 17px;border:1px solid #dce8ec;border-radius:18px;
       background:#fff;box-shadow:0 4px 14px rgba(40,82,96,.06);
@@ -8876,15 +8886,19 @@
         <div class="panel-title">救護義消簽到（退）勤表</div>
 
         <label for="limingDutyDate">協勤日期</label>
-        <input type="date" id="limingDutyDate">
+        <input type="date" id="limingDutyDate" onchange="onLimingTimeFieldsChangedV2132()">
 
         <label for="limingStartTime">簽到時間</label>
-        <input type="time" id="limingStartTime" onchange="calculateLimingHours()">
+        <input type="time" id="limingStartTime" onchange="onLimingTimeFieldsChangedV2132()">
 
         <label for="limingEndTime">簽退時間</label>
-        <input type="time" id="limingEndTime" onchange="calculateLimingHours()">
+        <input type="time" id="limingEndTime" onchange="onLimingTimeFieldsChangedV2132()">
 
         <div class="liming-hours-box" id="limingHoursBox">今日共協勤時數：請先輸入簽到與簽退時間</div>
+        <div class="liming-precheck-row-v2132">
+          <button type="button" class="secondary liming-precheck-btn-v2132" id="limingPrecheckBtnV2132" onclick="checkExistingLimingDutyV2132()">🔎 檢查是否已回報</button>
+          <div id="limingPrecheckStatusV2132" class="liming-precheck-status-v2132" aria-live="polite"></div>
+        </div>
         <div class="liming-help">若勤務至 24:00，請填寫 23:59。顯示時數以 0.5 小時級距呈現：小數未滿 0.5 顯示整數；達 0.5 顯示 30 分。</div>
 
         <label for="limingDispatchCount">出勤次數</label>
@@ -9623,7 +9637,7 @@
     <div class="form-panel"><div class="panel-title">申請資料</div><button type="button" class="secondary" onclick="loadOnboardingApplications()">重新整理</button><div id="onboardingAdminList" style="margin-top:12px">資料載入中...</div><div class="error" id="onboardingAdminError"></div></div>
   </section>
 
-  <div class="footer">🛡️ 管理單位：鳳凰救護大隊第一分隊<br>網頁更新時間：2026/08/21 ｜版本：V21.12.7</div>
+  <div class="footer">🛡️ 管理單位：鳳凰救護大隊第一分隊<br>網頁更新時間：2026/08/21 ｜版本：V21.13.3</div>
 </div>
 
 <script>
@@ -12657,7 +12671,7 @@ function updateForceBoardVisibility(sectionId) {
       const q=new URLSearchParams({action:'getMyLimingRecordsV2120',name:currentUser.name,month:limingRecordMonthV2120,t:String(Date.now())});
       const result=await fetch(`${API_URL}?${q.toString()}`).then(r=>r.json());
       if(!result.success){status.textContent=result.message||'紀錄讀取失敗';return;}
-      const data=result.data||{},items=data.items||[];document.getElementById('limingMonthDaysV2120').textContent=`${data.dutyDays||0} 天`;document.getElementById('limingMonthHoursV2120').textContent=formatLimingHoursV2120(sumLimingReportedHoursV2123(items));
+      const data=result.data||{},items=data.items||[];limingLastRecordsV2130=items;document.getElementById('limingMonthDaysV2120').textContent=`${data.dutyDays||0} 天`;document.getElementById('limingMonthHoursV2120').textContent=formatLimingHoursV2120(sumLimingReportedHoursV2123(items));
       if(!items.length){status.textContent='本月尚無回報紀錄。';return;}
       status.textContent=`共 ${items.length} 筆回報，點擊單筆可查看詳細內容。`;
       list.innerHTML=items.map(item=>`<details class="liming-record-card-v2120"><summary><div><div class="liming-record-main-v2120">${escapeHtml(item.dutyDate||'-')}</div><div class="liming-record-sub-v2120">簽到 ${escapeHtml(item.startTime||'-')}　簽退 ${escapeHtml(item.endTime||'-')}｜${Number(item.dispatchCount||0)===0?'🍎 無出勤':`出勤 ${escapeHtml(String(item.dispatchCount||0))} 次`}</div></div><div class="liming-record-hours-v2120">${escapeHtml(formatLimingHoursV2120(item.totalHours))} 〉</div></summary><div class="liming-record-detail-v2120">${renderLimingRecordDetailV2120(item)}</div></details>`).join('');
@@ -12688,8 +12702,98 @@ function updateForceBoardVisibility(sectionId) {
   function updateLimingReportChoiceV2120(){const choice=getRadioValueV2120('limingReportChoiceV2120'),box=document.getElementById('limingReportDetailV2120');if(box)box.style.display=choice==='有'?'block':'none';if(choice!=='有'){const t=document.getElementById('reportToCoordinator');if(t)t.value='';clearRadioValueV2120('limingNeedReplyV2120');}}
 
   let limingDutySubmittingV2196=false;
-  async function submitLimingDutyForm() {
-    const errorBox=document.getElementById('limingErrorBox'),successBox=document.getElementById('limingSuccessBox'),submitBtn=document.getElementById('limingSubmitButtonV2196');if(limingDutySubmittingV2196)return;errorBox.style.display='none';successBox.style.display='none';
+  let limingEditRowV2130=0;
+  let limingLastRecordsV2130=[];
+  function limingConflictMessageV2130(result,dutyDate,startTime,endTime){
+    const c=result&&result.conflict&&result.conflict.item?result.conflict.item:null;if(!c)return result.message||'偵測到既有勤務紀錄';
+    if(result.code==='LIMING_DUPLICATE')return `⚠️ 此筆勤務已回報過\n${c.dutyDate}｜${c.startTime}–${c.endTime}\n\n若要修正內容，請選擇「修改原紀錄」。`;
+    if(result.code==='LIMING_SAME_START')return `⚠️ 偵測到同一段勤務\n原紀錄：${c.startTime}–${c.endTime}\n目前填寫：${startTime}–${endTime}\n\n若為延長或修正勤務，請直接更新原紀錄；系統不會新增第二筆。`;
+    return `⚠️ 此時段與既有勤務重疊\n既有：${c.startTime}–${c.endTime}\n目前：${startTime}–${endTime}\n\n請確認是否真的為另一段勤務。`;
+  }
+  function askLimingConflictV2130(result,dutyDate,startTime,endTime){
+    const msg=limingConflictMessageV2130(result,dutyDate,startTime,endTime),c=result&&result.conflict&&result.conflict.item?result.conflict.item:null;
+    return new Promise(resolve=>{
+      const old=document.getElementById('limingConflictModalV2130');if(old)old.remove();
+      const wrap=document.createElement('div');wrap.id='limingConflictModalV2130';wrap.style.cssText='position:fixed;inset:0;background:rgba(15,23,42,.46);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;';
+      const card=document.createElement('div');card.style.cssText='width:min(440px,100%);background:#fff;border-radius:18px;padding:20px;box-shadow:0 22px 60px rgba(15,23,42,.24);';
+      const title=document.createElement('div');title.style.cssText='font-size:19px;font-weight:800;margin-bottom:10px;color:#172033;';title.textContent=result.code==='LIMING_OVERLAP'?'勤務時間重疊提醒':(result.code==='LIMING_SAME_START'?'延長勤務提醒':'勤務紀錄提醒');
+      const body=document.createElement('div');body.style.cssText='white-space:pre-line;line-height:1.7;color:#475569;font-size:15px;';body.textContent=msg;
+      const actions=document.createElement('div');actions.style.cssText='display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;';
+      function btn(label,primary,fn){const b=document.createElement('button');b.type='button';b.textContent=label;b.style.cssText=primary?'flex:1;min-width:135px;border:0;border-radius:12px;padding:12px 14px;background:#2563eb;color:white;font-weight:800;cursor:pointer;':'flex:1;min-width:120px;border:1px solid #cbd5e1;border-radius:12px;padding:12px 14px;background:white;color:#334155;font-weight:700;cursor:pointer;';b.onclick=()=>{wrap.remove();fn();};return b;}
+      if(result.code==='LIMING_OVERLAP')actions.appendChild(btn('仍要新增',true,()=>resolve({action:'force'})));
+      else actions.appendChild(btn(result.code==='LIMING_SAME_START'?'更新原紀錄':'修改原紀錄',true,()=>resolve({action:'update',rowNumber:c?c.rowNumber:0})));
+      actions.appendChild(btn('返回修改',false,()=>resolve({action:'return'})));
+      card.append(title,body,actions);wrap.appendChild(card);document.body.appendChild(wrap);
+    });
+  }
+
+
+  // V21.13.3｜真正的原紀錄編輯模式：載入原勤務資料後再由使用者修改並覆寫同一列。
+  function splitLimingMultiValueV2133(value){return String(value||'').split(/[、,，]/).map(v=>v.trim()).filter(Boolean);}
+  function setLimingCheckedValuesV2133(name,value){const values=new Set(splitLimingMultiValueV2133(value));document.querySelectorAll(`input[name="${name}"]`).forEach(el=>{el.checked=values.has(String(el.value||'').trim());});}
+  function setLimingFieldV2133(id,value){const el=document.getElementById(id);if(el)el.value=value===undefined||value===null?'':String(value);}
+  function setLimingRadioV2133(name,value){document.querySelectorAll(`input[name="${name}"]`).forEach(el=>{el.checked=String(el.value)===String(value||'');});}
+  function setLimingEditModeV2133(rowNumber,item){
+    limingEditRowV2130=Number(rowNumber||0)||0;limingPrecheckForceOverlapV2132=false;
+    const submit=document.getElementById('limingSubmitButtonV2196');if(submit){submit.textContent=limingEditRowV2130?'更新原紀錄':'送出填報';submit.dataset.originalText=submit.textContent;}
+    if(limingEditRowV2130&&item)setLimingPrecheckStatusV2132(`✏️ 正在修改 ${item.dutyDate||''}｜${item.startTime||''}–${item.endTime||''} 的原勤務紀錄。修改完成後按「更新原紀錄」。`,'info');
+  }
+  async function loadLimingDutyRecordForEditV2133(rowNumber){
+    if(!rowNumber||!currentUser||!currentUser.name)return false;
+    setLimingPrecheckStatusV2132('正在載入原勤務紀錄…','info');
+    try{
+      const q=new URLSearchParams({action:'getLimingDutyRecordV2133',name:currentUser.name,rowNumber:String(rowNumber),t:String(Date.now())});
+      const result=await fetch(`${API_URL}?${q.toString()}`).then(r=>r.json());if(!result.success){setLimingPrecheckStatusV2132(result.message||'原勤務紀錄讀取失敗。','error');return false;}
+      const item=result.data||{};await loadPoliceRoster();
+      setLimingFieldV2133('limingDutyDate',item.dutyDate);setLimingFieldV2133('limingStartTime',item.startTime);setLimingFieldV2133('limingEndTime',item.endTime);
+      setLimingFieldV2133('limingDispatchCount',item.dispatchCount);setLimingFieldV2133('limingServiceCount',item.serviceCount);setLimingFieldV2133('limingFireSceneCount',item.fireSceneCount);setLimingFieldV2133('limingCprCount',item.cprCount);
+      setLimingFieldV2133('limingDutyType',item.dutyType);setLimingFieldV2133('limingNote',item.note);setLimingCheckedValuesV2133('policeCoworker',item.policeCoworkers);
+      setLimingCheckedValuesV2133('caseType',item.caseTypes);setLimingFieldV2133('caseTypeOther',item.caseTypeOther);setLimingCheckedValuesV2133('assistItem',item.assistItems);setLimingFieldV2133('assistItemOther',item.assistItemOther);
+      setLimingFieldV2133('dutyFeedback',item.dutyFeedback);setLimingFieldV2133('impressiveCase',item.impressiveCase);setLimingFieldV2133('followupCase',item.followupCase);setLimingFieldV2133('skillToImprove',item.skillToImprove);
+      const hasReport=!!String(item.reportToCoordinator||'').trim();setLimingRadioV2133('limingReportChoiceV2120',hasReport?'有':'無');setLimingFieldV2133('reportToCoordinator',item.reportToCoordinator);setLimingRadioV2133('limingNeedReplyV2120',item.needReply);
+      ['scoreTechCompletion','scoreTechSatisfaction','scoreAssessment','scoreParticipation','scoreHarmony','scoreFireProfessional','scoreCooperation'].forEach(id=>setLimingFieldV2133(id,item[id]));
+      calculateLimingHours();updateLimingDutyTypeHint();updateLimingNoDispatchModeV2120();
+      if(Number(item.dispatchCount||0)>0){setLimingCheckedValuesV2133('caseType',item.caseTypes);setLimingFieldV2133('caseTypeOther',item.caseTypeOther);setLimingCheckedValuesV2133('assistItem',item.assistItems);setLimingFieldV2133('assistItemOther',item.assistItemOther);setLimingFieldV2133('dutyFeedback',item.dutyFeedback);setLimingFieldV2133('impressiveCase',item.impressiveCase);setLimingFieldV2133('followupCase',item.followupCase);setLimingFieldV2133('skillToImprove',item.skillToImprove);}
+      updateLimingReportChoiceV2120();setLimingEditModeV2133(rowNumber,item);document.getElementById('limingDutyPanelV2120')?.scrollIntoView({behavior:'smooth',block:'start'});return true;
+    }catch(err){setLimingPrecheckStatusV2132('系統連線異常，無法載入原勤務紀錄。','error');return false;}
+  }
+
+  // V21.13.2｜日期＋簽到＋簽退完成後，可先查本人是否已有相同／延長／重疊紀錄。
+  let limingPrecheckForceOverlapV2132=false;
+  function setLimingPrecheckStatusV2132(message,type){
+    const el=document.getElementById('limingPrecheckStatusV2132');if(!el)return;
+    el.className='liming-precheck-status-v2132 '+(type||'info');el.textContent=message||'';el.style.display=message?'block':'none';
+  }
+  function resetLimingPrecheckV2132(showHint){
+    limingEditRowV2130=0;limingPrecheckForceOverlapV2132=false;
+    const submit=document.getElementById('limingSubmitButtonV2196');if(submit){submit.textContent='送出填報';submit.dataset.originalText='送出填報';}
+    setLimingPrecheckStatusV2132(showHint?'時間已變更，請重新檢查既有紀錄。':'',showHint?'info':'');
+  }
+  function onLimingTimeFieldsChangedV2132(){calculateLimingHours();if(limingEditRowV2130){setLimingPrecheckStatusV2132('✏️ 正在修改原勤務紀錄；時間變更會套用至同一筆資料，不會新增第二筆。','info');return;}resetLimingPrecheckV2132(false);}
+  async function checkExistingLimingDutyV2132(){
+    const btn=document.getElementById('limingPrecheckBtnV2132'),dutyDate=document.getElementById('limingDutyDate').value,startTime=document.getElementById('limingStartTime').value,endTime=document.getElementById('limingEndTime').value;
+    if(!dutyDate||!startTime||!endTime){setLimingPrecheckStatusV2132('請先輸入協勤日期、簽到時間及簽退時間。','error');return;}
+    if(!currentUser||!currentUser.name){setLimingPrecheckStatusV2132('登入資料不存在，請重新登入。','error');return;}
+    limingEditRowV2130=0;limingPrecheckForceOverlapV2132=false;if(btn){btn.disabled=true;btn.dataset.originalText=btn.textContent;btn.textContent='檢查中…';}setLimingPrecheckStatusV2132('正在查詢本人既有勤務紀錄…','info');
+    try{
+      const params=new URLSearchParams({action:'checkLimingDutyConflictV2132',name:currentUser.name,dutyDate,startTime,endTime});
+      const result=await fetch(`${API_URL}?${params.toString()}`).then(r=>r.json());
+      if(!result.success){setLimingPrecheckStatusV2132(result.message||'查詢失敗，請稍後再試。','error');return;}
+      if(result.code==='LIMING_CLEAR'){setLimingPrecheckStatusV2132('✅ 尚未發現相同或重疊紀錄，可繼續填寫。','ok');return;}
+      if(['LIMING_DUPLICATE','LIMING_SAME_START','LIMING_OVERLAP'].includes(result.code)){
+        setLimingPrecheckStatusV2132(result.message||'偵測到既有勤務紀錄，請確認。','warn');
+        const choice=await askLimingConflictV2130(result,dutyDate,startTime,endTime);
+        const c=result.conflict&&result.conflict.item?result.conflict.item:null;
+        if(choice.action==='update'&&choice.rowNumber){await loadLimingDutyRecordForEditV2133(choice.rowNumber);return;}
+        if(choice.action==='force'){limingPrecheckForceOverlapV2132=true;setLimingPrecheckStatusV2132('⚠️ 已確認此為另一段勤務；送出時仍會由後端再次核對。','warn');return;}
+        setLimingPrecheckStatusV2132('已返回表單，請確認或修改勤務時間。','info');
+      }
+    }catch(err){setLimingPrecheckStatusV2132('系統連線異常，請稍後再試。','error');}
+    finally{if(btn){btn.disabled=false;btn.textContent=btn.dataset.originalText||'🔎 檢查是否已回報';}}
+  }
+
+  async function submitLimingDutyForm(optionsV2130) {
+    const options=optionsV2130||{},errorBox=document.getElementById('limingErrorBox'),successBox=document.getElementById('limingSuccessBox'),submitBtn=document.getElementById('limingSubmitButtonV2196');if(limingDutySubmittingV2196)return;errorBox.style.display='none';successBox.style.display='none';
     if(!currentUser||!isLimingAccessAllowedForCurrentUser()){errorBox.innerText='此功能僅限黎明隊員使用';errorBox.style.display='block';return;}
     const dutyDate=document.getElementById('limingDutyDate').value,startTime=document.getElementById('limingStartTime').value,endTime=document.getElementById('limingEndTime').value,dispatchCount=document.getElementById('limingDispatchCount').value,serviceCount=document.getElementById('limingServiceCount').value,fireSceneCount=document.getElementById('limingFireSceneCount').value,cprCount=document.getElementById('limingCprCount').value,dutyType=document.getElementById('limingDutyType').value,note=document.getElementById('limingNote').value.trim();
     const noDispatch=Number(dispatchCount||0)===0,policeCoworkers=getCheckedValues('policeCoworker'),caseTypes=noDispatch?[]:getCheckedValues('caseType'),caseTypeOther=noDispatch?'':document.getElementById('caseTypeOther').value.trim(),assistItems=noDispatch?[]:getCheckedValues('assistItem'),assistItemOther=noDispatch?'':document.getElementById('assistItemOther').value.trim(),dutyFeedback=noDispatch?'':document.getElementById('dutyFeedback').value.trim(),impressiveCase=noDispatch?'':document.getElementById('impressiveCase').value.trim(),followupCase=noDispatch?'':document.getElementById('followupCase').value.trim(),skillToImprove=noDispatch?'':document.getElementById('skillToImprove').value.trim();
@@ -12700,9 +12804,9 @@ function updateForceBoardVisibility(sectionId) {
     if(!reportChoice){errorBox.innerText='請選擇有無想要向承辦人反映事件';errorBox.style.display='block';return;}if(reportChoice==='有'&&!reportToCoordinator){errorBox.innerText='請輸入欲反映內容';errorBox.style.display='block';return;}if(reportChoice==='有'&&!needReply){errorBox.innerText='請選擇是否需要承辦人給您答覆';errorBox.style.display='block';return;}
     const requestId=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():`liming-${Date.now()}-${Math.random().toString(36).slice(2,10)}`;limingDutySubmittingV2196=true;if(submitBtn){submitBtn.disabled=true;submitBtn.dataset.originalText=submitBtn.textContent||'送出填報';submitBtn.textContent='送出中…請勿重複點擊';}successBox.innerText='填報送出中，請稍等…';successBox.style.display='block';
     try{
-      const params=new URLSearchParams({action:'submitLimingDuty',requestId,name:currentUser.name,dutyDate,startTime,endTime,totalHours:currentLimingHours,dispatchCount,serviceCount:noDispatch?'0':serviceCount,fireSceneCount:noDispatch?'0':fireSceneCount,cprCount:noDispatch?'0':cprCount,dutyType,note,policeCoworkers:noDispatch?'我是🍎，無出勤':policeCoworkers.join('、'),caseTypes:caseTypes.join('、'),caseTypeOther,assistItems:assistItems.join('、'),assistItemOther,dutyFeedback,impressiveCase,followupCase,skillToImprove,reportToCoordinator,needReply,scoreTechCompletion,scoreTechSatisfaction,scoreAssessment,scoreParticipation,scoreHarmony,scoreFireProfessional,scoreCooperation});
-      const result=await fetch(`${API_URL}?${params.toString()}`).then(r=>r.json());if(!result.success){successBox.style.display='none';errorBox.innerText=result.message||'填報失敗，請稍後再試';errorBox.style.display='block';return;}
-      const submittedMonth=dutyDate.slice(0,7);['limingStartTime','limingEndTime'].forEach(id=>document.getElementById(id).value='');['limingDispatchCount','limingServiceCount','limingFireSceneCount','limingCprCount'].forEach(id=>document.getElementById(id).value='0');document.getElementById('limingDutyType').value='';document.getElementById('limingNote').value='';clearCheckedValues('policeCoworker');clearCheckedValues('caseType');clearCheckedValues('assistItem');['caseTypeOther','assistItemOther','dutyFeedback','impressiveCase','followupCase','skillToImprove','reportToCoordinator','scoreTechCompletion','scoreTechSatisfaction','scoreAssessment','scoreParticipation','scoreHarmony','scoreFireProfessional','scoreCooperation'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});clearRadioValueV2120('limingReportChoiceV2120');clearRadioValueV2120('limingNeedReplyV2120');calculateLimingHours();updateLimingDutyTypeHint();updateLimingReportChoiceV2120();updateLimingNoDispatchModeV2120();
+      const params=new URLSearchParams({action:'submitLimingDuty',requestId,name:currentUser.name,dutyDate,startTime,endTime,totalHours:currentLimingHours,dispatchCount,serviceCount:noDispatch?'0':serviceCount,fireSceneCount:noDispatch?'0':fireSceneCount,cprCount:noDispatch?'0':cprCount,dutyType,note,policeCoworkers:noDispatch?'我是🍎，無出勤':policeCoworkers.join('、'),caseTypes:caseTypes.join('、'),caseTypeOther,assistItems:assistItems.join('、'),assistItemOther,dutyFeedback,impressiveCase,followupCase,skillToImprove,reportToCoordinator,needReply,scoreTechCompletion,scoreTechSatisfaction,scoreAssessment,scoreParticipation,scoreHarmony,scoreFireProfessional,scoreCooperation,updateRowNumber:String(options.updateRowNumber||limingEditRowV2130||''),forceOverlap:(options.forceOverlap||limingPrecheckForceOverlapV2132)?'1':''});
+      const result=await fetch(`${API_URL}?${params.toString()}`).then(r=>r.json());if(!result.success){if(['LIMING_DUPLICATE','LIMING_SAME_START','LIMING_OVERLAP'].includes(result.code)){successBox.style.display='none';limingDutySubmittingV2196=false;if(submitBtn){submitBtn.disabled=false;submitBtn.textContent=submitBtn.dataset.originalText||'送出填報';}const choice=await askLimingConflictV2130(result,dutyDate,startTime,endTime);if(choice.action==='update'&&choice.rowNumber){await loadLimingDutyRecordForEditV2133(choice.rowNumber);errorBox.innerText='已載入原勤務紀錄，請修改後按「更新原紀錄」。';errorBox.style.display='block';return;}if(choice.action==='force')return submitLimingDutyForm({forceOverlap:true});errorBox.innerText='已返回表單，請確認或修改勤務時間。';errorBox.style.display='block';return;}successBox.style.display='none';errorBox.innerText=result.message||'填報失敗，請稍後再試';errorBox.style.display='block';return;}
+      const submittedMonth=dutyDate.slice(0,7);limingEditRowV2130=0;limingPrecheckForceOverlapV2132=false;setLimingPrecheckStatusV2132('', '');if(submitBtn){submitBtn.textContent='送出填報';submitBtn.dataset.originalText='送出填報';}['limingStartTime','limingEndTime'].forEach(id=>document.getElementById(id).value='');['limingDispatchCount','limingServiceCount','limingFireSceneCount','limingCprCount'].forEach(id=>document.getElementById(id).value='0');document.getElementById('limingDutyType').value='';document.getElementById('limingNote').value='';clearCheckedValues('policeCoworker');clearCheckedValues('caseType');clearCheckedValues('assistItem');['caseTypeOther','assistItemOther','dutyFeedback','impressiveCase','followupCase','skillToImprove','reportToCoordinator','scoreTechCompletion','scoreTechSatisfaction','scoreAssessment','scoreParticipation','scoreHarmony','scoreFireProfessional','scoreCooperation'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});clearRadioValueV2120('limingReportChoiceV2120');clearRadioValueV2120('limingNeedReplyV2120');calculateLimingHours();updateLimingDutyTypeHint();updateLimingReportChoiceV2120();updateLimingNoDispatchModeV2120();
       limingRecordMonthV2120=submittedMonth;showLimingRecordsTabV2120(submittedMonth);const st=document.getElementById('limingRecordsStatusV2120');if(st)st.textContent=`✓ ${dutyDate} 勤務回報成功，正在更新紀錄...`;
     }catch(error){successBox.style.display='none';errorBox.innerText='系統連線異常，請稍後再試';errorBox.style.display='block';}finally{limingDutySubmittingV2196=false;if(submitBtn){submitBtn.disabled=false;submitBtn.textContent=submitBtn.dataset.originalText||'送出填報';}}
   }
@@ -17148,7 +17252,7 @@ function updateMciLaunchPanelVisibility() {
 
 
 
-  /* V21.12.7｜年度排行榜摘要＋完整排行榜彈窗 */
+  /* V21.13.0｜年度排行榜摘要＋完整排行榜彈窗 */
   function renderRankingChampionV2127(id, rows, unit, errorMessage){
     const el=document.getElementById(id); if(!el)return;
     if(errorMessage){el.textContent='讀取失敗';return;}
