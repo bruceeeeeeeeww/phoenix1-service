@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
 <title>第一分隊災難應變小組｜平時整備</title>
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
@@ -13,7 +13,7 @@
 <div id="gate" class="gate" style="display:none"><h2>🛡️ 第一分隊災難應變小組</h2><p>請先回到隊員服務系統登入，再從首頁進入此專區。</p><button class="primary" onclick="location.href='../'">返回登入</button></div>
 <div id="app" class="shell" style="display:none">
   <div class="topbar"><button class="back" onclick="location.href='../'">← 返回主頁</button><div class="brand"></div><div class="user" id="userBox"></div></div>
-  <div class="system-brand"><img src="../phoenix_logo.jpg" alt="鳳凰救護大隊第一分隊隊徽"><h1>第一分隊災難應變小組</h1><p>平時整備專區</p></div>
+  <div class="system-brand"><img src="../phoenix_logo.jpg" alt="鳳凰救護大隊第一分隊隊徽"><h1>第一分隊災難應變小組</h1><p>平時整備專區 <span style="font-size:11px;color:#9aadb3">V21.16.4</span></p></div>
   <div class="hero"><h2>災難整備狀態</h2><p>這裡管理平時的應變小組資格與耗材／器材整備。此頁獨立載入，不會在主系統背景抓取整備資料。</p></div>
   <div class="module-grid"><button class="module disabled"><div class="icon">👥</div><h3>應變小組成員</h3><p>暫定。後續可串接學習護照與大量傷患訓練資格。</p></button><button class="module" onclick="document.getElementById('readiness').scrollIntoView({behavior:'smooth'})"><div class="icon">📦</div><h3>耗材／器材整備</h3><p>依位置、裝備群組與實際裝備包管理內容物、數量與效期。</p></button></div>
   <section id="readiness">
@@ -40,7 +40,7 @@
 <label>有效期限<input id="expiry" type="date"></label><label>LOT／批號（選填）<input id="batch" placeholder="例如：A240731"></label>
 <label>狀態<select id="statusSel"><option>正常</option><option>待補充</option><option>待更換</option><option>故障／待維修</option><option>停用</option></select></label><label>備註<select id="noteSel"><option value="">無備註</option><option>未開封</option><option>已開封</option><option>常備品</option><option>備用品</option><option>待盤點</option><option>其他</option></select></label>
 </div><div class="actions"><button class="secondary" onclick="closeModal('itemModal')">取消</button><button class="primary" onclick="saveItem()">儲存</button></div></div></div>
-<div id="scanModal" class="modal-bg"><div class="modal"><div class="modal-head"><h3>掃描商品條碼</h3><button class="x" onclick="stopBarcodeScan()">×</button></div><p style="color:var(--muted);margin:8px 0 8px">將商品一維條碼或 QR／DataMatrix 對準鏡頭。iPhone Safari 會自動切換相容掃描模式。</p><div id="barcodeScanStatus" style="margin:0 0 10px;padding:9px 11px;border-radius:10px;background:#f3f8fa;color:#58717b;font-size:13px">準備啟動相機…</div><video id="barcodeVideo" muted playsinline webkit-playsinline style="width:100%;border-radius:14px;background:#111;max-height:420px"></video><div class="actions"><button class="secondary" onclick="stopBarcodeScan()">取消</button></div></div></div>
+<div id="scanModal" class="modal-bg"><div class="modal"><div class="modal-head"><h3>掃描商品條碼</h3><button class="x" onclick="stopBarcodeScan()">×</button></div><p style="color:var(--muted);margin:8px 0 8px">將商品一維條碼或 QR／DataMatrix 對準鏡頭。iPhone Safari 會自動切換相容掃描模式。</p><div style="font-size:12px;color:#6b858d;margin:0 0 8px">若手機仍無法開啟即時掃描，可直接在上一頁商品條碼欄手動輸入。</div><div id="barcodeScanStatus" style="margin:0 0 10px;padding:9px 11px;border-radius:10px;background:#f3f8fa;color:#58717b;font-size:13px">準備啟動相機…</div><video id="barcodeVideo" muted playsinline webkit-playsinline style="width:100%;border-radius:14px;background:#111;max-height:420px"></video><div class="actions"><button class="secondary" onclick="stopBarcodeScan()">取消</button></div></div></div>
 <script>
 const API_URL='https://script.google.com/macros/s/AKfycbwpK6gbvgIttX-_U4RSED-_JDlCgi8HDexPBzXSfJMG4_tmee0rrl_FLWR2OTp_yN1v/exec';
 let USER=null, DATA={groups:[],items:[],summary:{}}, FILTER='';
@@ -92,12 +92,13 @@ function ensureZxingBrowserV21163(){
 }
 function onBarcodeReadV21163(raw){const v=String(raw||'').trim();if(!v)return;barcode.value=v;stopBarcodeScan();showNotice('已讀取條碼：'+v)}
 async function scanBarcode(){
-  stopBarcodeScan(false);scanModal.classList.add('show');barcodeStatus('正在啟動後鏡頭…');
+  stopBarcodeScan(false);scanModal.classList.add('show');barcodeStatus('V21.16.4｜正在啟動後鏡頭…');
   try{
     if(!window.isSecureContext)throw Object.assign(new Error('相機需要 HTTPS 網址'),{name:'SecurityError'});
     if(!navigator.mediaDevices?.getUserMedia)throw Object.assign(new Error('此裝置無法使用網頁相機'),{name:'NotSupportedError'});
     const formats=['ean_13','ean_8','upc_a','upc_e','code_128','code_39','itf','qr_code','data_matrix'];
-    if(typeof BarcodeDetector!=='undefined'){
+    const isiOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||((navigator.platform==='MacIntel')&&(navigator.maxTouchPoints>1));
+    if(!isiOS && typeof BarcodeDetector!=='undefined'){
       barcodeStatus('使用瀏覽器原生條碼辨識…');
       barcodeStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}},audio:false});
       barcodeVideo.srcObject=barcodeStream;await barcodeVideo.play();
@@ -111,7 +112,7 @@ async function scanBarcode(){
       }
       if(barcodeStream){barcodeStream.getTracks().forEach(t=>t.stop());barcodeStream=null;barcodeVideo.srcObject=null}
     }
-    barcodeStatus('iPhone 相容模式｜正在載入條碼辨識器…');
+    barcodeStatus((isiOS?'iPhone Safari 相容模式':'相容模式')+'｜正在載入條碼辨識器…');
     const ZX=await ensureZxingBrowserV21163();
     const reader=new ZX.BrowserMultiFormatReader(undefined,{delayBetweenScanAttempts:250,delayBetweenScanSuccess:800});
     barcodeStatus('後鏡頭已開啟｜支援商品一維條碼、QR、DataMatrix');
