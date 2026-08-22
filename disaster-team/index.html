@@ -40,7 +40,7 @@
 <label>有效期限<input id="expiry" type="date"></label><label>LOT／批號（選填）<input id="batch" placeholder="例如：A240731"></label>
 <label>狀態<select id="statusSel"><option>正常</option><option>待補充</option><option>待更換</option><option>故障／待維修</option><option>停用</option></select></label><label>備註<select id="noteSel"><option value="">無備註</option><option>未開封</option><option>已開封</option><option>常備品</option><option>備用品</option><option>待盤點</option><option>其他</option></select></label>
 </div><div class="actions"><button class="secondary" onclick="closeModal('itemModal')">取消</button><button class="primary" onclick="saveItem()">儲存</button></div></div></div>
-<div id="scanModal" class="modal-bg"><div class="modal"><div class="modal-head"><h3>掃描商品條碼</h3><button class="x" onclick="stopBarcodeScan()">×</button></div><p style="color:var(--muted);margin:8px 0 12px">將商品一維條碼或 QR／DataMatrix 對準鏡頭。若瀏覽器不支援，可直接手動輸入條碼。</p><video id="barcodeVideo" playsinline style="width:100%;border-radius:14px;background:#111;max-height:420px"></video><div class="actions"><button class="secondary" onclick="stopBarcodeScan()">取消</button></div></div></div>
+<div id="scanModal" class="modal-bg"><div class="modal"><div class="modal-head"><h3>掃描商品條碼</h3><button class="x" onclick="stopBarcodeScan()">×</button></div><p style="color:var(--muted);margin:8px 0 8px">將商品一維條碼或 QR／DataMatrix 對準鏡頭。iPhone Safari 會自動切換相容掃描模式。</p><div id="barcodeScanStatus" style="margin:0 0 10px;padding:9px 11px;border-radius:10px;background:#f3f8fa;color:#58717b;font-size:13px">準備啟動相機…</div><video id="barcodeVideo" muted playsinline webkit-playsinline style="width:100%;border-radius:14px;background:#111;max-height:420px"></video><div class="actions"><button class="secondary" onclick="stopBarcodeScan()">取消</button></div></div></div>
 <script>
 const API_URL='https://script.google.com/macros/s/AKfycbwpK6gbvgIttX-_U4RSED-_JDlCgi8HDexPBzXSfJMG4_tmee0rrl_FLWR2OTp_yN1v/exec';
 let USER=null, DATA={groups:[],items:[],summary:{}}, FILTER='';
@@ -73,9 +73,60 @@ async function saveItem(){const group=valWithOther('groupSel','groupOther'),item
 
 async function deleteItem(id){if(!isCadre())return alert('刪除整備品項僅限行政幹部');if(!id)return;if(!confirm('確定刪除這筆整備品項？'))return;try{await api('deleteDisasterReadinessItemV211610',{itemId:id,operator:USER.name||''});await load();showNotice('整備品項已刪除')}catch(e){alert(e.message)}}
 async function deleteGroup(name){if(!isCadre())return alert('刪除裝備群組僅限行政幹部');const count=DATA.items.filter(i=>i['群組']===name).length;if(count>0){alert('此群組目前還有 '+count+' 個品項，請先刪除或移動品項後再刪除群組。');return}if(!confirm('確定刪除群組「'+name+'」？'))return;try{await api('deleteDisasterReadinessGroupV211610',{groupName:name,operator:USER.name||''});if(FILTER===name)FILTER='';await load();showNotice('群組已刪除')}catch(e){alert(e.message)}}
-let barcodeStream=null,barcodeTimer=null;
-async function scanBarcode(){scanModal.classList.add('show');try{barcodeStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});barcodeVideo.srcObject=barcodeStream;await barcodeVideo.play();const formats=['ean_13','ean_8','upc_a','upc_e','code_128','code_39','itf','qr_code','data_matrix'];if(typeof BarcodeDetector==='undefined')throw new Error('此瀏覽器未支援直接條碼掃描，請手動輸入條碼');const supported=BarcodeDetector.getSupportedFormats?await BarcodeDetector.getSupportedFormats():formats;const detector=new BarcodeDetector({formats:formats.filter(x=>supported.includes(x))});barcodeTimer=setInterval(async()=>{try{const codes=await detector.detect(barcodeVideo);if(codes&&codes[0]?.rawValue){barcode.value=codes[0].rawValue;stopBarcodeScan();showNotice('已讀取條碼：'+barcode.value)}}catch(e){}},350)}catch(e){stopBarcodeScan();alert(e.message||'無法啟動相機')}}
-function stopBarcodeScan(){if(barcodeTimer){clearInterval(barcodeTimer);barcodeTimer=null}if(barcodeStream){barcodeStream.getTracks().forEach(t=>t.stop());barcodeStream=null}scanModal.classList.remove('show')}
+let barcodeStream=null,barcodeTimer=null,barcodeZxingControls=null,barcodeZxingLoadPromise=null;
+function barcodeStatus(msg,bad=false){const el=document.getElementById('barcodeScanStatus');if(!el)return;el.textContent=msg;el.style.background=bad?'#fff2f2':'#f3f8fa';el.style.color=bad?'#a44242':'#58717b'}
+function ensureZxingBrowserV21163(){
+  if(window.ZXingBrowser?.BrowserMultiFormatReader)return Promise.resolve(window.ZXingBrowser);
+  if(barcodeZxingLoadPromise)return barcodeZxingLoadPromise;
+  barcodeZxingLoadPromise=new Promise((resolve,reject)=>{
+    const old=document.querySelector('script[data-disaster-zxing-v21163]');
+    if(old){old.addEventListener('load',()=>window.ZXingBrowser?resolve(window.ZXingBrowser):reject(new Error('條碼辨識器載入失敗')),{once:true});old.addEventListener('error',()=>reject(new Error('條碼辨識器載入失敗')),{once:true});return}
+    const sc=document.createElement('script');
+    sc.src='https://cdn.jsdelivr.net/npm/@zxing/browser@0.2.1/umd/zxing-browser.min.js';
+    sc.async=true;sc.setAttribute('data-disaster-zxing-v21163','1');
+    sc.onload=()=>window.ZXingBrowser?.BrowserMultiFormatReader?resolve(window.ZXingBrowser):reject(new Error('條碼辨識器不可用'));
+    sc.onerror=()=>reject(new Error('條碼辨識器載入失敗，請確認網路後重試'));
+    document.head.appendChild(sc);
+  });
+  return barcodeZxingLoadPromise;
+}
+function onBarcodeReadV21163(raw){const v=String(raw||'').trim();if(!v)return;barcode.value=v;stopBarcodeScan();showNotice('已讀取條碼：'+v)}
+async function scanBarcode(){
+  stopBarcodeScan(false);scanModal.classList.add('show');barcodeStatus('正在啟動後鏡頭…');
+  try{
+    if(!window.isSecureContext)throw Object.assign(new Error('相機需要 HTTPS 網址'),{name:'SecurityError'});
+    if(!navigator.mediaDevices?.getUserMedia)throw Object.assign(new Error('此裝置無法使用網頁相機'),{name:'NotSupportedError'});
+    const formats=['ean_13','ean_8','upc_a','upc_e','code_128','code_39','itf','qr_code','data_matrix'];
+    if(typeof BarcodeDetector!=='undefined'){
+      barcodeStatus('使用瀏覽器原生條碼辨識…');
+      barcodeStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}},audio:false});
+      barcodeVideo.srcObject=barcodeStream;await barcodeVideo.play();
+      const supported=BarcodeDetector.getSupportedFormats?await BarcodeDetector.getSupportedFormats():formats;
+      const use=formats.filter(x=>supported.includes(x));
+      if(use.length){
+        const detector=new BarcodeDetector({formats:use});let busy=false;
+        barcodeStatus('後鏡頭已開啟｜請將商品條碼對準畫面');
+        barcodeTimer=setInterval(async()=>{if(busy)return;busy=true;try{const codes=await detector.detect(barcodeVideo);if(codes&&codes[0]?.rawValue)onBarcodeReadV21163(codes[0].rawValue)}catch(e){}finally{busy=false}},320);
+        return;
+      }
+      if(barcodeStream){barcodeStream.getTracks().forEach(t=>t.stop());barcodeStream=null;barcodeVideo.srcObject=null}
+    }
+    barcodeStatus('iPhone 相容模式｜正在載入條碼辨識器…');
+    const ZX=await ensureZxingBrowserV21163();
+    const reader=new ZX.BrowserMultiFormatReader(undefined,{delayBetweenScanAttempts:250,delayBetweenScanSuccess:800});
+    barcodeStatus('後鏡頭已開啟｜支援商品一維條碼、QR、DataMatrix');
+    barcodeZxingControls=await reader.decodeFromConstraints({video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}},audio:false},barcodeVideo,(result,error,controls)=>{if(result){const text=typeof result.getText==='function'?result.getText():String(result?.text||'');if(text)onBarcodeReadV21163(text)}});
+  }catch(e){
+    barcodeStatus(e?.name==='NotAllowedError'?'相機權限未開啟，請在 Safari 網站設定允許相機。':(e?.message||'無法啟動條碼掃描'),true);
+  }
+}
+function stopBarcodeScan(close=true){
+  if(barcodeTimer){clearInterval(barcodeTimer);barcodeTimer=null}
+  if(barcodeZxingControls){try{barcodeZxingControls.stop()}catch(e){}barcodeZxingControls=null}
+  if(barcodeStream){try{barcodeStream.getTracks().forEach(t=>t.stop())}catch(e){}barcodeStream=null}
+  try{if(barcodeVideo){if(barcodeVideo.srcObject){barcodeVideo.srcObject.getTracks?.().forEach(t=>t.stop())}barcodeVideo.srcObject=null;barcodeVideo.pause?.()}}catch(e){}
+  if(close)scanModal.classList.remove('show')
+}
 
 (async function(){USER=session();if(!USER){gate.style.display='block';return}app.style.display='block';userBox.innerHTML=`${esc(USER.name||'')}<br>${esc(USER.team||USER.masterTeam||'')}｜${esc(USER.title||'')}`;initSelects();await load()})();
 </script></body></html>
