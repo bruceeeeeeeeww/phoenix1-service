@@ -45,7 +45,7 @@
 <div id="photoViewerModal" class="modal-bg"><div class="modal"><div class="modal-head"><h3 id="photoViewerTitle">照片</h3><button class="x" onclick="closeModal('photoViewerModal')">×</button></div><div id="photoViewerStatus" class="photo-help" style="margin-top:12px">讀取中…</div><img id="photoViewerImage" class="photo-preview" alt="照片"></div></div>
 <div id="scanModal" class="modal-bg"><div class="modal"><div class="modal-head"><h3>掃描商品條碼</h3><button class="x" onclick="stopBarcodeScan()">×</button></div><p style="color:var(--muted);margin:8px 0 8px">將商品一維條碼或 QR／DataMatrix 對準鏡頭。iPhone Safari 會自動切換相容掃描模式。</p><div style="font-size:12px;color:#6b858d;margin:0 0 8px">若手機仍無法開啟即時掃描，可直接在上一頁商品條碼欄手動輸入。</div><div id="barcodeScanStatus" style="margin:0 0 10px;padding:9px 11px;border-radius:10px;background:#f3f8fa;color:#58717b;font-size:13px">準備啟動相機…</div><video id="barcodeVideo" muted playsinline webkit-playsinline style="width:100%;border-radius:14px;background:#111;max-height:420px"></video><div class="actions"><button class="secondary" onclick="stopBarcodeScan()">取消</button></div></div></div>
 <script>
-const API_URL='https://script.google.com/macros/s/AKfycbzFELR0CxhLk5U8EYFIW3DW5eVidrb9Zo6iO-Qr-AF8LXqoNy1TYiwI20LNvVtpcZ7C/exec';
+const API_URL='https://script.google.com/macros/s/AKfycbyHMulQdSyjhavNRezIFoHfKt6NtJf3L4RSZ_fujq_w9YT54LfQo0aaoXByEAqrbGCL/exec';
 let USER=null, DATA={groups:[],items:[],summary:{}}, FILTER='';
 const itemOptions=['紗布','敷料','止血紗布','止血帶','彈性繃帶','三角巾','胸封','保暖毯','手套','口罩','生理食鹽水','IV Set','18G IV導管','20G IV導管','22G IV導管','OPA','NPA','氧氣面罩','鼻導管','抽吸管','檢傷標籤','油性筆','創傷剪','血壓計','聽診器','血氧機','BVM','AED','抽吸器','頭燈','手電筒','頸圈','長背板','鏟式擔架'];
 const units=['件','包','盒','箱','瓶','個','組','袋','捲','條','片','台','把','副','支'];
