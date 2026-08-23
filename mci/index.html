@@ -9178,13 +9178,30 @@ body{background:#eef2f3!important}
 #mciSection.mci-evac-officer-v2143 #mciDashboardBox>.mci-command-scan-btn-v21744,
 #mciSection.mci-evac-officer-v2143 #mciDashboardBox>.mci-end-event-panel-v2197{display:none!important}
 #mciSection .mci-role-chip-v2143{display:none;margin:0 0 8px;padding:7px 11px;border:1px solid #cbdde0;background:#f5fafb;color:#42666e;font-size:12px;font-weight:900;text-align:center}
-#mciSection.mci-evac-officer-v2143 .mci-role-chip-v2143{display:block}
+#mciSection.mci-evac-officer-v2143 .mci-role-chip-v2143,#mciSection.mci-checkin-officer-v211808 .mci-role-chip-v2143{display:block}
 @media(max-width:800px){
  #mciSection.mci-evac-officer-v2143 #mciCommandSituationV2141{grid-template-columns:repeat(2,1fr)!important}
  #mciSection.mci-evac-officer-v2143 #mciCommandSituationV2141>div{border-bottom:1px solid #e1e8ea!important}
 }
 </style>
 
+
+
+<style id="mciCheckinOfficerStyleV211808">
+/* V21.18.1.5｜報到官工作台：只保留人力與任務，不取得其他指揮分頁。 */
+#mciSection.mci-checkin-officer-v211808 #mciCommandNavV2140 [data-mci-tab="傷患"],
+#mciSection.mci-checkin-officer-v211808 #mciCommandNavV2140 [data-mci-tab="車輛"],
+#mciSection.mci-checkin-officer-v211808 #mciCommandNavV2140 [data-mci-tab="後送"],
+#mciSection.mci-checkin-officer-v211808 #mciSupplyCommanderNavV211500,
+#mciSection.mci-checkin-officer-v211808 #mciHealthCommanderNavV211700{display:none!important}
+#mciSection.mci-checkin-officer-v211808 #mciCommandNavV2140{justify-content:center!important}
+#mciSection.mci-checkin-officer-v211808 #mciCommandNavV2140 button{max-width:360px!important}
+#mciSection.mci-checkin-officer-v211808 #mciDashboardBox>.mci-test-reset-btn-v21743,
+#mciSection.mci-checkin-officer-v211808 #mciDashboardBox>.mci-command-scan-btn-v21744,
+#mciSection.mci-checkin-officer-v211808 #mciDashboardBox>.mci-end-event-panel-v2197{display:none!important}
+#mciSection.mci-checkin-officer-v211808 .mci-role-chip-v2143{display:block}
+@media(max-width:800px){#mciSection.mci-checkin-officer-v211808 #mciCommandNavV2140 button{max-width:none!important}}
+</style>
 
 <style id="mciTriageMobileV1320">
 /* Phoenix MCI V1.3.2｜檢傷員手機工作台：跳脫一般系統卡片框架 */
@@ -9616,6 +9633,30 @@ body.mci-next-patient-scan-v21412 #triageLookupPanelV2170{display:block!importan
 #mciDigitalTriageSection.mci-treatment-active-v211415 .mci-unified-save-actions-v21101 button:last-child{background:#11857c!important;color:#fff!important;border-color:#11857c!important}
 </style>
 
+
+<style id="mciV21177SummaryStyle">
+#mciSection .mci-command-situation-v2141{grid-template-columns:repeat(var(--mci-situation-count,4),minmax(110px,1fr))!important}
+#mciSection .mci-command-situation-v2141>div{border-bottom:0!important}
+@media(max-width:800px){#mciSection .mci-command-situation-v2141{grid-template-columns:repeat(2,1fr)!important}#mciSection .mci-command-situation-v2141>div:nth-child(odd){border-right:1px solid #e1e8ea!important}#mciSection .mci-command-situation-v2141>div:nth-child(even){border-right:0!important}#mciSection .mci-command-situation-v2141>div{border-bottom:1px solid #e1e8ea!important}#mciSection .mci-command-situation-v2141>div:nth-last-child(-n+2){border-bottom:0!important}}
+/* V21.17.7：立即評估視窗固定避開頂部連線狀態列，內容不足時仍完整可見 */
+.mci-health-force-overlay-v211701{align-items:flex-start!important;padding-top:max(58px,calc(env(safe-area-inset-top) + 52px))!important;padding-bottom:max(12px,env(safe-area-inset-bottom))!important}
+.mci-health-force-card-v211701{max-height:calc(100dvh - 76px)!important;max-height:calc(100vh - 76px)!important}
+/* 舊同步隔離紀錄在無待同步時只顯示小型警示，不搶主畫面 */
+.mci-bg-sync-chip-v21720.compact-warning-v21177{padding:7px 10px!important;min-width:auto!important;gap:4px!important;font-size:12px!important;cursor:pointer!important}
+/* V21.17.8｜未完成點名名單固定有入口，詳細名單可收合 */
+.mci-incomplete-list-v21178{display:block!important;margin-top:12px!important}
+.mci-incomplete-summary-v21178{cursor:pointer!important;list-style:none;display:flex!important;align-items:center;justify-content:space-between;gap:12px}
+.mci-incomplete-summary-v21178::-webkit-details-marker{display:none}
+#mciIncompleteInlineCountV21178{font-size:12px;color:#9a6b19;background:#fff5dc;padding:4px 9px;border-radius:999px}
+/* V21.17.8｜隔離同步紀錄檢視與清除 */
+.mci-quarantine-overlay-v21178{position:fixed;inset:0;z-index:10080;background:rgba(20,35,39,.56);align-items:center;justify-content:center;padding:18px}
+.mci-quarantine-card-v21178{width:min(680px,100%);max-height:min(82vh,720px);overflow:hidden;background:#fff;border-radius:20px;box-shadow:0 24px 70px rgba(0,0,0,.28);display:flex;flex-direction:column}
+.mci-quarantine-head-v21178{padding:20px 22px 14px;border-bottom:1px solid #e3eaec;display:flex;justify-content:space-between;gap:14px}.mci-quarantine-head-v21178 strong{font-size:20px;color:#943636}.mci-quarantine-head-v21178 small{display:block;margin-top:6px;color:#60747a;line-height:1.6}.mci-quarantine-close-v21178{width:40px!important;min-width:40px!important;height:40px!important;padding:0!important;margin:0!important;border-radius:50%!important;background:#f2f5f5!important;color:#40575d!important;border:0!important}
+.mci-quarantine-list-v21178{padding:14px 22px;overflow:auto;min-height:90px}.mci-quarantine-row-v21178{padding:12px 0;border-bottom:1px solid #edf1f2;color:#566d73;font-size:13px}.mci-quarantine-row-title-v21178{display:flex;justify-content:space-between;gap:12px;color:#294b53;margin-bottom:5px}.mci-quarantine-row-title-v21178 span{font-size:11px;color:#7c8d91}.mci-quarantine-error-v21178{color:#9b4a4a;margin-top:4px;word-break:break-word}
+.mci-quarantine-status-v21178{min-height:24px;padding:0 22px;color:#287163;font-weight:800}.mci-quarantine-actions-v21178{padding:14px 22px 20px;display:grid;grid-template-columns:1fr 1fr;gap:10px;border-top:1px solid #edf1f2}.mci-quarantine-actions-v21178 button,.mci-quarantine-confirm-v21178 button{min-height:48px;margin:0!important}.mci-quarantine-actions-v21178 .danger,.mci-quarantine-confirm-v21178 .danger{background:#fff1f1!important;color:#a63737!important;border:1px solid #e8b8b8!important}
+.mci-quarantine-confirm-v21178{margin:0 22px 20px;padding:14px;border-radius:12px;background:#fff8f0;color:#6c5734}.mci-quarantine-confirm-v21178>div:last-child{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}.mci-quarantine-confirm-v21178 button{width:auto!important;padding:8px 16px!important}
+@media(max-width:600px){.mci-quarantine-overlay-v21178{align-items:flex-start;padding-top:max(62px,calc(env(safe-area-inset-top) + 54px))}.mci-quarantine-card-v21178{max-height:calc(100dvh - 82px)}.mci-quarantine-actions-v21178{grid-template-columns:1fr}.mci-quarantine-row-title-v21178{flex-direction:column;gap:2px}}
+</style>
 </head>
 
 <body><div class="mci-standalone-top-v2190"><strong>Phoenix MCI 災害應變系統</strong><a href="../">← 返回隊員服務系統</a></div>
@@ -9747,6 +9788,10 @@ body.mci-next-patient-scan-v21412 #triageLookupPanelV2170{display:block!importan
         <button type="button" onclick="openMciTransportPublicV21760()">🚑 後送車輛報到</button>
         <div>大量傷患事件支援車輛可直接報到，不需隊員登入。</div>
       </div>
+      <div class="mci-external-entry-v21180">
+        <button type="button" onclick="openMciExternalSupportV21180()">🤝 外部支援／志願者報到</button>
+        <div>合作單位、專業支援、防災士與臨時志願者可直接報到，不需隊員帳號。</div>
+      </div>
       <div class="onboarding-entry-grid">
         <button type="button" class="onboarding-entry-button" onclick="openPrivacyConsent()">📝 入隊申請與報到</button>
         <button type="button" class="onboarding-entry-button" onclick="showSection('onboardingLookupSection')">🔎 查詢入隊申請結果</button>
@@ -9762,6 +9807,128 @@ body.mci-next-patient-scan-v21412 #triageLookupPanelV2170{display:block!importan
 </div>
 
 <div class="error" id="loginErrorBox"></div>
+  </section>
+
+
+  <!-- V21.18.1.5｜外部支援本機勤務驗證＋臨時登入 -->
+  <section id="mciExternalSupportSectionV21180" class="section">
+    <button class="back-button" type="button" onclick="closeMciExternalSupportV21180()">← 返回首頁</button>
+    <div class="page-title">🤝 外部支援／志願者報到</div>
+    <div class="page-desc">本入口僅供本次大量傷患事件臨時支援。第一次送出資料即完成本事件報到；若已完成報到，可使用臨時登入碼找回本次勤務。</div>
+
+    <div id="mciExternalEventV21180" class="mci-external-event-v21180">正在確認目前事件…</div>
+
+    <div id="mciExternalEntryChoiceV21181" class="mci-external-entry-choice-v21181" style="display:none;">
+      <button type="button" class="primary" onclick="showMciExternalRegisterV21181()">📝 第一次支援報到</button>
+      <button type="button" onclick="showMciExternalLoginV21181()">🔑 已報到｜勤務登入</button>
+      <div class="mci-external-choice-note-v21181">同一支手機通常可直接繼續勤務；換手機或清除瀏覽器資料時，再使用臨時登入碼找回。</div>
+    </div>
+
+    <div id="mciExternalLoginV21181" class="form-panel mci-external-panel-v21180" style="display:none;">
+      <div class="panel-title">外部支援勤務登入</div>
+      <div class="mci-external-required-v21180">請輸入第一次報到時的資料。</div>
+      <div class="mci-external-grid-v21180">
+        <label>姓名 *<input id="mciExternalLoginNameV21181" autocomplete="name" placeholder="例如：王小明"></label>
+        <label>手機末 4 碼 *<input id="mciExternalLoginPhoneV21181" inputmode="numeric" maxlength="4" placeholder="例如：5814"></label>
+        <label class="full-width">6 位數臨時登入碼 *<input id="mciExternalLoginCodeV21181" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="例如：381624"></label>
+      </div>
+      <button type="button" class="primary" onclick="loginMciExternalSupportV21181(this)">登入本次勤務</button>
+      <button type="button" class="mci-external-secondary-v21181" onclick="showMciExternalEntryChoiceV21181()">← 返回</button>
+      <div id="mciExternalLoginMessageV21181" class="mci-external-message-v21180"></div>
+    </div>
+
+    <div id="mciExternalRegisterV21180" class="form-panel mci-external-panel-v21180" style="display:none;">
+      <div class="panel-title">外部支援快速報到</div>
+      <button type="button" class="mci-external-inline-back-v21181" onclick="showMciExternalEntryChoiceV21181()">← 已經報到過？返回勤務登入</button>
+      <div class="mci-external-required-v21180">必填：姓名、支援單位／組織、身分類別、手機</div>
+      <div class="mci-external-grid-v21180">
+        <label>姓名 *<input id="mciExternalNameV21180" autocomplete="name" placeholder="例如：王小明"></label>
+        <label>支援單位／組織 *<input id="mciExternalUnitV21180" placeholder="例如：○○消防分隊、○○醫院、○○協會"></label>
+        <label>身分類別 *<select id="mciExternalIdentityV21180" onchange="updateMciExternalIdentityUiV21180()"><option value="">請選擇</option><option>合作／公務單位支援</option><option>專業支援人員</option><option>一般志願者</option><option>其他外部支援</option></select></label>
+        <label>職稱
+          <select id="mciExternalTitleSelectV211806" onchange="toggleMciExternalOtherV211806('title')">
+            <option value="">請選擇</option><option>消防員</option><option>救護技術員</option><option>護理師</option><option>醫師</option><option>社工</option><option>志工</option><option value="其他">其他</option>
+          </select>
+          <input id="mciExternalTitleOtherV211806" class="mci-external-other-v211806" placeholder="請輸入其他職稱" style="display:none;">
+          <input id="mciExternalTitleV21180" type="hidden">
+        </label>
+        <label>專業資格／EMT
+          <select id="mciExternalQualificationSelectV211806" onchange="toggleMciExternalOtherV211806('qualification')">
+            <option value="">無／未填</option><option>EMT-1</option><option>EMT-2</option><option>EMT-P</option><option>護理師</option><option>醫師</option><option>防災士</option><option value="其他">其他</option>
+          </select>
+          <input id="mciExternalQualificationOtherV211806" class="mci-external-other-v211806" placeholder="請輸入其他專業資格" style="display:none;">
+          <input id="mciExternalQualificationV21180" type="hidden">
+        </label>
+        <label>手機 *<input id="mciExternalPhoneV21180" inputmode="tel" autocomplete="tel" placeholder="09xx-xxx-xxx"></label>
+        <label>緊急聯絡人<input id="mciExternalEmergencyNameV21180" placeholder="選填"></label>
+        <label>緊急聯絡人電話<input id="mciExternalEmergencyPhoneV21180" inputmode="tel" placeholder="選填"></label>
+      </div>
+      <div class="mci-external-label-v21180">可支援角色（可複選，最終任務由指揮端分派）</div>
+      <div class="mci-external-role-grid-v21180" id="mciExternalRolesV21180">
+        <label><input type="checkbox" value="檢傷"><span>檢傷</span></label><label><input type="checkbox" value="治療"><span>治療</span></label><label><input type="checkbox" value="搬運"><span>搬運</span></label><label><input type="checkbox" value="後送"><span>後送</span></label><label><input type="checkbox" value="物資"><span>物資</span></label><label><input type="checkbox" value="交通引導"><span>交通引導</span></label><label><input type="checkbox" value="家屬安撫"><span>家屬安撫</span></label><label><input type="checkbox" value="行政／其他"><span>行政／其他</span></label>
+      </div>
+      <div class="mci-external-evidence-help-v211806">
+        <strong>資格佐證是做什麼？</strong>
+        <span>用來確認你填寫的專業資格或合作身分；不是報到審核，也不會影響一般支援報到。只有需要檢傷、治療、後送等專業任務時，才需要較明確的資格確認。</span>
+        <div class="mci-external-evidence-options-v211807">
+          <div><b>不需佐證</b>：一般志願支援或不涉及專業資格的任務。</div>
+          <div><b>事前支援名冊確認</b>：消防、醫院、合作團體等已事先提供本次支援人員名單，現場核對姓名即可。</div>
+          <div><b>帶隊人確認</b>：由所屬單位的帶隊人員確認身分或資格。</div>
+          <div><b>現場查看證件</b>：到人力報到處時直接出示 EMT、醫療、防災士或單位證件。</div>
+          <div><b>上傳資格證件</b>：拍照或上傳資格證件供現場核對。</div>
+        </div>
+      </div>
+      <div class="mci-external-grid-v21180 mci-external-evidence-v21180">
+        <label>資格佐證方式
+          <select id="mciExternalVerificationV21180" onchange="toggleMciExternalCredentialV211806()">
+            <option value="尚未提供">不需佐證</option>
+            <option>事前支援名冊確認</option><option>帶隊人確認</option><option>現場查看證件</option><option>上傳資格證件</option>
+          </select>
+        </label>
+        <label id="mciExternalCredentialLabelV211806" style="display:none;">拍攝／上傳資格證件
+          <input id="mciExternalCredentialV21180" type="file" accept="image/*" capture="environment">
+        </label>
+      </div>
+      <label>備註／特殊專長<textarea id="mciExternalNoteV21180" rows="2" placeholder="選填，例如：熟悉搜救、可駕駛大型車等"></textarea></label>
+      <div class="mci-external-privacy-v21180">僅蒐集本次事件人力調度所需資料。非必要請勿上傳身分證、健保卡等高敏感個人證件。</div>
+      <button id="mciExternalRegisterBtnV21180" type="button" class="primary" onclick="submitMciExternalSupportV21180(this)">完成報到資料</button>
+      <div id="mciExternalRegisterMessageV21180" class="mci-external-message-v21180"></div>
+    </div>
+
+    <div id="mciExternalWorkV21180" class="mci-external-work-v21180" style="display:none;">
+      <div id="mciExternalCredentialNoticeV21181" class="mci-external-login-code-v21181" style="display:none;">
+        <div class="mci-external-login-code-title-v21181">🔑 本次勤務登入憑證</div>
+        <div>臨時人員 ID：<strong id="mciExternalCredentialIdV21181">-</strong></div>
+        <div>6 位數臨時登入碼：<strong id="mciExternalCredentialCodeV21181" class="mci-external-login-code-number-v21181">------</strong></div>
+        <div class="mci-external-login-code-note-v21181">請記住或截圖保存。換手機或清除瀏覽器資料時，需用「姓名＋手機末4碼＋登入碼」找回本次勤務；完成點名後即失效。</div>
+        <button type="button" onclick="copyMciExternalLoginCodeV21181()">複製登入碼</button>
+      </div>
+      <div class="summary-box mci-external-status-card-v21180">
+        <div class="result-title">我的外部支援狀態</div>
+        <div class="mci-external-person-v21180"><strong id="mciExternalWorkNameV21180">-</strong><span id="mciExternalWorkUnitV21180">-</span></div>
+        <div class="mci-external-flow-v21180"><span id="mciExternalFlowBadgeV21180">等待任務</span><small id="mciExternalVerifyBadgeV21180">基本報到</small></div>
+        <div id="mciExternalInstructionV21180" class="mci-external-instruction-v21180">送出後即完成本事件報到，請留意此畫面的任務更新。</div>
+      </div>
+      <div class="summary-box">
+        <div class="result-title">我的任務</div>
+        <div id="mciExternalTaskV21180" class="mci-external-task-v21180">尚未分配</div>
+        <div id="mciExternalTaskActionV21180"></div>
+      </div>
+      <details id="mciExternalHealthBoxV21180" class="summary-box mci-external-health-v21180">
+        <summary>🛡️ 健康回報</summary>
+        <div class="mci-external-health-body-v21180">
+          <label>目前狀況<select id="mciExternalHealthSymptomV21180"><option>無明顯異狀</option><option>疲累</option><option>頭痛</option><option>頭暈或快昏倒</option><option>噁心或嘔吐</option><option>肌肉痙攣</option><option>呼吸不適</option><option>胸悶或胸痛</option><option>意識混亂或反應異常</option></select></label>
+          <label>目前是否能繼續執勤？<select id="mciExternalHealthAbilityV21180"><option>可以正常執勤</option><option>希望稍作休息</option><option>需要他人評估</option></select></label>
+          <button type="button" onclick="submitMciExternalHealthV21180(this)">送出健康回報</button>
+          <div id="mciExternalHealthMsgV21180" class="mci-external-message-v21180"></div>
+        </div>
+      </details>
+      <div class="mci-external-work-actions-v21180">
+        <button type="button" onclick="refreshMciExternalSessionV21180(true)">↻ 更新任務</button>
+        <button type="button" id="mciExternalEndCheckBtnV21180" onclick="completeMciExternalCheckV21180(this)">🚪 結束支援／完成點名</button>
+      </div>
+      <div id="mciExternalWorkMessageV21180" class="mci-external-message-v21180"></div>
+    </div>
   </section>
 
   <!-- Phoenix MCI V1.1.3｜公開後送車輛報到與任務頁 -->
@@ -11236,6 +11403,132 @@ body.mci-next-patient-scan-v21412 #triageLookupPanelV2170{display:block!importan
           <div class="mci-hub-title">後送車輛</div>
           <div class="mci-hub-desc">車輛報到與後送任務執行</div>
         </button>
+
+        <button class="mci-hub-card" onclick="openMciExternalSupportV21180()">
+          <div class="mci-hub-icon">🤝</div>
+          <div class="mci-hub-title">外部支援報到</div>
+          <div class="mci-hub-desc">合作單位、專業支援與志願者快速納入人力</div>
+        </button>
+
+        <button class="mci-hub-card" onclick="openMciHealthWorkspaceV211700(false)">
+          <div class="mci-hub-icon">🛡️</div>
+          <div class="mci-hub-title">人員健康</div>
+          <div class="mci-hub-desc">現場人員自評、輪休與安全提醒</div>
+        </button>
+      </div>
+
+      <div id="mciHealthWorkspaceV211700" class="mci-health-workspace-v211700" style="display:none;">
+        <div class="mci-health-head-v211700">
+          <button class="back-button" type="button" onclick="closeMciHealthWorkspaceV211700()">← 返回災害應變系統</button>
+          <div>
+            <div class="mci-health-title-v211700">🛡️ 現場人員健康與安全</div>
+            <div id="mciHealthEventTextV211700" class="mci-health-sub-v211700">事件資訊</div>
+          </div>
+        </div>
+
+        <div id="mciHealthSelfModeV211700">
+          <div class="summary-box mci-health-status-card-v211700">
+            <div class="result-title">我的目前狀態</div>
+            <div class="mci-health-status-row-v211700">
+              <span id="mciHealthSelfBadgeV211700" class="mci-health-badge-v211700 normal">正常</span>
+              <strong id="mciHealthDutyV211700">勤務 0 分鐘</strong>
+            </div>
+            <div id="mciHealthSelfHintV211700" class="mci-health-hint-v211700">尚無健康回報。</div>
+            <div id="mciHealthRestStateV211700" class="mci-health-rest-state-v211700"></div>
+            <div id="mciHealthNextReportV211703" class="mci-health-rest-state-v211700"></div>
+          </div>
+
+          <div class="form-panel mci-health-form-v211700">
+            <div class="panel-title">快速回報目前狀況</div>
+            <div class="mci-health-symptoms-v211700">
+              <label class="mci-health-none-v211702"><input type="checkbox" name="mciHealthSymptomV211700" value="無明顯異狀" data-health-none="1"> 無明顯異狀</label>
+              <label><input type="checkbox" name="mciHealthSymptomV211700" value="疲累"> 疲累</label>
+              <label><input type="checkbox" name="mciHealthSymptomV211700" value="頭痛"> 頭痛</label>
+              <label><input type="checkbox" name="mciHealthSymptomV211700" value="頭暈或快昏倒"> 頭暈／快昏倒</label>
+              <label><input type="checkbox" name="mciHealthSymptomV211700" value="噁心或嘔吐"> 噁心／嘔吐</label>
+              <label><input type="checkbox" name="mciHealthSymptomV211700" value="肌肉痙攣"> 肌肉痙攣</label>
+              <label><input type="checkbox" name="mciHealthSymptomV211700" value="呼吸不適"> 呼吸不適</label>
+              <label><input type="checkbox" name="mciHealthSymptomV211700" value="胸悶或胸痛"> 胸悶／胸痛</label>
+              <label><input type="checkbox" name="mciHealthSymptomV211700" value="意識混亂或反應異常"> 意識混亂／反應異常</label>
+            </div>
+            <label for="mciHealthAbilityV211700">我目前是否能繼續執勤？</label>
+            <select id="mciHealthAbilityV211700">
+              <option value="可以正常執勤">可以正常執勤</option>
+              <option value="希望稍作休息">希望稍作休息</option>
+              <option value="需要他人評估">需要他人評估</option>
+            </select>
+            <details class="mci-health-vitals-v211700">
+              <summary>＋ 補充生命徵象（非必填）</summary>
+              <div class="mci-health-vitals-grid-v211700">
+                <label>體溫 °C<input id="mciHealthTempV211700" inputmode="decimal" placeholder="例如 37.5"></label>
+                <label>心率 /min<input id="mciHealthHrV211700" inputmode="numeric" placeholder="例如 92"></label>
+                <label>收縮壓 mmHg<input id="mciHealthBpSysV211700" inputmode="numeric" placeholder="例如 120"></label>
+                <label>舒張壓 mmHg<input id="mciHealthBpDiaV211700" inputmode="numeric" placeholder="例如 80"></label>
+                <label>SpO₂ %<input id="mciHealthSpo2V211700" inputmode="numeric" placeholder="例如 98"></label>
+              </div>
+            </details>
+            <label for="mciHealthNoteV211700">補充說明</label>
+            <textarea id="mciHealthNoteV211700" rows="2" placeholder="例如：剛完成長距離搬運、已補水休息等"></textarea>
+            <button class="primary" type="button" id="mciHealthSubmitV211700" onclick="submitMciHealthSelfV211700()">送出健康回報</button>
+            <div id="mciHealthMessageV211700" class="mci-health-message-v211700"></div>
+          </div>
+        </div>
+
+        <div id="mciHealthCommanderModeV211700" style="display:none;">
+          <div class="summary-box">
+            <div class="result-title mci-health-commander-title-v211700"><span>現場安全總覽</span><button type="button" onclick="loadMciHealthCommanderV211700(true)">↻ 更新</button></div>
+            <div class="mci-health-env-v211700">
+              <span>現場熱環境</span>
+              <button type="button" data-heat="一般環境" onclick="setMciHealthHeatRiskV211700('一般環境',this)">一般</button>
+              <button type="button" data-heat="炎熱環境" onclick="setMciHealthHeatRiskV211700('炎熱環境',this)">炎熱</button>
+              <button type="button" data-heat="高熱風險" onclick="setMciHealthHeatRiskV211700('高熱風險',this)">高熱風險</button>
+            </div>
+            <div class="mci-health-stat-grid-v211700 mci-health-filter-grid-v211702" role="group" aria-label="健康待處理篩選">
+              <button type="button" class="active" data-health-filter="需回報" onclick="setMciHealthFilterV211702('需回報',this)"><span>需回報</span><strong id="mciHealthStatDueV211703">0</strong></button>
+              <button type="button" data-health-filter="需注意" onclick="setMciHealthFilterV211702('需注意',this)"><span>需注意</span><strong id="mciHealthStatWatchV211700">0</strong></button>
+              <button type="button" data-health-filter="建議輪休" onclick="setMciHealthFilterV211702('建議輪休',this)"><span>建議輪休</span><strong id="mciHealthStatRestV211700">0</strong></button>
+              <button type="button" data-health-filter="立即評估" onclick="setMciHealthFilterV211702('立即評估',this)"><span>立即評估</span><strong id="mciHealthStatAssessV211700">0</strong></button>
+              <button type="button" data-health-filter="全部" onclick="setMciHealthFilterV211702('全部',this)"><span>全部人員</span><strong id="mciHealthStatAllV211702">0</strong></button>
+            </div>
+            <div class="mci-health-legend-v211702">規則：現場報到滿 60 分鐘進入「需回報」；正常回報後 60 分鐘再次回報，需注意者 30 分鐘後再評估。連續勤務滿 4 小時至少列為建議輪休。</div>
+          </div>
+          <div id="mciHealthCommanderListV211700" class="mci-health-list-v211700"><div class="mci-empty">健康資料載入中…</div></div>
+        </div>
+      </div>
+
+      <div id="mciHealthForceOverlayV211701" class="mci-health-force-overlay-v211701" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="mciHealthForceTitleV211701">
+        <div class="mci-health-force-card-v211701">
+          <div class="mci-health-force-scroll-v211705">
+            <div class="mci-health-force-icon-v211701">⚠️</div>
+            <div id="mciHealthForceTitleV211701" class="mci-health-force-title-v211701">請暫停目前勤務</div>
+            <div class="mci-health-force-text-v211701">指揮端已將你標記為「立即評估」。請先完成健康狀況回報，由現場醫療／安全人員評估後再繼續勤務。</div>
+            <div id="mciHealthForceReasonV211701" class="mci-health-force-reason-v211701">目前狀態：立即評估</div>
+          </div>
+          <div class="mci-health-force-footer-v211705">
+            <button type="button" class="mci-health-force-action-v211701" onclick="openMciHealthFromForceV211701()">前往健康回報</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="mciHealthRestNoticeV211706" class="mci-health-rest-notice-v211706" style="display:none;" role="status" aria-live="polite">
+        <div class="mci-health-rest-notice-icon-v211706">🌿</div>
+        <div class="mci-health-rest-notice-body-v211706">
+          <strong>已安排輪休</strong>
+          <div id="mciHealthRestNoticeTextV211706">請完成目前必要處置與任務交接後，再開始輪休。</div>
+        </div>
+        <button type="button" id="mciHealthRestStartBtnV211706" onclick="startMciHealthRestSelfV211706(this)">已完成交接，開始輪休</button>
+      </div>
+
+      <div id="mciHealthRestOverlayV211706" class="mci-health-rest-overlay-v211706" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="mciHealthRestOverlayTitleV211706">
+        <div class="mci-health-rest-card-v211706">
+          <div class="mci-health-rest-icon-v211706">🌿</div>
+          <div id="mciHealthRestOverlayTitleV211706" class="mci-health-rest-title-v211706">輪休中</div>
+          <div id="mciHealthRestOverlayTextV211706" class="mci-health-rest-text-v211706">目前已暫停接受新的 MCI 任務。請於指定休息區休息、補水與降溫。</div>
+          <div class="mci-health-rest-actions-v211706">
+            <button type="button" class="primary" onclick="finishMciHealthRestSelfV211706(this)">完成輪休並進行健康確認</button>
+            <button type="button" onclick="openMciHealthWorkspaceV211700(false)">回報身體不適</button>
+          </div>
+        </div>
       </div>
 
       <div id="mciMemberView" style="display:none;">
@@ -11304,16 +11597,10 @@ body.mci-next-patient-scan-v21412 #triageLookupPanelV2170{display:block!importan
         <button type="button" data-mci-tab="車輛" onclick="showMciCommandTabV2141('車輛',this)">車輛</button>
         <button type="button" data-mci-tab="後送" onclick="showMciCommandTabV2141('後送',this)">後送</button>
         <button type="button" id="mciSupplyCommanderNavV211500" onclick="openMciSupplyWorkspaceV211500(true)">物資<span id="mciSupplyCommanderBadgeV211500" class="mci-tab-badge-v2142" style="display:none;">0</span></button>
+        <button type="button" id="mciHealthCommanderNavV211700" onclick="openMciHealthWorkspaceV211700(true)">健康<span id="mciHealthCommanderBadgeV211700" class="mci-tab-badge-v2142" style="display:none;">0</span></button>
       </nav>
 
-        <div id="mciCommandSituationV2141" class="mci-command-situation-v2141" style="display:none;" aria-label="現場即時態勢">
-          <div><span>已報到</span><strong id="mciSituationArrivedV2141">0</strong></div>
-          <div><span>未分配</span><strong id="mciSituationUnassignedV2141">0</strong></div>
-          <div><span>紅傷患</span><strong id="mciSituationRedV2141">0</strong></div>
-          <div><span>黃傷患</span><strong id="mciSituationYellowV2141">0</strong></div>
-          <div><span>可派車</span><strong id="mciSituationVehicleV2141">0</strong></div>
-          <div><span>待後送</span><strong id="mciSituationEvacV2141">0</strong></div>
-        </div>
+        <div id="mciCommandSituationV2141" class="mci-command-situation-v2141" style="display:none;" aria-label="目前分頁即時摘要"></div>
 
       <div id="mciDashboardBox" class="mci-board-wide" style="display:none;">
           <div class="mci-live-sync-v21681" title="展開詳細資料時會暫停畫面重整，收合後自動恢復同步">● 3 秒自動同步中</div>
@@ -11332,12 +11619,17 @@ body.mci-next-patient-scan-v21412 #triageLookupPanelV2170{display:block!importan
               <div class="mci-stat-card">已報到<span class="mci-stat-number" id="mciCountArrived">0</span></div>
               <div class="mci-stat-card">已派遣<span class="mci-stat-number" id="mciCountAssigned">0</span></div>
               <div class="mci-stat-card">未分配<span class="mci-stat-number" id="mciCountUnassigned">0</span></div>
+              <button type="button" class="mci-stat-card mci-completed-stat-v21102" onclick="toggleMciIncompleteListV21177()">未完成點名<span class="mci-stat-number" id="mciCountIncompleteV21177">0</span></button>
               <button type="button" class="mci-stat-card mci-completed-stat-v21102" onclick="toggleMciCompletedListV21102()">完成點名<span class="mci-stat-number" id="mciCountCompleted">0</span></button>
             </div>
             <div class="mci-integrated-task-v21757">
               <div class="mci-integrated-task-title-v21757">現行任務</div>
               <div id="mciTaskSummaryBox">尚無資料。</div>
             </div>
+            <details id="mciIncompleteListV21178" class="mci-completed-list-v21102 mci-incomplete-list-v21178">
+              <summary class="mci-completed-list-title-v21102 mci-incomplete-summary-v21178">⏳ 未完成點名名單 <span id="mciIncompleteInlineCountV21178">0人</span></summary>
+              <div id="mciIncompleteListBodyV21177"><div class="mci-empty-compact-v21756">目前沒有尚未完成點名的人員。</div></div>
+            </details>
             <div id="mciCompletedListV21102" class="mci-completed-list-v21102" style="display:none;">
               <div class="mci-completed-list-title-v21102">✅ 已完成點名名單</div>
               <div id="mciCompletedListBodyV21102"><div class="mci-empty-compact-v21756">目前尚無完成點名人員。</div></div>
@@ -11930,13 +12222,13 @@ body.mci-next-patient-scan-v21412 #triageLookupPanelV2170{display:block!importan
     <div class="form-panel"><div class="panel-title">申請資料</div><button type="button" class="secondary" onclick="loadOnboardingApplications()">重新整理</button><div id="onboardingAdminList" style="margin-top:12px">資料載入中...</div><div class="error" id="onboardingAdminError"></div></div>
   </section>
 
-  <div class="footer">🛡️ 管理單位：鳳凰救護大隊第一分隊<br>網頁更新時間：2026/08/21 ｜版本：Phoenix MCI V1.3.11</div>
+  <div class="footer">🛡️ 管理單位：鳳凰救護大隊第一分隊<br>網頁更新時間：2026/08/23 ｜版本：V21.18.1.6.1</div>
 </div>
 
 <script>
   // 這裡一定要改成你自己的 Google Apps Script Web App URL
   // ===== 必填：請將下方文字替換成 Google Apps Script 部署後的 /exec 網址 =====
-  const API_URL = 'https://script.google.com/macros/s/AKfycbwpK6gbvgIttX-_U4RSED-_JDlCgi8HDexPBzXSfJMG4_tmee0rrl_FLWR2OTp_yN1v/exec';
+  const API_URL = 'https://script.google.com/macros/s/AKfycbyHMulQdSyjhavNRezIFoHfKt6NtJf3L4RSZ_fujq_w9YT54LfQo0aaoXByEAqrbGCL/exec';
   // V21.11.9 API request governor：限制同時打到 Apps Script 的請求，避免登入後瞬間塞車。
   const __nativeFetchV21119 = window.fetch.bind(window);
   const __apiQueueV21119 = [];
@@ -15480,6 +15772,8 @@ function mciRenderBgSyncV21720(){
   const failed=qs.failed;
   const quarantined=qs.quarantined;
   const online=mciIsOnlineV211036();
+  chip.dataset.quarantined=String(quarantined||0);
+  chip.style.cursor=quarantined?'pointer':'default';
   if(!pendingTotal && !quarantined && online){chip.style.display='none';mciRenderConnectivityV211036();return;}
   chip.style.display='flex';
   if(!online){
@@ -15487,14 +15781,75 @@ function mciRenderBgSyncV21720(){
     chip.className='mci-bg-sync-chip-v21720 syncing';
   }else if(failed || quarantined){
     icon.textContent='⚠️';
-    text.textContent=quarantined?`${quarantined} 筆舊紀錄需檢查｜${pendingTotal} 筆同步中`:`${failed} 筆暫時失敗｜${pendingTotal} 筆仍會繼續同步`;
-    chip.className='mci-bg-sync-chip-v21720 failed';
+    if(quarantined && !pendingTotal){
+      text.textContent=String(quarantined);
+      chip.className='mci-bg-sync-chip-v21720 failed compact-warning-v21177';
+      chip.title=`${quarantined} 筆舊版背景同步紀錄已隔離待檢查；目前沒有待同步資料。`;
+      chip.setAttribute('aria-label',chip.title);
+    }else{
+      text.textContent=quarantined?`${quarantined} 筆舊紀錄需檢查｜${pendingTotal} 筆同步中`:`${failed} 筆暫時失敗｜${pendingTotal} 筆仍會繼續同步`;
+      chip.className='mci-bg-sync-chip-v21720 failed';
+      chip.title='';chip.removeAttribute('aria-label');
+    }
   }else{
     icon.textContent='☁️';text.textContent=`背景同步中｜${pendingTotal} 筆`;
     chip.className='mci-bg-sync-chip-v21720 syncing';
   }
   mciRenderConnectivityV211036();
 }
+function mciFormatLocalTimeV21178(ms){
+  const n=Number(ms||0);if(!n)return '-';
+  try{return new Date(n).toLocaleString('zh-TW',{hour12:false});}catch(_){return '-';}
+}
+function openMciQuarantineModalV21178(){
+  const q=mciLoadBgQueueV21720().filter(x=>x&&x.state==='quarantined');
+  if(!q.length)return;
+  const modal=document.getElementById('mciQuarantineModalV21178');
+  const list=document.getElementById('mciQuarantineListV21178');
+  const status=document.getElementById('mciQuarantineStatusV21178');
+  const confirmBox=document.getElementById('mciQuarantineConfirmV21178');
+  if(status)status.textContent='';if(confirmBox)confirmBox.style.display='none';
+  if(list)list.innerHTML=q.map((x,i)=>`<div class="mci-quarantine-row-v21178">
+    <div class="mci-quarantine-row-title-v21178"><strong>${i+1}. ${escapeHtml(x.label||x.action||'背景同步')}</strong><span>重試 ${Number(x.tries||0)} 次</span></div>
+    <div>${escapeHtml(mciFormatLocalTimeV21178(x.createdAt))}</div>
+    <div class="mci-quarantine-error-v21178">${escapeHtml(x.lastError||'舊版本同步失敗，未留下錯誤訊息')}</div>
+  </div>`).join('');
+  if(modal)modal.style.display='flex';
+}
+function closeMciQuarantineModalV21178(){const m=document.getElementById('mciQuarantineModalV21178');if(m)m.style.display='none';}
+function prepareClearMciQuarantinedV21178(){const c=document.getElementById('mciQuarantineConfirmV21178');if(c)c.style.display='block';}
+function cancelClearMciQuarantinedV21178(){const c=document.getElementById('mciQuarantineConfirmV21178');if(c)c.style.display='none';}
+async function clearMciQuarantinedV21178(btn){
+  if(btn){btn.disabled=true;btn.textContent='清除中…';}
+  try{
+    await mciOfflineDbReadyV211038;
+    const before=mciLoadBgQueueV21720();
+    const removed=before.filter(x=>x&&x.state==='quarantined').length;
+    const keep=before.filter(x=>!x||x.state!=='quarantined');
+    mciBgQueueMirrorV211038=keep.slice();
+    await mciPersistFullQueueV211038(keep);
+    mciRenderBgSyncV21720();
+    const status=document.getElementById('mciQuarantineStatusV21178');
+    if(status)status.textContent=`已清除 ${removed} 筆隔離舊紀錄。`;
+    const list=document.getElementById('mciQuarantineListV21178');if(list)list.innerHTML='<div class="mci-empty-compact-v21756">目前沒有隔離同步紀錄。</div>';
+    const c=document.getElementById('mciQuarantineConfirmV21178');if(c)c.style.display='none';
+    setTimeout(closeMciQuarantineModalV21178,900);
+  }catch(err){const status=document.getElementById('mciQuarantineStatusV21178');if(status)status.textContent=`清除失敗：${String(err?.message||err||'未知錯誤')}`;}
+  finally{if(btn){btn.disabled=false;btn.textContent='確認清除';}}
+}
+async function retryMciQuarantinedV21178(btn){
+  if(btn){btn.disabled=true;btn.textContent='重新排程中…';}
+  try{
+    await mciOfflineDbReadyV211038;
+    const q=mciLoadBgQueueV21720();let n=0;
+    q.forEach(x=>{if(x&&x.state==='quarantined'){x.state='pending';x.tries=0;x.nextAttemptAt=0;x.lastError='';n++;}});
+    mciBgQueueMirrorV211038=q.slice();await mciPersistFullQueueV211038(q);mciRenderBgSyncV21720();
+    const status=document.getElementById('mciQuarantineStatusV21178');if(status)status.textContent=`已將 ${n} 筆重新加入同步佇列。`;
+    closeMciQuarantineModalV21178();mciStartBgSyncV21720();setTimeout(()=>mciProcessBgQueueV21720(),30);
+  }catch(err){const status=document.getElementById('mciQuarantineStatusV21178');if(status)status.textContent=`重新同步失敗：${String(err?.message||err||'未知錯誤')}`;}
+  finally{if(btn){btn.disabled=false;btn.textContent='重新同步隔離紀錄';}}
+}
+
 async function mciSendBgItemV21720(item){
   const params=new URLSearchParams(Object.assign({},item.params||{},{
     action:item.action,
@@ -15876,7 +16231,7 @@ function applyMciPendingTasksV21107(responders){
   });
 }
 function buildLocalTaskSummaryV21107(responders){
-  const tasks=['指揮官','副指揮官','治療官','後送官','檢傷','治療－紅區','治療－黃區','綠區引導','CPR/AED','搬運','指揮紀錄','機動－物資','交通引導','家屬安撫'];
+  const tasks=['指揮官','副指揮官','報到官','治療官','後送官','檢傷','治療－紅區','治療－黃區','綠區引導','CPR/AED','搬運','指揮紀錄','機動－物資','交通引導','家屬安撫'];
   return tasks.map(task=>{
     const people=(responders||[]).filter(p=>String(p.assignedTask||'未分配')===task);
     return {task,count:people.length,names:people.map(p=>p.name||'').filter(Boolean).join('、')};
@@ -15927,6 +16282,23 @@ function openMciTaskAssignV211011(event,rowNumber){
   },40);
 }
 
+function openMciExternalTaskAssignV211812(event,tempId){
+  if(event){event.preventDefault();event.stopPropagation();}
+  const sel=document.getElementById(`mciTaskExt_${tempId}`);
+  const row=sel&&sel.closest('details.mci-person-row-v21756');
+  if(!row)return;
+  row.open=true;
+  holdMciCommanderUiV21104(18000);
+  mciCommanderEditingUntilV21740=Math.max(mciCommanderEditingUntilV21740||0,Date.now()+18000);
+  setTimeout(()=>{
+    const target=document.getElementById(`mciTaskExt_${tempId}`);
+    if(target){
+      target.scrollIntoView({behavior:'smooth',block:'center'});
+      try{target.focus({preventScroll:true});}catch(_){target.focus();}
+    }
+  },40);
+}
+
 function mciTaskColorV21101(task){
   return {
     '指揮官':'#176b78','副指揮官':'#365f9d','治療官':'#278d83','後送官':'#7156a6',
@@ -15941,6 +16313,7 @@ function renderMciPersonnelLiteV21101(data){
   const responders=sortMciPersonnelByTaskV211012(applyMciPendingTasksV21107(data?.activeResponders||[]));
   const allResponders=applyMciPendingTasksV21107(data?.responders||[]);
   renderMciCompletedListV21102(allResponders);
+  renderMciIncompleteListV21177(allResponders);
 
   const setStat=(id,v)=>{const el=document.getElementById(id);if(el)el.innerText=Number(v||0);};
   setStat('mciCountCanGo',stats.canGo);
@@ -15992,6 +16365,8 @@ async function refreshMciPersonnelLiteV21101(manual=false,btn=null){
     });
     const j=await fetchJsonSafeV21761(`${API_URL}?${q.toString()}`);
     if(!j.success)throw new Error(j.message||'人員動態同步失敗');
+    // V21.18.1.5：請求送出後若使用者開始操作，這一輪資料不得重畫介面。
+    if(isMciCommanderEditingV21740()||isMciCommanderUiLockedV21104())return false;
     renderMciPersonnelLiteV21101(j.data||{});
     return true;
   }catch(err){
@@ -17039,11 +17414,13 @@ function showMciCommanderView() {
       ? '<div class="mci-triage-entry-v2167" style="display:block;"><button type="button" class="mci-scan-patient-btn-v21702" onclick="openMciPatientScannerV21702(\'檢傷\')">📷 開始檢傷</button></div>'
       : (task === '後送官'
         ? '<div class="mci-triage-entry-v2167" style="display:block;"><button type="button" class="mci-scan-patient-btn-v21702" onclick="showMciCommanderView()">🚑 開啟後送工作台</button></div>'
-        : (task === '治療官'
+        : (task === '報到官'
+          ? '<div class="mci-triage-entry-v2167" style="display:block;"><button type="button" class="mci-scan-patient-btn-v21702" onclick="showMciCommanderView()">👥 開啟報到工作台</button></div>'
+          : (task === '治療官'
           ? '<div class="mci-triage-entry-v2167 mci-treatment-officer-entry-v211420" style="display:block;"><button type="button" class="mci-scan-patient-btn-v21702" onclick="openMciTreatmentOfficerOverviewV211420()">🩺 治療區總覽</button><button type="button" class="mci-scan-patient-btn-v21702 secondary" onclick="openMciPatientScannerV21702(\'治療官\')">📷 掃描傷患 QR</button></div>'
           : (task !== '尚未指派'
             ? '<div class="mci-triage-entry-v2167" style="display:block;"><button type="button" class="mci-scan-patient-btn-v21702" onclick="openMciPatientScannerV21702(\'' + escapeAttr(task) + '\')">📷 掃描傷患 QR</button></div>'
-            : '')));
+            : ''))));
 
     if (task !== '尚未指派') {
       localStorage.setItem('phoenixLastMciTaskV2167', task);
@@ -17850,6 +18227,28 @@ function toggleMciCompletedListV21102(){
   const box=document.getElementById('mciCompletedListV21102');
   if(box)box.style.display=box.style.display==='none'?'block':'none';
 }
+function toggleMciIncompleteListV21177(){
+  const box=document.getElementById('mciIncompleteListV21178');
+  if(!box)return;
+  box.open=true;
+  setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'center'}),30);
+}
+function renderMciIncompleteListV21177(rows){
+  const body=document.getElementById('mciIncompleteListBodyV21177');
+  if(!body)return;
+  const list=(rows||[]).filter(x=>x.endCheckStatus!=='已完成' && (x.status==='已報到'||x.status==='已派遣'));
+  const count=document.getElementById('mciCountIncompleteV21177');
+  const inline=document.getElementById('mciIncompleteInlineCountV21178');
+  if(count)count.textContent=String(list.length);
+  if(inline)inline.textContent=`${list.length}人`;
+  body.innerHTML=list.length?list.map(p=>`<div class="mci-completed-row-v21102">
+    <strong>${escapeHtml(p.name||'-')}</strong>
+    <span>${escapeHtml(p.team||'-')}</span>
+    <span>${escapeHtml(p.assignedTask||'未分配')}</span>
+    <span>${escapeHtml(p.arrivalTimeText||p.arrivalTime||'-')}</span>
+  </div>`).join(''):'<div class="mci-empty-compact-v21756">目前沒有尚未完成點名的人員。</div>';
+}
+
 function renderMciCompletedListV21102(rows){
   const body=document.getElementById('mciCompletedListBodyV21102');
   if(!body)return;
@@ -17892,6 +18291,7 @@ function renderMciDashboard(data) {
     const stats = data.stats || {};
     const responders = sortMciPersonnelByTaskV211012(data.activeResponders || data.responders || []);
     renderMciCompletedListV21102(data.responders||[]);
+    renderMciIncompleteListV21177(data.responders||[]);
     const taskSummary = data.taskSummary || [];
 
     const setMciHumanStatV21757=(id,value)=>{
@@ -17976,8 +18376,8 @@ function renderMciDashboard(data) {
   }
   function isMciCommanderEditingV21740(){
     const active=document.activeElement;
-    const selectFocused=!!(active && active.matches && active.matches('#mciDashboardBox select[id^="mciTask_"], #mciDashboardBox select[id^="mciDispatch"], #mciDashboardBox input[id^="mciDispatch"]'));
-    const dirty=!!document.querySelector('#mciDashboardBox select[id^="mciTask_"][data-local-dirty="1"], #mciDashboardBox select[id^="mciDispatch"][data-local-dirty="1"], #mciDashboardBox input[id^="mciDispatch"][data-local-dirty="1"]');
+    const selectFocused=!!(active && active.matches && active.matches('#mciDashboardBox select[id^="mciTask_"], #mciDashboardBox select[id^="mciTaskExt_"], #mciDashboardBox select[id^="mciDispatch"], #mciDashboardBox input[id^="mciDispatch"]'));
+    const dirty=!!document.querySelector('#mciDashboardBox select[id^="mciTask_"][data-local-dirty="1"], #mciDashboardBox select[id^="mciTaskExt_"][data-local-dirty="1"], #mciDashboardBox select[id^="mciDispatch"][data-local-dirty="1"], #mciDashboardBox input[id^="mciDispatch"][data-local-dirty="1"]');
     return selectFocused || dirty || Date.now()<mciCommanderEditingUntilV21740 || isMciCommanderUiLockedV21104();
   }
 
@@ -17986,6 +18386,7 @@ const MCI_TASK_SORT_ORDER_V211012=[
   '未分配',
   '指揮官',
   '副指揮官',
+  '報到官',
   '治療官',
   '後送官',
   '檢傷',
@@ -18018,10 +18419,11 @@ function sortMciPersonnelByTaskV211012(rows){
 }
 
 function buildMciPersonCard(person) {
+  const isExternal=!!person.externalSupport;
   const isArrived=person.status==='已報到'||person.status==='已派遣';
   const isUnavailable=person.status==='無法前往';
   const taskOptions=[
-    '未分配','指揮官','副指揮官','治療官','後送官','檢傷','治療－紅區','治療－黃區',
+    '未分配','指揮官','副指揮官','報到官','治療官','後送官','檢傷','治療－紅區','治療－黃區',
     '綠區引導','CPR/AED','搬運','指揮紀錄','機動－物資','交通引導','家屬安撫'
   ];
   const optionsHtml=taskOptions.map(task=>{
@@ -18040,13 +18442,13 @@ function buildMciPersonCard(person) {
     <details class="mci-person-row-v21756 ${isUnavailable?'is-unavailable-v21756':''}" data-person-row="${person.rowNumber}" style="--mci-task-color:${taskColor}">
       <summary>
         <span class="mci-person-row-main-v21756 mci-person-summary-main-v211011">
-          <strong>${escapeHtml(person.name||'-')}</strong>
+          <strong>${escapeHtml(person.name||'-')}</strong>${isExternal?'<span class="mci-external-tag-v21180">外部支援</span>':''}
           <span>｜${escapeHtml(person.team||'-')}</span>
           <span>｜${statusText}</span>
           <span class="mci-person-task-v21756">｜${taskText}</span>
         </span>
         <span class="mci-person-summary-actions-v211011">
-          ${isArrived?`<button type="button" class="mci-assign-entry-v211011" onclick="openMciTaskAssignV211011(event,'${person.rowNumber}')">${(person.assignedTask&&person.assignedTask!=='未分配')?'變更任務':'指派任務'}</button>`:''}
+          ${isArrived?`<button type="button" class="mci-assign-entry-v211011" onclick="${isExternal?`openMciExternalTaskAssignV211812(event,'${escapeAttr(person.externalId||'')}')`:`openMciTaskAssignV211011(event,'${person.rowNumber}')`}">${(person.assignedTask&&person.assignedTask!=='未分配')?'變更任務':'指派任務'}</button>`:''}
           <span class="mci-person-row-side-v21756">${supportText}</span>
         </span>
       </summary>
@@ -18056,8 +18458,8 @@ function buildMciPersonCard(person) {
           <div><span>職稱</span><strong>${escapeHtml(person.title||'-')}</strong></div>
           <div><span>報到</span><strong>${escapeHtml(person.arrivalTimeText||'-')}</strong></div>
           <div><span>專業身分</span><strong>${escapeHtml(person.professionalIdentity||'-')}</strong></div>
-          <div><span>EMT</span><strong>${escapeHtml(person.emtLevel||'-')}</strong></div>
-          <div><span>血型</span><strong>${escapeHtml(person.bloodType||'-')}</strong></div>
+          <div><span>EMT／資格</span><strong>${escapeHtml(person.emtLevel||'-')}</strong></div>
+          ${isExternal?`<div><span>資格狀態</span><strong>${escapeHtml(person.verificationStatus||'基本報到')}</strong></div><div><span>可支援</span><strong>${escapeHtml(person.roles||'-')}</strong></div>`:`<div><span>血型</span><strong>${escapeHtml(person.bloodType||'-')}</strong></div>`}
           <div><span>專長</span><strong>${escapeHtml(person.specialty||'-')}</strong></div>
           <div class="mci-contact-cell-v21757">
             <span>聯絡</span>
@@ -18077,13 +18479,22 @@ function buildMciPersonCard(person) {
           </div>
         </details>
 
+        ${isExternal && person.verificationStatus==='資格待確認' ? `
+        <div class="mci-external-confirm-box-v21180">
+          <div><strong>外部支援｜專業資格待確認</strong><br><small>報到已完成｜佐證：${escapeHtml(person.verificationMethod||'不需佐證')}｜一般支援任務可先分派</small></div>
+          ${person.credentialUrl?`<a href="${escapeHtml(person.credentialUrl)}" target="_blank" rel="noopener">查看資格佐證</a>`:''}
+          <div class="mci-external-confirm-actions-v21180">
+            <select id="mciExternalVerify_${escapeAttr(person.externalId||'')}"><option value="已驗證">資格已確認</option><option value="資格待確認">維持待確認</option></select>
+            <button type="button" class="mci-small-action-v21756" onclick="confirmMciExternalSupportV21180('${escapeAttr(person.externalId||'')}',this)">確認資格</button>
+          </div>
+        </div>` : ''}
         ${isArrived ? `
         <div class="mci-assign-compact-v21756">
-          <select id="mciTask_${person.rowNumber}" onchange="markMciCommanderEditingV21740(this)">
+          <select id="${isExternal?'mciTaskExt_':'mciTask_'}${escapeAttr(isExternal?(person.externalId||''):person.rowNumber)}" onchange="markMciCommanderEditingV21740(this)">
             ${optionsHtml}
           </select>
-          <button type="button" class="mci-small-action-v21756" onclick="assignMciTask(${person.rowNumber}, '${escapeAttr(person.name||'')}', this)">更新指派</button>
-        </div>` : `<div class="mci-empty-compact-v21756">尚未報到，暫不開放任務指派。</div>`}
+          <button type="button" class="mci-small-action-v21756" onclick="${isExternal?`assignMciExternalTaskV21180('${escapeAttr(person.externalId||'')}','${escapeAttr(person.name||'')}',this)`:`assignMciTask(${person.rowNumber}, '${escapeAttr(person.name||'')}', this)`}">${(person.assignedTask&&person.assignedTask!=='未分配')?'變更任務':'確認派任'}</button>
+        </div>` : `<div class="mci-empty-compact-v21756">尚未完成本事件報到，暫不開放任務指派。</div>`}
       </div>
     </details>
   `;
@@ -22594,6 +23005,7 @@ async function submitProfileSupplementV2150(){
 const MCI_TASK_DESC_V2167={
 "指揮官":"掌握整體 MCI 態勢、人力與資源，負責任務分派、後送窗口、救護車與醫院分流決策。",
 "副指揮官":"協助指揮官掌握全局、任務分派與資源調度，必要時代理指揮官職責。",
+"報到官":"負責人力報到、外部支援資格確認與任務分派；工作台僅顯示人力與任務。",
 "治療官":"掌握紅／黃區治療態勢、病況變化與後送優先順序，向指揮官回報治療區需求。",
 "後送官":"掌握建議後送傷患、安排送醫優先順序，依現場運能調派後送車輛與指定醫院，持續追蹤已指派、後送中及已送醫狀態。",
 "檢傷":"掃描傷患 QR，快速完成 START 檢傷並更新檢傷級別與傷患態勢。",
@@ -22917,15 +23329,33 @@ async function resetMciTestPatientV21743(btn){
 }
 
 
+/* V21.18.1.5｜外部支援任務工作頁與正式隊員共用；僅返回目的地不同 */
+let mciExternalTaskActiveV211814=false;
+function returnToMciExternalTaskV211814(){
+  stopQrScannerV21702?.();
+  mciExternalTaskActiveV211814=false;
+  showSection('mciExternalSupportSectionV21180');
+  const work=document.getElementById('mciExternalWorkV21180');
+  if(work)work.style.display='block';
+  refreshMciExternalSessionV21180(true).catch(()=>{});
+  startMciExternalPollV21180();
+}
+
 function updateMciPatientBackButtonV21755(){
   const btn=document.getElementById('mciPatientBackBtnV21755');
   if(!btn)return;
-  btn.textContent=mciPatientEntryContextV21755==='commander'
-    ? '← 返回指揮官看板'
-    : '← 返回 MCI 隊員畫面';
+  btn.textContent=mciExternalTaskActiveV211814
+    ? '← 返回我的任務'
+    : (mciPatientEntryContextV21755==='commander'
+      ? '← 返回指揮官看板'
+      : '← 返回 MCI 隊員畫面');
 }
 function backFromMciPatientV21755(){
   stopQrScannerV21702();
+  if(mciExternalTaskActiveV211814){
+    returnToMciExternalTaskV211814();
+    return;
+  }
   if(mciPatientEntryContextV21755==='commander'){
     showSection('mciSection');
     showMciCommanderView();
@@ -25369,10 +25799,29 @@ function toggleMciEmergencyV2167(id){
 </script>
 
 
-  <div id="mciBgSyncChipV21720" class="mci-bg-sync-chip-v21720" style="display:none;">
+  <div id="mciBgSyncChipV21720" class="mci-bg-sync-chip-v21720" style="display:none;" role="button" tabindex="0" onclick="openMciQuarantineModalV21178()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openMciQuarantineModalV21178();}">
     <span id="mciBgSyncIconV21720">☁️</span>
     <span id="mciBgSyncTextV21720">已同步</span>
 </div>
+
+  <div id="mciQuarantineModalV21178" class="mci-quarantine-overlay-v21178" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="mciQuarantineTitleV21178">
+    <div class="mci-quarantine-card-v21178">
+      <div class="mci-quarantine-head-v21178">
+        <div><strong id="mciQuarantineTitleV21178">⚠️ 隔離同步紀錄</strong><small>這些是本機曾同步失敗、已停止自動重送的舊紀錄；不會刪除 Google 試算表資料。</small></div>
+        <button type="button" class="mci-quarantine-close-v21178" onclick="closeMciQuarantineModalV21178()">✕</button>
+      </div>
+      <div id="mciQuarantineListV21178" class="mci-quarantine-list-v21178"></div>
+      <div id="mciQuarantineStatusV21178" class="mci-quarantine-status-v21178"></div>
+      <div class="mci-quarantine-actions-v21178">
+        <button type="button" onclick="retryMciQuarantinedV21178(this)">重新同步隔離紀錄</button>
+        <button type="button" class="danger" onclick="prepareClearMciQuarantinedV21178()">清除隔離紀錄</button>
+      </div>
+      <div id="mciQuarantineConfirmV21178" class="mci-quarantine-confirm-v21178" style="display:none;">
+        <div>只會清除本機 <strong>quarantined</strong> 紀錄，不會刪除待同步資料或試算表資料。確定清除？</div>
+        <div><button type="button" onclick="cancelClearMciQuarantinedV21178()">取消</button><button type="button" class="danger" onclick="clearMciQuarantinedV21178(this)">確認清除</button></div>
+      </div>
+    </div>
+  </div>
 
 
   <div id="mciTestResetModalV21743" class="mci-test-reset-modal-v21743" style="display:none;">
@@ -25446,22 +25895,41 @@ document.addEventListener('keydown',function(e){
 
 <script id="mciFieldWorkspaceScriptV2141">
 (function(){
-  const sourceMap={
-    mciCountArrived:'mciSituationArrivedV2141',
-    mciCountUnassigned:'mciSituationUnassignedV2141',
-    mciPatientRedV2170:'mciSituationRedV2141',
-    mciPatientYellowV2170:'mciSituationYellowV2141',
-    mciTransportAvailableV21760:'mciSituationVehicleV2141',
-    mciEvacWaitingV21760:'mciSituationEvacV2141'
+  const mciSituationConfigV21177={
+    '人力':[
+      ['已報到','mciCountArrived'],['未分配','mciCountUnassigned'],['未完成點名','mciCountIncompleteV21177'],['完成點名','mciCountCompleted']
+    ],
+    '任務':[
+      ['未分配','mciCountUnassigned'],['已派遣','mciCountAssigned']
+    ],
+    '傷患':[
+      ['紅傷患','mciPatientRedV2170'],['黃傷患','mciPatientYellowV2170'],['綠傷患','mciPatientGreenV2170'],['黑傷患','mciPatientBlackV2170']
+    ],
+    '車輛':[
+      ['紅傷患','mciPatientRedV2170'],['黃傷患','mciPatientYellowV2170'],['可派車','mciTransportAvailableV21760'],['待後送','mciEvacWaitingV21760']
+    ],
+    '後送':[
+      ['待後送','mciEvacWaitingV21760'],['後送中','mciEvacMovingV21760'],['已送醫','mciEvacDeliveredV21760'],['可派車','mciTransportAvailableV21760']
+    ]
   };
-  function mirrorOne(srcId,dstId){
-    const src=document.getElementById(srcId), dst=document.getElementById(dstId);
-    if(!src||!dst)return;
-    const sync=()=>{dst.textContent=(src.textContent||'0').trim()||'0';};
-    sync();
-    new MutationObserver(sync).observe(src,{subtree:true,childList:true,characterData:true});
+  let mciSituationCurrentTabV21177='人力';
+  function mciSituationValueV21177(id){
+    const el=document.getElementById(id);
+    return el?((el.textContent||'0').trim()||'0'):'0';
   }
-  Object.entries(sourceMap).forEach(([s,d])=>mirrorOne(s,d));
+  function renderMciSituationV21177(tab){
+    const box=document.getElementById('mciCommandSituationV2141');
+    if(!box)return;
+    mciSituationCurrentTabV21177=tab||mciSituationCurrentTabV21177||'人力';
+    const rows=mciSituationConfigV21177[mciSituationCurrentTabV21177]||mciSituationConfigV21177['人力'];
+    box.style.setProperty('--mci-situation-count',String(rows.length));
+    box.innerHTML=rows.map(([label,id])=>`<div><span>${label}</span><strong>${mciSituationValueV21177(id)}</strong></div>`).join('');
+  }
+  const situationSourceIdsV21177=[...new Set(Object.values(mciSituationConfigV21177).flat().map(x=>x[1]))];
+  situationSourceIdsV21177.forEach(id=>{
+    const src=document.getElementById(id);
+    if(src)new MutationObserver(()=>renderMciSituationV21177(mciSituationCurrentTabV21177)).observe(src,{subtree:true,childList:true,characterData:true});
+  });
 
   // 任務頁籤徽章：已報到但尚未分派的人數
   (function bindTaskBadgeV2142(){
@@ -25498,6 +25966,7 @@ document.addEventListener('keydown',function(e){
       if(evac)evac.removeAttribute('data-mci-hidden-v2141');
     }
     document.querySelectorAll('#mciCommandNavV2140 [data-mci-tab]').forEach(b=>b.classList.toggle('active-v2141',b===btn || b.dataset.mciTab===tab));
+    renderMciSituationV21177(tab);
     try{localStorage.setItem('mciCommandTabV2141',tab);}catch(e){}
   };
 
@@ -25540,17 +26009,22 @@ document.addEventListener('keydown',function(e){
     try{return String(localStorage.getItem('phoenixLastMciTaskV2167')||'').trim();}catch(e){return '';}
   }
   function isEvacRoleV2143(role){return role==='後送官'||role==='後送協調';}
+  function isCheckinRoleV211808(role){return role==='報到官';}
   function applyMciWorkspaceRoleV2143(data){
     const section=document.getElementById('mciSection');
     if(!section)return;
     const role=roleFromDataV2143(data);
     const evac=isEvacRoleV2143(role);
+    const checkin=isCheckinRoleV211808(role);
     section.classList.toggle('mci-evac-officer-v2143',evac);
+    section.classList.toggle('mci-checkin-officer-v211808',checkin);
 
     const loginTitle=document.querySelector('#mciCommanderLoginPanelV21682 .panel-title');
     const enterBtn=document.getElementById('mciCommanderEnterBtn');
-    if(loginTitle)loginTitle.textContent=evac?'後送工作台':'指揮官看板';
-    if(enterBtn && !enterBtn.disabled)enterBtn.textContent=evac?'進入後送工作台':'進入指揮官看板';
+    if(loginTitle)loginTitle.textContent=evac?'後送工作台':(checkin?'報到工作台':'指揮官看板');
+    if(enterBtn && !enterBtn.disabled)enterBtn.textContent=evac?'進入後送工作台':(checkin?'進入報到工作台':'進入指揮官看板');
+    const chip=document.getElementById('mciRoleChipV2143');
+    if(chip){chip.textContent=evac?'🚑 後送官模式｜僅顯示車輛與後送':(checkin?'👥 報到官模式｜僅顯示人力與任務':'');}
 
     if(evac){
       try{localStorage.setItem('mciCommandTabV2141','車輛');}catch(e){}
@@ -25559,6 +26033,15 @@ document.addEventListener('keydown',function(e){
       const dash=document.getElementById('mciDashboardBox');
       if(dash&&getComputedStyle(dash).display!=='none'&&typeof window.showMciCommandTabV2141==='function'){
         window.showMciCommandTabV2141('車輛',btn);
+      }
+    }
+    if(checkin){
+      try{localStorage.setItem('mciCommandTabV2141','人力');}catch(e){}
+      const nav=document.getElementById('mciCommandNavV2140');
+      const btn=nav&&nav.querySelector('[data-mci-tab="人力"]');
+      const dash=document.getElementById('mciDashboardBox');
+      if(dash&&getComputedStyle(dash).display!=='none'&&typeof window.showMciCommandTabV2141==='function'){
+        window.showMciCommandTabV2141('人力',btn);
       }
     }
   }
@@ -26347,6 +26830,535 @@ if(typeof setMciTreatmentTabV211414==='function'){const _old=setMciTreatmentTabV
   document.addEventListener('DOMContentLoaded',()=>setTimeout(forceLaunchCardV21157,500));
 })();
 </script>
+<script>
+/* V21.17.0｜MCI 現場人員健康與安全管理 */
+let mciHealthCommanderModeV211700=false;
+let mciHealthReturnModeV211700='hub';
+function mciHealthEscapeV211700(v){return typeof escapeHtml==='function'?escapeHtml(String(v??'')):String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function mciHealthClassV211700(level){return level==='立即評估'?'assess':level==='建議輪休'?'rest':level==='需注意'?'watch':'normal';}
+function mciHealthHideMciViewsV211700(){['mciHubView','mciMemberView','mciCommanderView'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});}
+async function openMciHealthWorkspaceV211700(asCommander){
+  if(!currentMciEvent){alert('目前沒有啟動中的災害應變事件。');return;}
+  mciHealthCommanderModeV211700=!!asCommander;
+  mciHealthReturnModeV211700=asCommander?'commander':'hub';
+  if(asCommander && !String(currentMciPassword||'').trim()){
+    const cached=(typeof getMciCommanderSessionV2192==='function'?getMciCommanderSessionV2192():'')||'';
+    if(cached)currentMciPassword=cached;
+    if(!currentMciPassword){alert('請先進入指揮官看板完成密碼驗證。');showMciCommanderView();return;}
+  }
+  mciHealthHideMciViewsV211700();
+  const w=document.getElementById('mciHealthWorkspaceV211700');if(w)w.style.display='block';
+  const t=document.getElementById('mciHealthEventTextV211700');if(t)t.textContent=[currentMciEvent.eventName,currentMciEvent.caseNumber,currentMciEvent.location].filter(Boolean).join('｜');
+  document.getElementById('mciHealthSelfModeV211700').style.display=asCommander?'none':'block';
+  document.getElementById('mciHealthCommanderModeV211700').style.display=asCommander?'block':'none';
+  if(asCommander)await loadMciHealthCommanderV211700(true); else await loadMciHealthSelfV211700();
+}
+async function closeMciHealthWorkspaceV211700(){const w=document.getElementById('mciHealthWorkspaceV211700');if(w)w.style.display='none';if(mciHealthReturnModeV211700==='commander'){const cached=(typeof getMciCommanderSessionV2192==='function'?getMciCommanderSessionV2192():'')||currentMciPassword||'';if(cached){currentMciPassword=cached;const pwd=document.getElementById('mciCommanderPassword');if(pwd)pwd.value=cached;showMciCommanderView();const login=document.getElementById('mciCommanderLoginPanelV21682'),dash=document.getElementById('mciDashboardBox');if(login)login.style.display='none';if(dash)dash.style.display='block';const sec=document.getElementById('mciSection');if(sec)sec.classList.remove('mci-commander-locked-v2142');startMciDashboardAutoSync();refreshMciDashboardV21681_().catch(()=>{});refreshMciTransportDashboardLiteV21811(false).catch(()=>{});return;}showMciCommanderView();return;}showMciHubView();}
+async function mciHealthFetchV211700(params){const q=new URLSearchParams({...params,t:String(Date.now())});const r=await fetch(`${API_URL}?${q.toString()}`,{cache:'no-store'});const raw=await r.text();let j;try{j=JSON.parse(raw)}catch(e){throw new Error('後端回傳格式錯誤');}if(!j.success)throw new Error(j.message||'操作失敗');return j;}
+let mciHealthPeopleV211702=[];
+let mciHealthFilterV211702='需回報';
+function mciHealthWorkflowV211702(x){
+ const r=String(x.restStatus||''),a=String(x.ability||'');
+ if(r==='輪休中')return '輪休中';
+ if(r==='已安排')return '待輪休';
+ if(r==='已完成')return '輪休後確認';
+ if(r==='已恢復勤務'||r==='已取消')return '勤務中';
+ if(a==='需要他人評估'||x.riskLevel==='立即評估')return '待現場評估';
+ if(a==='希望稍作休息')return '待輪休';
+ return '勤務中';
+}
+function mciHealthTimeV211702(v){if(!v)return '尚未回報';try{const d=new Date(v);if(isNaN(d))return String(v);return d.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});}catch(_e){return String(v)}}
+function renderMciHealthSelfV211700(data){
+ const level=data.riskLevel||'正常',badge=document.getElementById('mciHealthSelfBadgeV211700');badge.className='mci-health-badge-v211700 '+mciHealthClassV211700(level);badge.textContent=level;
+ document.getElementById('mciHealthDutyV211700').textContent=`勤務 ${data.dutyText||'0 分鐘'}`;
+ document.getElementById('mciHealthSelfHintV211700').textContent=data.hint||'目前無需特別提醒。';
+ const flow=mciHealthWorkflowV211702({restStatus:data.restStatus,ability:data.latest?.ability,riskLevel:level});
+ const restBits=[data.restHandoffMode,data.restReplacement?('接手：'+data.restReplacement):'',data.restLocation?('地點：'+data.restLocation):'',data.restNote].filter(Boolean);document.getElementById('mciHealthRestStateV211700').textContent=`勤務流程：${flow}${restBits.length?'｜'+restBits.join('｜'):''}`;
+ const next=document.getElementById('mciHealthNextReportV211703');if(next){if(data.dutyReliable===false)next.textContent='回報排程：請先重新完成現場報到';else if(data.reportDue)next.textContent='回報排程：現在需要健康回報';else next.textContent=`回報排程：${data.reportDueLabel||'尚未到回報時間'}`;}
+}
+async function loadMciHealthSelfV211700(){try{const j=await mciHealthFetchV211700({action:'getMciHealthSelfV211700',eventId:currentMciEvent.eventId,name:currentUser?.name||''});renderMciHealthSelfV211700(j.data||{});}catch(e){document.getElementById('mciHealthSelfHintV211700').textContent=e.message||'讀取失敗';}}
+function initMciHealthSymptomRulesV211702(){
+ document.querySelectorAll('input[name="mciHealthSymptomV211700"]').forEach(cb=>{if(cb.dataset.v211702Bound)return;cb.dataset.v211702Bound='1';cb.addEventListener('change',()=>{const all=[...document.querySelectorAll('input[name="mciHealthSymptomV211700"]')],none=all.find(x=>x.dataset.healthNone==='1');if(cb===none&&cb.checked)all.forEach(x=>{if(x!==none)x.checked=false});else if(cb!==none&&cb.checked&&none)none.checked=false;});});
+}
+async function submitMciHealthSelfV211700(){
+ const btn=document.getElementById('mciHealthSubmitV211700'),msg=document.getElementById('mciHealthMessageV211700');initMciHealthSymptomRulesV211702();
+ const symptoms=[...document.querySelectorAll('input[name="mciHealthSymptomV211700"]:checked')].map(x=>x.value);
+ if(!symptoms.length){msg.textContent='請選擇「無明顯異狀」或至少一項目前狀況。';msg.style.color='#9f2424';return;}
+ const oldText=btn.textContent;btn.disabled=true;btn.textContent='回報中，請稍候…';msg.textContent='正在送出健康回報…';msg.style.color='#53666f';
+ try{const ability=document.getElementById('mciHealthAbilityV211700').value;const p={action:'submitMciHealthSelfV211700',eventId:currentMciEvent.eventId,name:currentUser?.name||'',symptoms:symptoms.join('｜'),ability,temp:document.getElementById('mciHealthTempV211700').value,hr:document.getElementById('mciHealthHrV211700').value,bpSys:document.getElementById('mciHealthBpSysV211700').value,bpDia:document.getElementById('mciHealthBpDiaV211700').value,spo2:document.getElementById('mciHealthSpo2V211700').value,note:document.getElementById('mciHealthNoteV211700').value.trim()};const j=await mciHealthFetchV211700(p);renderMciHealthSelfV211700(j.data||{});btn.textContent='✓ 已完成回報';msg.style.color='#21643b';
+  if(ability==='可以正常執勤' && symptoms.length===1 && symptoms[0]==='無明顯異狀' && (j.data?.riskLevel||'正常')!=='立即評估'){
+   msg.textContent=currentUser?.externalSupport?'✓ 已完成回報，將返回我的任務。':'✓ 已完成回報，將返回隊員作業。';setTimeout(()=>returnMciHealthAfterReportV211816(),900);
+  }else if(ability==='希望稍作休息')msg.textContent='✓ 已回報希望稍作休息；目前列為「待輪休」，請等待指揮端安排。';
+  else if(ability==='需要他人評估')msg.textContent='✓ 已回報需要他人評估；目前列為「待現場評估」，請暫停勤務並等待協助。';
+  else msg.textContent='✓ 健康回報已更新。';
+ }catch(e){btn.textContent=oldText;msg.textContent=e.message||'送出失敗';msg.style.color='#9f2424';}finally{setTimeout(()=>{btn.disabled=false;if(btn.textContent==='✓ 已完成回報')btn.textContent=oldText;},1000);}
+}
+function setMciHealthHeatButtonsV211700(value){document.querySelectorAll('.mci-health-env-v211700 button[data-heat]').forEach(b=>b.classList.toggle('active',b.dataset.heat===value));}
+async function setMciHealthHeatRiskV211700(value,btn){const old=btn?.textContent||'';if(btn){btn.disabled=true;btn.textContent='設定中…';}try{await mciHealthFetchV211700({action:'setMciHealthHeatRiskV211700',eventId:currentMciEvent.eventId,password:currentMciPassword,operator:currentUser?.name||'',heatRisk:value});setMciHealthHeatButtonsV211700(value);await loadMciHealthCommanderV211700(false);}catch(e){alert(e.message||'設定失敗');}finally{if(btn){btn.disabled=false;btn.textContent=old;}}}
+function mciHealthActionButtonsV211702(x){
+ const n=mciHealthEscapeV211700(x.name),rest=x.restStatus||'';
+ if(rest==='輪休中')return `<button onclick="updateMciHealthRestV211700('${n}','完成輪休',this)">由指揮端完成輪休</button>`;
+ if(rest==='已安排')return `<div class="mci-health-rest-wait-v211706">已安排輪休，等待本人完成交接後按「開始輪休」。${x.restLocation?`<small>休息地點：${mciHealthEscapeV211700(x.restLocation)}</small>`:''}${x.restReplacement?`<small>接手人員：${mciHealthEscapeV211700(x.restReplacement)}</small>`:''}</div><button onclick="updateMciHealthRestV211700('${n}','取消輪休',this)">取消安排</button>`;
+ return `<div class="mci-health-rest-plan-v211706">\
+ <label>接手方式<select class="mci-health-handoff-mode-v211706"><option value="由指揮站重新分派">由指揮站重新分派</option><option value="指定人員接手">指定人員接手</option></select></label>\
+ <label>接手人員（選填）<input class="mci-health-replacement-v211706" placeholder="例如：王○○"></label>\
+ <label>輪休地點（選填）<input class="mci-health-rest-location-v211706" placeholder="預設：指揮站／指定休息區"></label>\
+ <button onclick="arrangeMciHealthRestV211706('${n}',this)">安排輪休</button></div>`;
+}
+function arrangeMciHealthRestV211706(name,btn){const box=btn.closest('.mci-health-rest-plan-v211706');const mode=box?.querySelector('.mci-health-handoff-mode-v211706')?.value||'由指揮站重新分派',replacement=box?.querySelector('.mci-health-replacement-v211706')?.value.trim()||'',restLocation=box?.querySelector('.mci-health-rest-location-v211706')?.value.trim()||'';return updateMciHealthRestV211700(name,'安排輪休',btn,{handoffMode:mode,replacement,restLocation});}
+function mciHealthDetailV211702(x){
+ const c=mciHealthClassV211700(x.riskLevel),sym=x.symptoms||'尚未回報',v=[x.temp&&`T ${x.temp}°C`,x.hr&&`HR ${x.hr}`,x.bp&&`BP ${x.bp}`,x.spo2&&`SpO₂ ${x.spo2}%`].filter(Boolean).join('｜')||'未填生命徵象';
+ const phone=String(x.contact||'').replace(/[^0-9+]/g,''),emergency=String(x.emergencyPhone||'').replace(/[^0-9+]/g,'');
+ const contact=`<div class="mci-health-contact-v211701"><div><span>本人</span><strong>${mciHealthEscapeV211700(x.contact||'未留電話')}</strong>${phone?`<a href="tel:${phone}">📞 撥打</a>`:''}</div><div><span>緊急聯絡人</span><strong>${mciHealthEscapeV211700([x.emergencyName,x.emergencyRelation].filter(Boolean).join('／')||'未設定')} ${mciHealthEscapeV211700(x.emergencyPhone||'')}</strong>${emergency?`<a href="tel:${emergency}">📞 撥打</a>`:''}</div></div>`;
+ return `<div class="mci-health-person-v211700 ${c}"><div class="mci-health-person-body-v211700"><div><b>自評</b> ${mciHealthEscapeV211700(x.ability||'尚未回報')}</div><div><b>症狀</b> ${mciHealthEscapeV211700(sym)}</div><div><b>生命徵象</b> ${mciHealthEscapeV211700(v)}</div><div><b>勤務流程</b> ${mciHealthEscapeV211700(mciHealthWorkflowV211702(x))}${x.restHandoffMode?`｜${mciHealthEscapeV211700(x.restHandoffMode)}`:''}${x.restReplacement?`｜接手：${mciHealthEscapeV211700(x.restReplacement)}`:''}${x.restLocation?`｜地點：${mciHealthEscapeV211700(x.restLocation)}`:''}</div><div class="mci-health-card-hint-v211701">${mciHealthEscapeV211700(x.hint||'')}</div></div>${contact}<div class="mci-health-person-actions-v211700">${mciHealthActionButtonsV211702(x)}<button class="danger" onclick="updateMciHealthRestV211700('${mciHealthEscapeV211700(x.name)}','立即評估',this)">標記立即評估</button></div></div>`;
+}
+function toggleMciHealthDetailV211702(i,btn){const e=document.getElementById('mciHealthDetailV211702_'+i);if(!e)return;const open=e.style.display!=='none';e.style.display=open?'none':'table-row';if(btn)btn.textContent=open?'查看／處理':'收合';}
+function mciHealthReportStateV211703(x){if(x.dutyReliable===false)return '報到時間待更新';if(x.riskLevel==='立即評估'||x.riskLevel==='建議輪休')return '依風險處理';if(x.reportDue)return '需回報';return x.reportDueLabel||'尚未到回報時間';}
+function renderMciHealthTableV211702(){
+ const box=document.getElementById('mciHealthCommanderListV211700');let arr=mciHealthPeopleV211702;
+ if(mciHealthFilterV211702==='需回報')arr=arr.filter(x=>x.reportDue&&x.riskLevel==='正常');
+ else if(mciHealthFilterV211702!=='全部')arr=arr.filter(x=>x.riskLevel===mciHealthFilterV211702);
+ if(!arr.length){box.innerHTML='<div class="mci-empty">此狀態目前沒有人員。</div>';return;}
+ let rows='';arr.forEach((x,i)=>{const c=mciHealthClassV211700(x.riskLevel),flow=mciHealthWorkflowV211702(x),reportState=mciHealthReportStateV211703(x);rows+=`<tr class="mci-health-summary-row-v211702 ${c}"><td><strong>${mciHealthEscapeV211700(x.name)}</strong><small>${mciHealthEscapeV211700(x.team||'-')}｜${mciHealthEscapeV211700(x.assignedTask||'未分配')}</small></td><td>${mciHealthEscapeV211700(x.dutyText||'0 分鐘')}</td><td><span class="mci-health-badge-v211700 ${c}">${mciHealthEscapeV211700(x.riskLevel||'正常')}</span></td><td><span class="mci-health-flow-v211702">${mciHealthEscapeV211700(flow)}</span></td><td><strong>${mciHealthEscapeV211700(reportState)}</strong></td><td>${mciHealthEscapeV211700(mciHealthTimeV211702(x.latestTime))}</td><td><button class="mci-health-view-v211702" onclick="toggleMciHealthDetailV211702(${i},this)">查看／處理</button></td></tr><tr id="mciHealthDetailV211702_${i}" class="mci-health-detail-row-v211702" style="display:none"><td colspan="7">${mciHealthDetailV211702(x)}</td></tr>`;});
+ box.innerHTML=`<div class="mci-health-table-wrap-v211702"><table class="mci-health-table-v211702"><thead><tr><th>人員</th><th>勤務時間</th><th>健康風險</th><th>勤務流程</th><th>回報狀態</th><th>最近回報</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function setMciHealthFilterV211702(filter,btn){mciHealthFilterV211702=filter;document.querySelectorAll('.mci-health-filter-grid-v211702 button').forEach(b=>b.classList.toggle('active',b.dataset.healthFilter===filter));renderMciHealthTableV211702();}
+async function loadMciHealthCommanderV211700(showLoading){const box=document.getElementById('mciHealthCommanderListV211700');if(showLoading)box.innerHTML='<div class="mci-empty">健康資料載入中…</div>';try{const j=await mciHealthFetchV211700({action:'getMciHealthDashboardV211700',eventId:currentMciEvent.eventId,password:currentMciPassword});const d=j.data||{},st=d.stats||{};mciHealthPeopleV211702=d.people||[];document.getElementById('mciHealthStatAllV211702').textContent=mciHealthPeopleV211702.length;document.getElementById('mciHealthStatDueV211703').textContent=st.due||0;document.getElementById('mciHealthStatWatchV211700').textContent=st.watch||0;document.getElementById('mciHealthStatRestV211700').textContent=st.rest||0;document.getElementById('mciHealthStatAssessV211700').textContent=st.assess||0;setMciHealthHeatButtonsV211700(d.heatRisk||'一般環境');renderMciHealthTableV211702();const b=document.getElementById('mciHealthCommanderBadgeV211700');const n=Number(st.due||0)+Number(st.watch||0)+Number(st.rest||0)+Number(st.assess||0);if(b){b.textContent=n;b.style.display=n?'inline-flex':'none';}}catch(e){box.innerHTML=`<div class="error" style="display:block">${mciHealthEscapeV211700(e.message||'讀取失敗')}</div>`;}}
+async function updateMciHealthRestV211700(name,action,btn,extra={}){const old=btn?.textContent||'';if(btn){btn.disabled=true;btn.textContent=action==='立即評估'?'標記中，請稍候…':'處理中，請稍候…';}try{const j=await mciHealthFetchV211700({action:'updateMciHealthRestV211700',eventId:currentMciEvent.eventId,password:currentMciPassword,operator:currentUser?.name||'',name,restAction:action,...extra});if(btn)btn.textContent='✓ '+(j.message||'已完成');await loadMciHealthCommanderV211700(false);}catch(e){if(btn)btn.textContent=old;alert(e.message||'更新失敗');}finally{if(btn)setTimeout(()=>{btn.disabled=false;if(document.body.contains(btn))btn.textContent=old;},1200);}}
+document.addEventListener('DOMContentLoaded',()=>setTimeout(initMciHealthSymptomRulesV211702,300));
+
+/* V21.17.1｜指揮端標記立即評估後，該人員端強制暫停並導向健康回報 */
+let mciHealthSafetyTimerV211701=null,mciHealthSafetyBusyV211701=false;
+function mciHealthForceSeenKeyV211702(d){return `mci-health-force-seen:${currentMciEvent?.eventId||''}:${currentUser?.name||''}:${d?.forceToken||'commander'}`;}
+function setMciHealthForceOverlayV211701(show,data){const o=document.getElementById('mciHealthForceOverlayV211701');if(!o)return;o.style.display=show?'flex':'none';document.body.classList.toggle('mci-health-forced-v211701',!!show);if(show){o.dataset.forceToken=data?.forceToken||'';const r=document.getElementById('mciHealthForceReasonV211701');if(r)r.textContent=(data&&data.hint)||'目前狀態：立即評估';}}
+function setMciHealthRestUiV211706(data){
+ const notice=document.getElementById('mciHealthRestNoticeV211706'),overlay=document.getElementById('mciHealthRestOverlayV211706'),status=String(data?.restStatus||'');
+ if(notice){const show=status==='已安排';notice.style.display=show?'grid':'none';if(show){const bits=[];if(data.restReplacement)bits.push(`接手：${data.restReplacement}`);else bits.push(data.restHandoffMode||'由指揮站重新分派');bits.push(`輪休地點：${data.restLocation||'指揮站／指定休息區'}`);const text=document.getElementById('mciHealthRestNoticeTextV211706');if(text)text.textContent=`請完成目前必要處置與任務交接後再開始輪休。${bits.join('｜')}`;}}
+ if(overlay){const show=status==='輪休中';overlay.style.display=show?'flex':'none';document.body.classList.toggle('mci-health-resting-v211706',show);if(show){const t=document.getElementById('mciHealthRestOverlayTextV211706');if(t)t.textContent=`目前已暫停接受新的 MCI 任務。請前往 ${data.restLocation||'指揮站／指定休息區'} 休息、補水與降溫。${data.restReplacement?'任務接手：'+data.restReplacement:'任務由指揮站重新分派。'}`;}}
+}
+async function updateMciHealthRestSelfV211706(action,btn){const old=btn?.textContent||'';if(btn){btn.disabled=true;btn.textContent='處理中，請稍候…';}try{const j=await mciHealthFetchV211700({action:'updateMciHealthRestSelfV211706',eventId:currentMciEvent.eventId,name:currentUser?.name||'',restAction:action});if(btn)btn.textContent='✓ '+(j.message||'已完成');await checkMciHealthSafetyV211701(true);return j;}catch(e){if(btn)btn.textContent=old;alert(e.message||'更新失敗');throw e;}finally{if(btn)setTimeout(()=>{btn.disabled=false;if(document.body.contains(btn))btn.textContent=old;},1200);}}
+function startMciHealthRestSelfV211706(btn){return updateMciHealthRestSelfV211706('開始輪休',btn);}
+async function finishMciHealthRestSelfV211706(btn){try{await updateMciHealthRestSelfV211706('完成輪休',btn);setMciHealthRestUiV211706({restStatus:'已完成'});await openMciHealthWorkspaceV211700(false);const msg=document.getElementById('mciHealthMessageV211700');if(msg){msg.textContent='輪休已完成，請重新確認目前健康狀況後再恢復勤務。';msg.style.color='#315f6c';}}catch(_e){}}
+async function checkMciHealthSafetyV211701(force=false){if(mciHealthSafetyBusyV211701||(!force&&document.hidden)||!currentUser||!currentMciEvent)return;mciHealthSafetyBusyV211701=true;try{const j=await mciHealthFetchV211700({action:'getMciHealthSelfV211700',eventId:currentMciEvent.eventId,name:currentUser.name});const d=j.data||{};const seen=d.forcedByCommander&&localStorage.getItem(mciHealthForceSeenKeyV211702(d))==='1';setMciHealthForceOverlayV211701(!!d.forcedByCommander&&!seen,d);setMciHealthRestUiV211706(d);}catch(_e){}finally{mciHealthSafetyBusyV211701=false;}}
+function startMciHealthSafetyWatchV211701(){if(mciHealthSafetyTimerV211701)return;checkMciHealthSafetyV211701();mciHealthSafetyTimerV211701=setInterval(checkMciHealthSafetyV211701,5000);}
+function openMciHealthFromForceV211701(){const o=document.getElementById('mciHealthForceOverlayV211701'),token=o?.dataset.forceToken||'commander';localStorage.setItem(`mci-health-force-seen:${currentMciEvent?.eventId||''}:${currentUser?.name||''}:${token}`,'1');setMciHealthForceOverlayV211701(false);openMciHealthWorkspaceV211700(false);}
+const oldOpenHealthV211701=openMciHealthWorkspaceV211700;openMciHealthWorkspaceV211700=async function(asCommander){const r=await oldOpenHealthV211701.apply(this,arguments);if(!asCommander)setMciHealthForceOverlayV211701(false);return r;};
+const oldSubmitHealthV211701=submitMciHealthSelfV211700;submitMciHealthSelfV211700=async function(){const r=await oldSubmitHealthV211701.apply(this,arguments);setTimeout(checkMciHealthSafetyV211701,300);return r;};
+document.addEventListener('DOMContentLoaded',()=>setTimeout(startMciHealthSafetyWatchV211701,1200));
+</script>
+
+<style id="mciHealthV211703Css">
+#mciHealthNextReportV211703{margin-top:6px;font-weight:800;color:#42616b}.mci-health-summary-row-v211702 td:nth-child(5) strong{color:#315f6c}.mci-health-filter-grid-v211702 button[data-health-filter="需回報"].active{background:#315f6c;color:#fff;border-color:#315f6c}.mci-health-filter-grid-v211702 button[data-health-filter="立即評估"].active{background:#a93434;border-color:#a93434}.mci-health-filter-grid-v211702 button[data-health-filter="建議輪休"].active{background:#a86616;border-color:#a86616}
+.mci-health-rest-plan-v211706{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:8px;align-items:end;padding:10px;border:1px solid #dce7e2;border-radius:12px;background:#f8fbf9}.mci-health-rest-plan-v211706 label{display:grid;gap:5px;font-size:11px;font-weight:900;color:#557069}.mci-health-rest-plan-v211706 select,.mci-health-rest-plan-v211706 input{width:100%;min-height:40px;border:1px solid #cbdad6;border-radius:9px;padding:7px 9px;background:#fff;color:#29464b}.mci-health-rest-wait-v211706{grid-column:1/-1;padding:10px 12px;border-radius:10px;background:#f2f8f3;color:#315b43;font-weight:850}.mci-health-rest-wait-v211706 small{display:block;margin-top:4px;font-weight:700;color:#647b6e}.mci-health-rest-notice-v211706{position:fixed;left:50%;transform:translateX(-50%);bottom:max(16px,env(safe-area-inset-bottom));z-index:99970;width:min(760px,calc(100% - 24px));grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:13px 14px;border:1px solid #bcd8c5;border-radius:16px;background:#f3fbf4;box-shadow:0 10px 35px rgba(28,65,49,.18)}.mci-health-rest-notice-icon-v211706{font-size:24px}.mci-health-rest-notice-body-v211706 strong{display:block;color:#24533a}.mci-health-rest-notice-body-v211706 div{font-size:12px;line-height:1.5;color:#526d60;margin-top:2px}.mci-health-rest-notice-v211706 button{border:0;border-radius:11px;background:#34724b;color:#fff;font-weight:900;padding:10px 12px;white-space:nowrap}.mci-health-rest-overlay-v211706{position:fixed;inset:0;z-index:99980;background:rgba(31,48,40,.74);align-items:center;justify-content:center;padding:18px}.mci-health-rest-card-v211706{width:min(520px,100%);background:#fff;border-radius:22px;padding:28px 24px;text-align:center;box-shadow:0 22px 70px rgba(0,0,0,.25)}.mci-health-rest-icon-v211706{font-size:46px}.mci-health-rest-title-v211706{font-size:26px;font-weight:950;color:#2b6542;margin-top:6px}.mci-health-rest-text-v211706{margin:13px 0 18px;line-height:1.7;color:#4b6156}.mci-health-rest-actions-v211706{display:grid;gap:9px}.mci-health-rest-actions-v211706 button{min-height:48px;border:1px solid #bfd0c5;border-radius:12px;background:#fff;color:#315846;font-weight:900}.mci-health-rest-actions-v211706 button.primary{background:#34724b;color:#fff;border-color:#34724b}.mci-health-resting-v211706{overflow:hidden!important}@media(max-width:760px){.mci-health-rest-plan-v211706{grid-template-columns:1fr}.mci-health-rest-notice-v211706{grid-template-columns:auto 1fr}.mci-health-rest-notice-v211706 button{grid-column:1/-1;width:100%}}
+</style>
+
+<style>
+.mci-external-entry-v21180,.mci-public-vehicle-entry-v2192{margin-top:12px}.mci-external-entry-v21180{padding:12px;border:1px solid #dbe7ef;border-radius:14px;background:#f8fbfd}.mci-external-entry-v21180 button{width:100%;padding:12px;border:0;border-radius:12px;background:#0f6f8c;color:#fff;font-weight:800}.mci-external-entry-v21180 div{font-size:12px;color:#64748b;margin-top:7px;line-height:1.5}
+.mci-external-event-v21180{margin:12px 0;padding:13px 14px;border-radius:14px;background:#eef7fb;border:1px solid #cfe5ef;line-height:1.6}.mci-external-panel-v21180{max-width:860px;margin:0 auto}.mci-external-required-v21180{font-size:12px;color:#9a5b13;margin-bottom:10px}.mci-external-grid-v21180{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.mci-external-grid-v21180 label,.mci-external-panel-v21180>label{display:flex;flex-direction:column;gap:6px;font-weight:700}.mci-external-grid-v21180 input,.mci-external-grid-v21180 select,.mci-external-panel-v21180 textarea{width:100%;box-sizing:border-box}.mci-external-label-v21180{font-weight:800;margin:16px 0 8px}.mci-external-role-grid-v21180{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.mci-external-role-grid-v21180 label{border:1px solid #dbe5ea;border-radius:10px;padding:9px;background:#fff;font-weight:600}.mci-external-evidence-v21180{margin-top:14px}.mci-external-privacy-v21180{margin:12px 0;padding:10px 12px;border-radius:10px;background:#fff8e7;color:#72551b;font-size:12px;line-height:1.55}.mci-external-message-v21180{margin-top:10px;font-weight:700}.mci-external-status-card-v21180{border-left:5px solid #0f6f8c}.mci-external-person-v21180{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.mci-external-person-v21180 strong{font-size:20px}.mci-external-person-v21180 span{color:#64748b}.mci-external-flow-v21180{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}.mci-external-flow-v21180 span,.mci-external-flow-v21180 small{padding:5px 9px;border-radius:999px;background:#e8f5f8;font-weight:800}.mci-external-flow-v21180 small{background:#f2f4f7;color:#475569}.mci-external-instruction-v21180{padding:12px;border-radius:12px;background:#fff8e8;line-height:1.6}.mci-external-task-v21180{font-size:25px;font-weight:900;margin:12px 0}.mci-external-work-actions-v21180{display:flex;gap:10px;flex-wrap:wrap}.mci-external-work-actions-v21180 button{padding:11px 14px;border-radius:12px;border:1px solid #ccd8df;background:#fff;font-weight:800}.mci-external-health-v21180{margin-top:12px}.mci-external-health-v21180 summary{cursor:pointer;font-weight:900}.mci-external-health-body-v21180{display:grid;gap:10px;margin-top:12px}.mci-external-health-body-v21180 label{display:grid;gap:5px;font-weight:700}.mci-external-health-body-v21180 button{padding:11px;border:0;border-radius:12px;background:#0f6f8c;color:#fff;font-weight:800}.mci-external-tag-v21180{margin-left:6px;padding:2px 6px;border-radius:999px;background:#e6f4f1;color:#176b5b;font-size:11px;font-weight:800}.mci-external-confirm-box-v21180{padding:12px;border-radius:12px;background:#f7fafb;border:1px solid #dbe5ea}.mci-external-confirm-actions-v21180{display:flex;gap:8px;margin-top:10px}.mci-external-confirm-actions-v21180 select{flex:1}
+@media(max-width:640px){.mci-external-grid-v21180{grid-template-columns:1fr}.mci-external-role-grid-v21180{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.mci-external-entry-choice-v21181{max-width:860px;margin:0 auto 14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px;border:1px solid #d9e7eb;border-radius:16px;background:#fff}.mci-external-entry-choice-v21181 button{min-height:54px;border-radius:14px;font-weight:850}.mci-external-entry-choice-v21181>button:not(.primary){background:#f4f9fa;border:1px solid #cfe1e5;color:#285c68}.mci-external-choice-note-v21181{grid-column:1/-1;font-size:12px;color:#617881;line-height:1.55}.mci-external-secondary-v21181{width:100%;margin-top:8px;background:#fff;border:1px solid #ccdce1;border-radius:12px;padding:11px;font-weight:800;color:#315f6b}.mci-external-inline-back-v21181{width:auto!important;background:transparent!important;border:0!important;padding:0!important;margin:0 0 10px!important;color:#2b7281!important;text-decoration:underline;font-weight:750}.mci-external-login-code-v21181{margin:0 0 14px;padding:15px 16px;border:1px solid #cfe2df;border-radius:16px;background:#f2faf7;line-height:1.7;color:#315a5a}.mci-external-login-code-title-v21181{font-size:17px;font-weight:900;margin-bottom:5px}.mci-external-login-code-number-v21181{font-size:27px;letter-spacing:4px;color:#145f67}.mci-external-login-code-note-v21181{font-size:12px;color:#62777a;margin:6px 0 10px}.mci-external-login-code-v21181 button{border:1px solid #bdd8d3;background:#fff;border-radius:10px;padding:8px 12px;font-weight:800;color:#28666a}.mci-external-grid-v21180 .full-width{grid-column:1/-1}@media(max-width:640px){.mci-external-entry-choice-v21181{grid-template-columns:1fr}.mci-external-choice-note-v21181{grid-column:auto}.mci-external-grid-v21180 .full-width{grid-column:auto}}
+
+/* V21.18.1.5｜外部支援入口雙按鈕一致化 */
+.mci-external-entry-choice-v21181>button{
+  min-height:58px!important;border:1px solid #c8dde2!important;border-radius:14px!important;
+  background:#eef7f8!important;color:#285f6b!important;box-shadow:none!important;
+  font-family:inherit!important;font-size:16px!important;font-weight:900!important;
+}
+.mci-external-entry-choice-v21181>button:hover{background:#e4f2f4!important;border-color:#acd0d7!important}
+/* V21.18.1.5｜外部支援報到欄位與對齊優化 */
+.mci-external-role-grid-v21180 label{display:flex!important;align-items:center;justify-content:center;gap:9px;min-height:64px;padding:10px 12px!important;text-align:center;box-sizing:border-box}
+.mci-external-role-grid-v21180 label input{width:18px;height:18px;margin:0;flex:0 0 auto}
+.mci-external-role-grid-v21180 label span{display:inline-flex;align-items:center;justify-content:center;line-height:1.25}
+.mci-external-grid-v21180>label{align-self:stretch;justify-content:flex-start}
+.mci-external-grid-v21180 select,.mci-external-grid-v21180 input:not([type=hidden]){min-height:52px}
+.mci-external-other-v211806{margin-top:6px}
+.mci-external-evidence-help-v211806{margin:16px 0 10px;padding:11px 13px;border:1px solid #d7e6ea;border-radius:12px;background:#f5fafb;color:#4f6871;line-height:1.55;font-size:12.5px}
+.mci-external-evidence-help-v211806 strong{display:block;color:#315f6b;margin-bottom:3px;font-size:13px}
+.mci-external-evidence-help-v211806 span{display:block}.mci-external-evidence-options-v211807{display:grid;gap:5px;margin-top:9px;padding-top:9px;border-top:1px dashed #d5e3e7}.mci-external-evidence-options-v211807 div{font-size:12px;line-height:1.5}.mci-external-evidence-options-v211807 b{color:#315f6b}
+.mci-external-evidence-v21180{align-items:stretch;grid-template-columns:1fr}.mci-external-evidence-v21180.has-credential-v211807{grid-template-columns:repeat(2,minmax(0,1fr))}
+.mci-external-evidence-v21180 label{display:grid!important;grid-template-rows:auto 58px;align-content:start}
+.mci-external-evidence-v21180 select,.mci-external-evidence-v21180 input[type=file]{height:58px;min-height:58px;margin:0;box-sizing:border-box}
+.mci-external-evidence-v21180 input[type=file]{padding:10px 12px;background:#fff;border:1px solid #cbdde1;border-radius:12px}
+
+</style>
+<script>
+let mciExternalEventV21180=null,mciExternalSessionV21180=null,mciExternalPollV21180=null;
+const mciExternalDirectEntryV211801=(new URLSearchParams(window.location.search).get('entry')==='external');
+function mciExternalStoreKeyV21180(){return 'mciExternalSessionV21180';}
+function saveMciExternalSessionV21180(v){mciExternalSessionV21180=v||null;try{if(v)localStorage.setItem(mciExternalStoreKeyV21180(),JSON.stringify(v));else localStorage.removeItem(mciExternalStoreKeyV21180());}catch(e){}}
+function loadMciExternalLocalV21180(){try{return JSON.parse(localStorage.getItem(mciExternalStoreKeyV21180())||'null');}catch(e){return null;}}
+async function mciExternalFetchV21180(params){const qs=new URLSearchParams(params);qs.set('t',String(Date.now()));return await fetchJsonSafeV21761(`${API_URL}?${qs.toString()}`);}
+async function openMciExternalSupportV21180(){
+  mciExternalTaskActiveV211814=false;
+  stopMciMemberAutoSync?.();stopMciDashboardAutoSync?.();showSection('mciExternalSupportSectionV21180');
+  const evBox=document.getElementById('mciExternalEventV21180'),choice=document.getElementById('mciExternalEntryChoiceV21181'),login=document.getElementById('mciExternalLoginV21181'),reg=document.getElementById('mciExternalRegisterV21180'),work=document.getElementById('mciExternalWorkV21180');
+  choice.style.display='none';login.style.display='none';reg.style.display='none';work.style.display='none';evBox.textContent='正在確認目前事件…';
+  try{
+    const j=await mciExternalFetchV21180({action:'getMciExternalPublicEventV21180'});
+    mciExternalEventV21180=j?.data?.event||null;
+    if(!mciExternalEventV21180){
+      saveMciExternalSessionV21180(null);
+      evBox.textContent='目前沒有啟動中的大量傷患事件，暫不開放外部支援報到。';
+      return;
+    }
+    evBox.innerHTML=`<strong>${escapeHtml(mciExternalEventV21180.eventName||'大量傷患事件')}</strong><br>${escapeHtml(mciExternalEventV21180.location||'')} ${mciExternalEventV21180.assemblyPoint?`｜集合：${escapeHtml(mciExternalEventV21180.assemblyPoint)}`:''}`;
+
+    const saved=loadMciExternalLocalV21180();
+    if(saved&&saved.eventId===mciExternalEventV21180.eventId&&saved.tempId){
+      // V21.18.1.5：本機紀錄不能直接視為有效勤務。先向後端確認這個 tempId 仍存在於目前事件，且尚未完成點名。
+      try{
+        const verify=await mciExternalFetchV21180({action:'getMciExternalSessionV21180',eventId:saved.eventId,tempId:saved.tempId});
+        const d=verify?.data||null;
+        if(verify?.success&&d&&d.tempId===saved.tempId&&d.eventId===saved.eventId&&d.flowStatus!=='完成點名'){
+          mciExternalSessionV21180={eventId:d.eventId,tempId:d.tempId,name:d.name||saved.name||'',unit:d.unit||saved.unit||''};
+          saveMciExternalSessionV21180(mciExternalSessionV21180);
+          work.style.display='block';
+          renderMciExternalSessionV21180(d);
+          startMciExternalPollV21180();
+          return;
+        }
+        // 找不到、事件不符、或已完成點名：清掉舊 session，回到入口，不讓空白身分誤進工作頁。
+        saveMciExternalSessionV21180(null);
+        mciExternalSessionV21180=null;
+        choice.style.display='grid';
+        const note=choice.querySelector('.mci-external-choice-note-v21181');
+        if(note)note.textContent=d?.flowStatus==='完成點名'?'偵測到先前勤務已完成點名；若要支援目前事件，請重新報到。':'先前的本機勤務紀錄已失效或找不到，請重新報到；若已在其他裝置完成報到，可使用勤務登入。';
+        return;
+      }catch(_verifyErr){
+        // 無法連線驗證時不要把未確認的本機資料當成有效勤務，也不要刪掉可能仍有效的憑證。
+        choice.style.display='grid';
+        const note=choice.querySelector('.mci-external-choice-note-v21181');
+        if(note)note.textContent='目前無法驗證先前勤務身分。請確認網路後再試；若已完成報到，也可使用臨時登入碼登入。';
+        return;
+      }
+    }
+    // 本機保存的是其他事件，直接清除，避免跨事件誤帶入。
+    if(saved&&saved.eventId!==mciExternalEventV21180.eventId)saveMciExternalSessionV21180(null);
+    choice.style.display='grid';
+  }catch(e){evBox.textContent='事件資料讀取失敗，請稍後再試。';}
+}
+function closeMciExternalSupportV21180(){stopMciExternalPollV21180();if(mciExternalDirectEntryV211801){window.location.href='../index.html';return;}if(currentUser){showSection('mciSection');showMciHubView();}else showSection('loginSection');}
+document.addEventListener('DOMContentLoaded',()=>{
+  if(mciExternalDirectEntryV211801){setTimeout(()=>openMciExternalSupportV21180(),120);}
+});
+
+function toggleMciExternalOtherV211806(type){
+  const isTitle=type==='title';
+  const sel=document.getElementById(isTitle?'mciExternalTitleSelectV211806':'mciExternalQualificationSelectV211806');
+  const other=document.getElementById(isTitle?'mciExternalTitleOtherV211806':'mciExternalQualificationOtherV211806');
+  if(!sel||!other)return;other.style.display=sel.value==='其他'?'block':'none';if(sel.value!=='其他')other.value='';syncMciExternalSelectValuesV211806();
+}
+function syncMciExternalSelectValuesV211806(){
+  const ts=document.getElementById('mciExternalTitleSelectV211806'),to=document.getElementById('mciExternalTitleOtherV211806'),th=document.getElementById('mciExternalTitleV21180');
+  const qs=document.getElementById('mciExternalQualificationSelectV211806'),qo=document.getElementById('mciExternalQualificationOtherV211806'),qh=document.getElementById('mciExternalQualificationV21180');
+  if(th)th.value=ts?.value==='其他'?(to?.value||'').trim():(ts?.value||'');
+  if(qh)qh.value=qs?.value==='其他'?(qo?.value||'').trim():(qs?.value||'');
+}
+function toggleMciExternalCredentialV211806(){
+  const method=document.getElementById('mciExternalVerificationV21180')?.value||'';
+  const label=document.getElementById('mciExternalCredentialLabelV211806');
+  const grid=document.querySelector('.mci-external-evidence-v21180');
+  const show=method==='上傳資格證件';
+  if(label)label.style.display=show?'grid':'none';
+  if(grid)grid.classList.toggle('has-credential-v211807',show);
+  if(!show){const f=document.getElementById('mciExternalCredentialV21180');if(f)f.value='';}
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  ['mciExternalTitleOtherV211806','mciExternalQualificationOtherV211806'].forEach(id=>document.getElementById(id)?.addEventListener('input',syncMciExternalSelectValuesV211806));
+  toggleMciExternalCredentialV211806();
+});
+function showMciExternalEntryChoiceV21181(){
+  document.getElementById('mciExternalEntryChoiceV21181').style.display='grid';
+  document.getElementById('mciExternalLoginV21181').style.display='none';
+  document.getElementById('mciExternalRegisterV21180').style.display='none';
+}
+function showMciExternalRegisterV21181(){
+  document.getElementById('mciExternalEntryChoiceV21181').style.display='none';
+  document.getElementById('mciExternalLoginV21181').style.display='none';
+  document.getElementById('mciExternalRegisterV21180').style.display='block';
+}
+function showMciExternalLoginV21181(){
+  document.getElementById('mciExternalEntryChoiceV21181').style.display='none';
+  document.getElementById('mciExternalRegisterV21180').style.display='none';
+  document.getElementById('mciExternalLoginV21181').style.display='block';
+}
+async function loginMciExternalSupportV21181(btn){
+  const msg=document.getElementById('mciExternalLoginMessageV21181');msg.textContent='';
+  if(!mciExternalEventV21180){msg.textContent='目前沒有可登入事件';return;}
+  const p={action:'loginMciExternalSupportV21181',eventId:mciExternalEventV21180.eventId,name:document.getElementById('mciExternalLoginNameV21181').value.trim(),phoneLast4:document.getElementById('mciExternalLoginPhoneV21181').value.trim(),loginCode:document.getElementById('mciExternalLoginCodeV21181').value.trim()};
+  if(!p.name||!/^[0-9]{4}$/.test(p.phoneLast4)||!/^[0-9]{6}$/.test(p.loginCode)){msg.textContent='請完整輸入姓名、手機末4碼與6位數臨時登入碼。';return;}
+  btn.disabled=true;btn.textContent='登入中…';
+  try{const j=await mciExternalFetchV21180(p);if(!j.success)throw new Error(j.message||'勤務登入失敗');const sess={eventId:j.data.eventId,tempId:j.data.tempId,name:j.data.name,unit:j.data.unit};saveMciExternalSessionV21180(sess);mciExternalSessionV21180=sess;document.getElementById('mciExternalLoginV21181').style.display='none';document.getElementById('mciExternalWorkV21180').style.display='block';await refreshMciExternalSessionV21180(true);startMciExternalPollV21180();}catch(e){msg.textContent=e.message||'勤務登入失敗';}finally{btn.disabled=false;btn.textContent='登入本次勤務';}
+}
+function showMciExternalLoginCredentialV21181(tempId,loginCode){
+  const box=document.getElementById('mciExternalCredentialNoticeV21181');if(!box||!loginCode)return;
+  document.getElementById('mciExternalCredentialIdV21181').textContent=tempId||'-';document.getElementById('mciExternalCredentialCodeV21181').textContent=loginCode;box.style.display='block';
+}
+async function copyMciExternalLoginCodeV21181(){const code=document.getElementById('mciExternalCredentialCodeV21181')?.textContent||'';try{await navigator.clipboard.writeText(code);document.getElementById('mciExternalWorkMessageV21180').textContent='登入碼已複製';}catch(e){document.getElementById('mciExternalWorkMessageV21180').textContent='請手動記錄登入碼：'+code;}}
+function updateMciExternalIdentityUiV21180(){const identity=document.getElementById('mciExternalIdentityV21180')?.value||'';const roleBox=document.getElementById('mciExternalRolesV21180');if(!roleBox)return;const restricted=['檢傷','治療','後送'];roleBox.querySelectorAll('input').forEach(cb=>{if(identity==='一般志願者'&&restricted.includes(cb.value)){cb.checked=false;cb.disabled=true;cb.closest('label').style.opacity='.45';}else{cb.disabled=false;cb.closest('label').style.opacity='1';}});}
+function selectedMciExternalRolesV21180(){return Array.from(document.querySelectorAll('#mciExternalRolesV21180 input:checked')).map(x=>x.value).join('、');}
+async function fileToDataUrlV21180(file){return await new Promise((resolve,reject)=>{const r=new FileReader();r.onerror=reject;r.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const max=1280,scale=Math.min(1,max/Math.max(img.width||1,img.height||1)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.width*scale));c.height=Math.max(1,Math.round(img.height*scale));c.getContext('2d').drawImage(img,0,0,c.width,c.height);resolve(c.toDataURL('image/jpeg',0.72));};img.src=String(r.result||'');};r.readAsDataURL(file);});}
+async function submitMciExternalSupportV21180(btn){
+  const msg=document.getElementById('mciExternalRegisterMessageV21180');msg.textContent='';if(!mciExternalEventV21180){msg.textContent='目前沒有可報到事件';return;}
+  syncMciExternalSelectValuesV211806();
+  const p={action:'registerMciExternalSupportV21180',eventId:mciExternalEventV21180.eventId,name:document.getElementById('mciExternalNameV21180').value.trim(),unit:document.getElementById('mciExternalUnitV21180').value.trim(),identityType:document.getElementById('mciExternalIdentityV21180').value,title:document.getElementById('mciExternalTitleV21180').value.trim(),qualification:document.getElementById('mciExternalQualificationV21180').value.trim(),phone:document.getElementById('mciExternalPhoneV21180').value.trim(),emergencyName:document.getElementById('mciExternalEmergencyNameV21180').value.trim(),emergencyPhone:document.getElementById('mciExternalEmergencyPhoneV21180').value.trim(),roles:selectedMciExternalRolesV21180(),note:document.getElementById('mciExternalNoteV21180').value.trim(),verificationMethod:document.getElementById('mciExternalVerificationV21180').value};
+  if(!p.name||!p.unit||!p.identityType||!p.phone){msg.textContent='請完成姓名、單位／組織、身分類別與手機。';return;}
+  btn.disabled=true;btn.textContent='報到資料送出中…';
+  try{const j=await mciExternalFetchV21180(p);if(!j.success)throw new Error(j.message||'報到失敗');const sess={eventId:p.eventId,tempId:j.data.tempId,name:p.name,unit:p.unit};saveMciExternalSessionV21180(sess);const file=document.getElementById('mciExternalCredentialV21180')?.files?.[0];if(file){btn.textContent='資格佐證上傳中…';try{const dataUrl=await fileToDataUrlV21180(file);const fd=new URLSearchParams({action:'uploadMciExternalCredentialV21180',eventId:p.eventId,tempId:j.data.tempId,dataUrl,verificationMethod:p.verificationMethod==='尚未提供'?'上傳資格證件':p.verificationMethod});const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:fd.toString()});await r.text();}catch(_e){}}
+    document.getElementById('mciExternalRegisterV21180').style.display='none';document.getElementById('mciExternalWorkV21180').style.display='block';showMciExternalLoginCredentialV21181(j.data.tempId,j.data.loginCode);msg.textContent='';await refreshMciExternalSessionV21180(true);startMciExternalPollV21180();
+  }catch(e){msg.textContent=e.message||'報到失敗';}finally{btn.disabled=false;btn.textContent='完成報到資料';}
+}
+function prepareMciExternalTaskContextV211813(){
+  const sess=mciExternalSessionV21180||loadMciExternalLocalV21180();
+  if(!sess)return false;
+  if(!currentMciEvent||String(currentMciEvent.eventId||'')!==String(sess.eventId||'')){
+    currentMciEvent=Object.assign({},mciExternalEventV21180||{}, {eventId:sess.eventId});
+  }
+  if(!currentUser||String(currentUser.name||'')!==String(sess.name||'')){
+    currentUser=Object.assign({},currentUser||{}, {name:sess.name||'外部支援',externalSupport:true,externalTempId:sess.tempId||''});
+  }
+  return true;
+}
+function openMciExternalAssignedTaskV211813(task){
+  task=String(task||'').trim();
+  if(!task||task==='未分配'||task==='尚未分配')return;
+  if(!prepareMciExternalTaskContextV211813())return;
+  mciExternalTaskActiveV211814=true;
+  stopMciExternalPollV21180();
+  if(task==='治療官'){openMciTreatmentOfficerOverviewV211420();return;}
+  if(task==='後送官'||task==='報到官'||task==='指揮官'||task==='副指揮官'||task==='指揮紀錄'){
+    const msg=document.getElementById('mciExternalWorkMessageV21180');
+    if(msg)msg.textContent='此任務需使用指揮工作台權限，請由現場指揮端確認入口。';
+    return;
+  }
+  openMciPatientScannerV21702(task);
+}
+function buildMciExternalTaskActionV211813(d){
+  const task=String(d?.assignedTask||'').trim();
+  if(d?.flowStatus!=='已派遣'||!task||task==='未分配')return '';
+  if(task==='治療官')return `<button type="button" class="mci-scan-patient-btn-v21702" onclick="openMciExternalAssignedTaskV211813('治療官')">🩺 開啟治療區總覽</button>`;
+  if(['後送官','報到官','指揮官','副指揮官','指揮紀錄'].includes(task))return `<div class="mci-external-privacy-v21180">${escapeHtml(task)}屬指揮工作台任務，請依現場指揮端授權入口執行。</div>`;
+  const label=task==='檢傷'?'📷 開始檢傷':(task.startsWith('治療')||task==='CPR/AED'?'📷 掃描傷患 QR｜開始治療':'📷 掃描傷患 QR｜開始任務');
+  const desc=(typeof MCI_TASK_DESC_V2167==='object'&&MCI_TASK_DESC_V2167[task])?MCI_TASK_DESC_V2167[task]:'依現場指揮分派執行任務，若有變更請以最新指示為準。';
+  return `<div class="mci-task-mini-v2167"><strong>任務提示｜${escapeHtml(task)}</strong><br>${escapeHtml(desc)}</div><button type="button" class="mci-scan-patient-btn-v21702" onclick="openMciExternalAssignedTaskV211813('${escapeAttr(task)}')">${label}</button>`;
+}
+function renderMciExternalSessionV21180(d){
+  if(!d)return;
+  const sess=mciExternalSessionV21180||loadMciExternalLocalV21180();
+  currentUser=Object.assign({},currentUser||{}, {name:d.name||sess?.name||'外部支援',externalSupport:true,externalTempId:sess?.tempId||''});
+  if(currentMciEvent&&['等待任務','已現場確認','已派遣'].includes(d.flowStatus)){
+    checkMciHealthSafetyV211701(true).catch(()=>{});
+  }
+  document.getElementById('mciExternalWorkNameV21180').textContent=d.name||'-';document.getElementById('mciExternalWorkUnitV21180').textContent=d.unit||'-';document.getElementById('mciExternalFlowBadgeV21180').textContent=d.flowStatus||'等待任務';document.getElementById('mciExternalVerifyBadgeV21180').textContent=d.verificationStatus||'基本報到';
+  const inst=document.getElementById('mciExternalInstructionV21180'),task=document.getElementById('mciExternalTaskV21180'),end=document.getElementById('mciExternalEndCheckBtnV21180');task.textContent=d.assignedTask||'尚未分配';
+  if(d.flowStatus==='等待任務'||d.flowStatus==='已現場確認')inst.textContent=d.verificationStatus==='資格待確認'?'✅ 已完成本事件報到，已納入人力。專業資格待確認；一般支援任務可先接受，請留意任務更新。':'✅ 已完成本事件報到，已納入人力並等待任務分派。';else if(d.flowStatus==='已派遣')inst.textContent=`已派任：${d.assignedTask||'任務'}。請依現場指揮執行，任務變更會同步更新。`;else if(d.flowStatus==='完成點名')inst.textContent='本事件點名已完成，臨時支援身分已結束。';
+  const canWork=['等待任務','已現場確認','已派遣'].includes(d.flowStatus);end.style.display=canWork?'inline-flex':'none';const hb=document.getElementById('mciExternalHealthBoxV21180');if(hb)hb.style.display=canWork?'block':'none';
+  document.getElementById('mciExternalTaskActionV21180').innerHTML=buildMciExternalTaskActionV211813(d);
+}
+async function refreshMciExternalSessionV21180(showMsg){const sess=mciExternalSessionV21180||loadMciExternalLocalV21180();if(!sess?.eventId||!sess?.tempId)return;const msg=document.getElementById('mciExternalWorkMessageV21180');try{if(showMsg)msg.textContent='更新中…';const j=await mciExternalFetchV21180({action:'getMciExternalSessionV21180',eventId:sess.eventId,tempId:sess.tempId});if(!j.success)throw new Error(j.message||'讀取失敗');renderMciExternalSessionV21180(j.data);if(showMsg)msg.textContent='已更新';}catch(e){if(showMsg)msg.textContent=e.message||'更新失敗';}}
+function startMciExternalPollV21180(){stopMciExternalPollV21180();mciExternalPollV21180=setInterval(()=>{if(!document.hidden)refreshMciExternalSessionV21180(false);},5000);}
+function stopMciExternalPollV21180(){if(mciExternalPollV21180){clearInterval(mciExternalPollV21180);mciExternalPollV21180=null;}}
+async function completeMciExternalCheckV21180(btn){
+  const sess=mciExternalSessionV21180||loadMciExternalLocalV21180();if(!sess)return;
+  const msg=document.getElementById('mciExternalWorkMessageV21180');
+  if(btn.dataset.confirmEnd!=='1'){
+    btn.dataset.confirmEnd='1';btn.textContent='再次點選確認結束支援';
+    msg.textContent='請先確認目前任務已完成或已交接。再次點選後，將完成本事件點名並結束支援身分。';
+    clearTimeout(btn._endTimerV211809);btn._endTimerV211809=setTimeout(()=>{btn.dataset.confirmEnd='';btn.textContent='🚪 結束支援／完成點名';},8000);
+    return;
+  }
+  clearTimeout(btn._endTimerV211809);btn.dataset.confirmEnd='';btn.disabled=true;btn.textContent='結束支援中…';
+  try{const j=await mciExternalFetchV21180({action:'completeMciExternalCheckV21180',eventId:sess.eventId,tempId:sess.tempId});if(!j.success)throw new Error(j.message||'結束支援失敗');msg.textContent='✅ 已完成本事件點名，支援身分已結束，謝謝支援。';await refreshMciExternalSessionV21180(false);stopMciExternalPollV21180();}catch(e){msg.textContent=e.message||'結束支援失敗';}finally{btn.disabled=false;btn.textContent='🚪 結束支援／完成點名';}
+}
+async function submitMciExternalHealthV21180(btn){const sess=mciExternalSessionV21180||loadMciExternalLocalV21180();if(!sess)return;const msg=document.getElementById('mciExternalHealthMsgV21180'),symptoms=document.getElementById('mciExternalHealthSymptomV21180')?.value||'無明顯異狀',ability=document.getElementById('mciExternalHealthAbilityV21180')?.value||'可以正常執勤';btn.disabled=true;btn.textContent='送出中…';try{const j=await mciExternalFetchV21180({action:'submitMciHealthSelfV211700',eventId:sess.eventId,name:sess.name,symptoms,ability,note:'外部支援快速健康回報'});if(!j.success)throw new Error(j.message||'健康回報失敗');msg.textContent=`✓ 已回報｜${j.data?.riskLevel||'正常'}`;}catch(e){msg.textContent=e.message||'健康回報失敗';}finally{btn.disabled=false;btn.textContent='送出健康回報';}}
+async function confirmMciExternalSupportV21180(tempId,btn){if(!currentMciEvent||!currentMciPassword)return;const sel=document.getElementById(`mciExternalVerify_${tempId}`);btn.disabled=true;btn.textContent='確認中…';try{const j=await mciExternalFetchV21180({action:'confirmMciExternalSupportV21180',eventId:currentMciEvent.eventId,tempId,password:currentMciPassword,operator:currentUser?.name||'指揮端',qualificationStatus:sel?.value||'已驗證'});if(!j.success)throw new Error(j.message||'確認失敗');btn.textContent='資格已確認';setTimeout(()=>loadMciDashboard?.(),300);}catch(e){alert(e.message||'確認失敗');btn.disabled=false;btn.textContent='確認資格';}}
+async function assignMciExternalTaskV21180(tempId,personName,btn){
+  const sel=document.getElementById(`mciTaskExt_${tempId}`);
+  const task=sel?.value||'未分配';
+  if(!currentMciEvent||!currentMciPassword)return;
+  holdMciCommanderUiV21104(18000);
+  markMciCommanderEditingV21740(sel);
+  btn.disabled=true;btn.textContent='同步中…';
+  try{
+    const j=await mciExternalFetchV21180({action:'assignMciExternalTaskV21180',eventId:currentMciEvent.eventId,tempId,password:currentMciPassword,task,operator:currentUser?.name||''});
+    if(!j.success)throw new Error(j.message||'指派失敗');
+    const row=sel?.closest('details.mci-person-row-v21756');
+    const taskLabel=row?.querySelector('.mci-person-task-v21756');
+    if(taskLabel)taskLabel.textContent=`｜${task}`;
+    const entryBtn=row?.querySelector('.mci-assign-entry-v211011');
+    if(entryBtn)entryBtn.textContent=(task&&task!=='未分配')?'變更任務':'指派任務';
+    // V21.18.1.5：派任成功立即同步未分配統計與任務頁籤徽章，不等下一輪 3 秒同步。
+    if(task&&task!=='未分配'){
+      const unassigned=document.getElementById('mciCountUnassigned');
+      if(unassigned){const n=Math.max(0,(Number(unassigned.textContent)||0)-1);unassigned.textContent=String(n);}
+      const badge=document.getElementById('mciTaskBadgeV2142');
+      if(badge){const n=Math.max(0,Number(document.getElementById('mciCountUnassigned')?.textContent||0));badge.textContent=String(n);badge.classList.toggle('is-visible',n>0);badge.setAttribute('aria-label',`待分派 ${n} 人`);}
+    }
+    btn.textContent='已更新';
+    if(sel)delete sel.dataset.localDirty;
+    setTimeout(()=>refreshMciPersonnelLiteV21101(false).catch(()=>{}),2200);
+  }catch(e){
+    const box=document.getElementById('mciErrorBox');if(box){box.textContent=e.message||'指派失敗';box.style.display='block';}
+    btn.textContent='確認派任';
+  }finally{
+    setTimeout(()=>{btn.disabled=false;if(btn.textContent==='已更新')btn.textContent=(task&&task!=='未分配')?'變更任務':'確認派任';},1200);
+  }
+}
+</script>
+
+
+<style id="mciHealthGlobalInterruptV211815Css">
+/* V21.18.1.5｜健康安全全域中斷：立即評估／到期回報不受目前工作頁限制 */
+#mciHealthForceOverlayV211701[data-mode="due"] .mci-health-force-title-v211701{color:#9a6417}
+#mciHealthForceOverlayV211701[data-mode="due"] .mci-health-force-reason-v211701{background:#fff7e6;color:#805314}
+#mciHealthForceOverlayV211701[data-mode="due"] .mci-health-force-action-v211701{background:#a56c1b}
+</style>
+<script id="mciHealthGlobalInterruptV211815Js">
+function mountMciHealthGlobalUiV211815(){
+  ['mciHealthForceOverlayV211701','mciHealthRestNoticeV211706','mciHealthRestOverlayV211706'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el && el.parentElement!==document.body) document.body.appendChild(el);
+  });
+}
+function mciHealthActiveNameV211815(){
+  const sess=(typeof mciExternalSessionV21180!=='undefined'&&mciExternalSessionV21180)||(typeof loadMciExternalLocalV21180==='function'?loadMciExternalLocalV21180():null);
+  if(currentUser?.externalSupport && sess?.name) return String(sess.name||'').trim();
+  return String(currentUser?.name||sess?.name||'').trim();
+}
+function mciHealthInterruptSeenKeyV211815(kind,token){
+  const eventId=String(currentMciEvent?.eventId||'');
+  const name=mciHealthActiveNameV211815();
+  return `mci-health-interrupt-seen:${eventId}:${name}:${kind}:${token||'default'}`;
+}
+function mciHealthDueTokenV211815(d){
+  const latest=d?.latest||{};
+  const stamp=latest.time||latest.timestamp||'first-report';
+  return String(stamp)+'|'+String(d?.reportDueLabel||'due');
+}
+function setMciHealthForceOverlayV211701(show,data){
+  mountMciHealthGlobalUiV211815();
+  const o=document.getElementById('mciHealthForceOverlayV211701');if(!o)return;
+  o.style.display=show?'flex':'none';
+  document.body.classList.toggle('mci-health-forced-v211701',!!show);
+  if(!show){o.dataset.forceToken='';o.dataset.interruptKind='';o.dataset.mode='';return;}
+  const kind=data?.interruptKind||'commander';
+  const token=data?.interruptToken||data?.forceToken||'commander';
+  o.dataset.forceToken=String(token);
+  o.dataset.interruptKind=kind;
+  o.dataset.mode=kind==='due'?'due':'commander';
+  const icon=o.querySelector('.mci-health-force-icon-v211701');
+  const title=document.getElementById('mciHealthForceTitleV211701');
+  const text=o.querySelector('.mci-health-force-text-v211701');
+  const reason=document.getElementById('mciHealthForceReasonV211701');
+  const action=o.querySelector('.mci-health-force-action-v211701');
+  if(kind==='due'){
+    if(icon)icon.textContent='⏰';
+    if(title)title.textContent='健康回報時間到了';
+    if(text)text.textContent='目前勤務已到健康回報時間。請先完成健康狀況回報，再繼續目前工作。';
+    if(reason)reason.textContent=data?.reportDueLabel||'已到本次健康回報時間';
+    if(action)action.textContent='前往健康回報';
+  }else{
+    if(icon)icon.textContent='⚠️';
+    if(title)title.textContent='請暫停目前勤務';
+    if(text)text.textContent='指揮端已將你標記為「立即評估」。請先完成健康狀況回報，由現場醫療／安全人員評估後再繼續勤務。';
+    if(reason)reason.textContent=data?.hint||'目前狀態：立即評估';
+    if(action)action.textContent='前往健康回報';
+  }
+}
+async function checkMciHealthSafetyV211701(force=false){
+  if(mciHealthSafetyBusyV211701||(!force&&document.hidden)||!currentMciEvent)return;
+  const name=mciHealthActiveNameV211815();
+  if(!name)return;
+  mciHealthSafetyBusyV211701=true;
+  try{
+    const j=await mciHealthFetchV211700({action:'getMciHealthSelfV211700',eventId:currentMciEvent.eventId,name});
+    const d=j.data||{};
+    let interrupt=null;
+    if(d.forcedByCommander){
+      const token=String(d.forceToken||'commander');
+      if(localStorage.getItem(mciHealthInterruptSeenKeyV211815('commander',token))!=='1') interrupt={...d,interruptKind:'commander',interruptToken:token};
+    }
+    if(!interrupt && d.reportDue){
+      const token=mciHealthDueTokenV211815(d);
+      if(localStorage.getItem(mciHealthInterruptSeenKeyV211815('due',token))!=='1') interrupt={...d,interruptKind:'due',interruptToken:token};
+    }
+    setMciHealthForceOverlayV211701(!!interrupt,interrupt||d);
+    setMciHealthRestUiV211706(d);
+  }catch(_e){
+    // 網路暫時異常時不主動清除既有警告，避免錯誤恢復勤務。
+  }finally{mciHealthSafetyBusyV211701=false;}
+}
+function openMciHealthFromForceV211701(){
+  const o=document.getElementById('mciHealthForceOverlayV211701');
+  const kind=o?.dataset.interruptKind||'commander';
+  const token=o?.dataset.forceToken||'default';
+  localStorage.setItem(mciHealthInterruptSeenKeyV211815(kind,token),'1');
+  setMciHealthForceOverlayV211701(false);
+  openMciHealthWorkspaceV211700(false);
+}
+function startMciHealthSafetyWatchV211701(){
+  if(mciHealthSafetyTimerV211701)clearInterval(mciHealthSafetyTimerV211701);
+  mciHealthSafetyTimerV211701=null;
+  checkMciHealthSafetyV211701(true);
+  mciHealthSafetyTimerV211701=setInterval(()=>checkMciHealthSafetyV211701(false),3000);
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  mountMciHealthGlobalUiV211815();
+  if(mciHealthSafetyTimerV211701){clearInterval(mciHealthSafetyTimerV211701);mciHealthSafetyTimerV211701=null;}
+  setTimeout(startMciHealthSafetyWatchV211701,1500);
+});
+</script>
+
+<script id="mciHealthExternalNavigationV211816Js">
+/* V21.18.1.6.1｜全域健康警告：正式／外部支援皆能正確進入健康回報，外部完成後返回「我的任務」。 */
+function mciHealthIsExternalV211816(){
+  const sess=(typeof mciExternalSessionV21180!=='undefined'&&mciExternalSessionV21180)||(typeof loadMciExternalLocalV21180==='function'?loadMciExternalLocalV21180():null);
+  return !!(currentUser?.externalSupport||sess?.tempId);
+}
+async function returnMciHealthAfterReportV211816(){
+  const w=document.getElementById('mciHealthWorkspaceV211700');
+  if(w)w.style.display='none';
+  document.body.classList.remove('mci-health-forced-v211701');
+  if(mciHealthIsExternalV211816()){
+    if(typeof showSection==='function')showSection('mciExternalSupportSectionV21180');
+    const choice=document.getElementById('mciExternalEntryChoiceV21181');
+    const login=document.getElementById('mciExternalLoginV21181');
+    const reg=document.getElementById('mciExternalRegisterV21180');
+    const work=document.getElementById('mciExternalWorkV21180');
+    if(choice)choice.style.display='none';
+    if(login)login.style.display='none';
+    if(reg)reg.style.display='none';
+    if(work)work.style.display='block';
+    mciExternalTaskActiveV211814=false;
+    try{if(typeof refreshMciExternalSessionV21180==='function')await refreshMciExternalSessionV21180(true);}catch(_e){}
+    try{if(typeof startMciExternalPollV21180==='function')startMciExternalPollV21180();}catch(_e){}
+    window.scrollTo({top:0,behavior:'smooth'});
+    return;
+  }
+  if(typeof showMciMemberView==='function')showMciMemberView();
+}
+(function(){
+  const previousOpen=openMciHealthWorkspaceV211700;
+  openMciHealthWorkspaceV211700=async function(asCommander){
+    const external=!asCommander&&mciHealthIsExternalV211816();
+    if(external&&typeof showSection==='function')showSection('mciSection');
+    const result=await previousOpen.apply(this,arguments);
+    if(external){
+      mciHealthReturnModeV211700='external';
+      const w=document.getElementById('mciHealthWorkspaceV211700');
+      if(w){w.style.display='block';w.scrollIntoView({block:'start'});}
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    return result;
+  };
+  const previousClose=closeMciHealthWorkspaceV211700;
+  closeMciHealthWorkspaceV211700=async function(){
+    if(mciHealthReturnModeV211700==='external')return returnMciHealthAfterReportV211816();
+    return previousClose.apply(this,arguments);
+  };
+})();
+</script>
 </body>
 </html>
 
@@ -26849,6 +27861,11 @@ if(typeof setMciTreatmentTabV211414==='function'){const _old=setMciTreatmentTabV
 .mci-supply-action-note-v211509{margin-top:9px;font-size:12px;color:#71868b}.mci-supply-action-msg-v211509{min-height:18px;margin-top:8px;font-size:13px;color:#a23a3a;font-weight:800}
 .mci-supply-action-footer-v211509{display:flex;gap:9px;justify-content:flex-end;margin-top:18px}.mci-supply-action-footer-v211509 button{appearance:none;width:auto!important;min-height:44px;padding:10px 18px;border-radius:999px;border:1px solid #c9dddd;background:#fff;color:#355d64;font-weight:900}.mci-supply-action-footer-v211509 .confirm{background:#167b78;color:#fff;border-color:#167b78}.mci-supply-action-footer-v211509 .confirm.warn{background:#ae7420;border-color:#ae7420}.mci-supply-action-footer-v211509 .confirm.danger{background:#ad4a4a;border-color:#ad4a4a}.mci-supply-action-footer-v211509 .confirm.success{background:#2e7d49;border-color:#2e7d49}
 @media(max-width:560px){.mci-supply-action-dialog-v211509{margin:4vh auto 0;padding:17px}.mci-supply-request-actions-v211509{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.mci-supply-request-action-v211509{justify-content:center!important}.mci-supply-action-pill-v211509{padding:8px 11px!important}}
+
+/* V21.17.0｜MCI 現場人員健康與安全管理 */
+#mciHealthWorkspaceV211700{margin-top:14px}.mci-health-head-v211700{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px}.mci-health-head-v211700 .back-button{width:auto;flex:0 0 auto;margin:0}.mci-health-title-v211700{font-size:20px;font-weight:900;color:#24404a}.mci-health-sub-v211700{font-size:12px;color:#6b7d85;margin-top:3px}.mci-health-status-row-v211700{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0}.mci-health-badge-v211700{display:inline-flex;align-items:center;border-radius:999px;padding:7px 12px;font-weight:900;font-size:14px}.mci-health-badge-v211700.normal{background:#e7f6ec;color:#21643b}.mci-health-badge-v211700.watch{background:#fff7d9;color:#7c5b00}.mci-health-badge-v211700.rest{background:#fff0df;color:#9a4f00}.mci-health-badge-v211700.assess{background:#fde8e8;color:#9f2424}.mci-health-hint-v211700,.mci-health-rest-state-v211700{font-size:13px;line-height:1.55;color:#53666f;margin-top:6px}.mci-health-symptoms-v211700{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0 14px}.mci-health-symptoms-v211700 label{display:flex;gap:7px;align-items:center;padding:10px;border:1px solid #d9e2e5;border-radius:10px;background:#fff;font-size:13px}.mci-health-vitals-v211700{margin:12px 0;border:1px solid #d9e2e5;border-radius:10px;padding:10px;background:#f8fbfc}.mci-health-vitals-v211700 summary{font-weight:800;cursor:pointer}.mci-health-vitals-grid-v211700{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}.mci-health-message-v211700{font-size:13px;margin-top:9px;min-height:20px}.mci-health-commander-title-v211700{display:flex;align-items:center;justify-content:space-between;gap:10px}.mci-health-commander-title-v211700 button,.mci-health-env-v211700 button{border:1px solid #b9cbd1;background:#fff;color:#31515e;border-radius:9px;padding:7px 10px;font-weight:800}.mci-health-env-v211700{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:12px 0}.mci-health-env-v211700>span{font-weight:900;margin-right:4px}.mci-health-env-v211700 button.active{background:#315f6c;color:#fff;border-color:#315f6c}.mci-health-stat-grid-v211700{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.mci-health-stat-grid-v211700>div{border:1px solid #e0e7e9;border-radius:10px;padding:10px;background:#fff}.mci-health-stat-grid-v211700 span{display:block;font-size:11px;color:#6b7d85}.mci-health-stat-grid-v211700 strong{display:block;font-size:23px;margin-top:3px}.mci-health-list-v211700{display:grid;gap:10px;margin-top:12px}.mci-health-person-v211700{border:1px solid #dce5e8;border-radius:12px;background:#fff;padding:12px}.mci-health-person-head-v211700{display:flex;align-items:center;justify-content:space-between;gap:10px}.mci-health-person-name-v211700{font-size:16px;font-weight:900;color:#253e47}.mci-health-person-meta-v211700{font-size:12px;color:#6b7d85;margin-top:3px}.mci-health-person-body-v211700{font-size:13px;line-height:1.55;color:#40545d;margin-top:8px}.mci-health-person-actions-v211700{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.mci-health-person-actions-v211700 button{border:1px solid #b9cbd1;background:#f8fbfc;border-radius:9px;padding:7px 10px;font-weight:800;color:#31515e}.mci-health-person-actions-v211700 button.danger{border-color:#e7bcbc;color:#9f2424;background:#fff7f7}@media(max-width:640px){.mci-health-symptoms-v211700,.mci-health-vitals-grid-v211700{grid-template-columns:1fr}.mci-health-stat-grid-v211700{grid-template-columns:repeat(2,1fr)}.mci-health-head-v211700{display:block}.mci-health-head-v211700 .back-button{margin-bottom:10px}}
+/* V21.17.1｜健康管理版面整理 */
+#mciHealthWorkspaceV211700{max-width:1120px;margin:12px auto 0}.mci-health-head-v211700{padding:4px 2px 8px;align-items:center}.mci-health-head-v211700 .back-button{border-radius:999px;padding:10px 16px}.mci-health-status-card-v211700,.mci-health-form-v211700,#mciHealthCommanderModeV211700>.summary-box{border-radius:18px!important;padding:18px!important}.mci-health-symptoms-v211700{gap:10px}.mci-health-symptoms-v211700 label{position:relative;display:grid!important;grid-template-columns:24px 1fr!important;align-items:center!important;justify-content:start!important;min-height:54px;padding:12px 14px!important;font-size:15px!important;font-weight:800;color:#36525c;line-height:1.25}.mci-health-symptoms-v211700 input{width:18px!important;height:18px!important;margin:0!important}.mci-health-commander-title-v211700{font-size:18px}.mci-health-commander-title-v211700 button{width:auto;min-width:110px}.mci-health-env-v211700{display:grid;grid-template-columns:auto repeat(3,minmax(120px,1fr));align-items:center;gap:8px}.mci-health-env-v211700 button{min-height:44px}.mci-health-stat-grid-v211700>div{padding:12px 14px}.mci-health-person-v211700{padding:16px;border-left:5px solid #dce5e8}.mci-health-person-v211700.watch{border-left-color:#ddb832}.mci-health-person-v211700.rest{border-left-color:#df8c34}.mci-health-person-v211700.assess{border-left-color:#d85a5a}.mci-health-person-body-v211700{display:grid;gap:5px}.mci-health-person-body-v211700 b{display:inline-block;min-width:72px;color:#60747c}.mci-health-card-hint-v211701{margin-top:4px;padding:9px 11px;background:#f5f8f9;border-radius:10px}.mci-health-contact-v211701{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}.mci-health-contact-v211701>div{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:10px 12px;border:1px solid #e1e9eb;border-radius:12px;background:#fbfcfc}.mci-health-contact-v211701 span{font-size:11px;color:#71858d}.mci-health-contact-v211701 strong{font-size:13px;color:#344f58;overflow-wrap:anywhere}.mci-health-contact-v211701 a{display:inline-flex;align-items:center;text-decoration:none;padding:7px 10px;border-radius:9px;background:#edf7f7;color:#176b74;font-size:12px;font-weight:900}.mci-health-person-actions-v211700{display:grid;grid-template-columns:1fr 1fr}.mci-health-person-actions-v211700 button{min-height:44px}.mci-health-force-overlay-v211701{position:fixed;inset:0;z-index:99999;background:rgba(23,39,46,.78);align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));overflow:hidden}.mci-health-force-card-v211701{width:min(520px,100%);max-height:min(86dvh,760px);max-height:min(86vh,760px);background:#fff;border-radius:24px;box-shadow:0 22px 70px rgba(0,0,0,.28);text-align:center;display:flex;flex-direction:column;overflow:hidden}.mci-health-force-scroll-v211705{min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:26px 24px 12px}.mci-health-force-footer-v211705{flex:0 0 auto;padding:12px 24px max(20px,env(safe-area-inset-bottom));background:#fff;border-top:1px solid #edf0f1;box-shadow:0 -8px 20px rgba(20,45,51,.05)}.mci-health-force-icon-v211701{font-size:44px}.mci-health-force-title-v211701{font-size:26px;font-weight:950;color:#9f2424;margin-top:8px}.mci-health-force-text-v211701{margin-top:12px;line-height:1.7;color:#40545d}.mci-health-force-reason-v211701{margin:16px 0 4px;padding:12px;border-radius:12px;background:#fff3f3;color:#8f2d2d;font-weight:900}.mci-health-force-action-v211701{width:100%;min-height:52px;border:0;border-radius:14px;background:#a93636;color:#fff;font-size:17px;font-weight:950}.mci-health-forced-v211701{overflow:hidden!important}@media(max-height:620px){.mci-health-force-overlay-v211701{align-items:flex-start}.mci-health-force-card-v211701{max-height:calc(100dvh - 32px);max-height:calc(100vh - 32px)}.mci-health-force-scroll-v211705{padding-top:18px}.mci-health-force-icon-v211701{font-size:36px}.mci-health-force-title-v211701{font-size:23px}.mci-health-force-text-v211701{line-height:1.55}}@media(max-width:700px){.mci-health-env-v211700{grid-template-columns:1fr}.mci-health-env-v211700>span{margin-bottom:2px}.mci-health-contact-v211701{grid-template-columns:1fr}.mci-health-person-actions-v211700{grid-template-columns:1fr}.mci-health-symptoms-v211700{grid-template-columns:1fr 1fr!important}.mci-health-symptoms-v211700 label{font-size:14px!important}}@media(max-width:430px){.mci-health-symptoms-v211700{grid-template-columns:1fr!important}}
 </style>
 <div id="mciSupplyActionModalV211509" class="mci-supply-action-modal-v211509" onclick="if(event.target===this)closeMciSupplyActionModalV211509()">
   <div class="mci-supply-action-dialog-v211509" role="dialog" aria-modal="true" aria-labelledby="mciSupplyActionTitleV211509">
@@ -26883,3 +27900,17 @@ if(typeof setMciTreatmentTabV211414==='function'){const _old=setMciTreatmentTabV
   const stockBox=$('mciSupplyStockListV211500');if(stockBox)new MutationObserver(()=>{clearTimeout(window.__mciStockDecorTimerV211509);window.__mciStockDecorTimerV211509=setTimeout(decorateStock,30);}).observe(stockBox,{childList:true,subtree:true});setTimeout(decorateStock,80);
 })();
 </script>
+
+<style id="mciHealthV211702Css">
+/* V21.17.2｜健康管理狀態總表、篩選、流程與操作回饋 */
+.mci-health-none-v211702{grid-column:1/-1;background:#f2faf8!important;border-color:#b9ddd5!important;color:#286457!important}
+.mci-health-filter-grid-v211702{grid-template-columns:repeat(5,minmax(0,1fr))!important;margin-top:12px}
+.mci-health-filter-grid-v211702 button{appearance:none;text-align:left;border:1px solid #dce5e8;border-radius:12px;padding:12px 14px;background:#fff;color:#294954;cursor:pointer;transition:.15s ease}
+.mci-health-filter-grid-v211702 button:hover{border-color:#9fbac2;transform:translateY(-1px)}
+.mci-health-filter-grid-v211702 button.active{background:#315f6c;color:#fff;border-color:#315f6c;box-shadow:0 4px 12px rgba(49,95,108,.16)}
+.mci-health-filter-grid-v211702 button span{display:block;font-size:12px;color:inherit;opacity:.78}.mci-health-filter-grid-v211702 button strong{display:block;font-size:24px;margin-top:3px;color:inherit}
+.mci-health-legend-v211702{margin-top:9px;color:#6b7d85;font-size:12px}
+.mci-health-table-wrap-v211702{overflow-x:auto;border:1px solid #dce5e8;border-radius:14px;background:#fff}
+.mci-health-table-v211702{width:100%;border-collapse:collapse;min-width:850px}.mci-health-table-v211702 th{font-size:12px;color:#617881;text-align:left;background:#f6f9fa;padding:11px 12px;border-bottom:1px solid #dce5e8;white-space:nowrap}.mci-health-table-v211702 td{padding:12px;border-bottom:1px solid #edf1f2;vertical-align:middle;font-size:13px;color:#38515a}.mci-health-table-v211702 tbody tr:last-child td{border-bottom:0}.mci-health-table-v211702 td:first-child strong{display:block;font-size:14px;color:#233f49}.mci-health-table-v211702 td:first-child small{display:block;margin-top:3px;color:#7a8d94}.mci-health-summary-row-v211702.assess{background:#fffafa}.mci-health-summary-row-v211702.rest{background:#fffdf8}.mci-health-flow-v211702{display:inline-flex;padding:5px 9px;border-radius:999px;background:#edf4f6;color:#365965;font-weight:800;white-space:nowrap}.mci-health-view-v211702{border:1px solid #b9cbd1;background:#fff;color:#31515e;border-radius:8px;padding:7px 10px;font-weight:850;white-space:nowrap}.mci-health-detail-row-v211702>td{padding:0 12px 14px!important;background:#f8fbfc}.mci-health-detail-row-v211702 .mci-health-person-v211700{margin-top:10px;box-shadow:none}.mci-health-person-actions-v211700 button:disabled,.mci-health-env-v211700 button:disabled,#mciHealthSubmitV211700:disabled{opacity:.65;cursor:wait}
+@media(max-width:760px){.mci-health-filter-grid-v211702{grid-template-columns:repeat(2,minmax(0,1fr))!important}.mci-health-filter-grid-v211702 button:first-child{grid-column:1/-1}.mci-health-table-wrap-v211702{border:0;background:transparent}.mci-health-table-v211702{min-width:720px}.mci-health-none-v211702{grid-column:1/-1}}
+</style>
