@@ -5574,18 +5574,28 @@
       .home-ranking-modal-panel-v2127{padding:15px;border-radius:18px;}
     }
 
-/* V21.18.1.9.6｜首頁第二層導覽＋登入按鈕視覺統一 */
+/* V21.18.2.1｜首頁第二層導覽＋登入按鈕視覺統一 */
 .home-layer-entry-v211818{width:100%;margin-top:14px;padding:15px 16px;border:1px solid #d7e6ea;border-radius:16px;background:#eef6f8;color:#315d68;font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;box-shadow:0 5px 16px rgba(42,88,102,.06);text-align:left}
 .home-layer-entry-v211818:hover{background:#e9f3f6}
 .home-layer-arrow-v211818{font-size:27px;line-height:1;color:#6a8a94;font-weight:500}
-/* V21.18.1.9.6｜MCI 事件啟動入口：暖色事件卡，與一般登入藍綠色系明確區隔 */
-.mci-event-active-entry-v211819{border:1px solid #d96f45;background:linear-gradient(135deg,#e98743 0%,#d95f52 100%);color:#fff;box-shadow:0 10px 24px rgba(188,82,54,.24),0 0 0 3px rgba(236,151,91,.12)}
-.mci-event-active-entry-v211819:hover{background:linear-gradient(135deg,#dc7838 0%,#ca5048 100%)}
+/* V21.18.2.3｜MCI 事件啟動入口：降低飽和度與亮度，保留事件辨識但避免壓過登入操作 */
+.mci-event-active-entry-v211819{border:1px solid #ad684f;background:linear-gradient(135deg,#b86849 0%,#a9554d 100%);color:#fff;box-shadow:0 7px 18px rgba(122,70,55,.16),0 0 0 2px rgba(191,120,83,.07)}
+.mci-event-active-entry-v211819:hover{background:linear-gradient(135deg,#aa6045 0%,#9c4e49 100%)}
 .mci-event-active-entry-v211819 .home-layer-arrow-v211818{color:#fff;opacity:.9}
 .mci-event-entry-main-v211819{display:flex;flex-direction:column;gap:3px;min-width:0}
 .mci-event-entry-title-v211819{font-size:16px;font-weight:900;line-height:1.35}
 .mci-event-entry-state-v211819{display:inline-flex;align-items:center;gap:6px;width:max-content;font-size:12px;font-weight:800;color:#fff7ee;opacity:.99}
 .mci-event-entry-state-v211819::before{content:'';width:7px;height:7px;border-radius:50%;background:#fff2b8;box-shadow:0 0 0 4px rgba(255,242,184,.20)}
+
+/* V21.18.2.2｜登入後災害應變入口同步顯示事件狀態 */
+.mci-internal-entry-v211822{transition:background .18s ease,border-color .18s ease,box-shadow .18s ease,color .18s ease}
+.mci-internal-entry-v211822 .mci-internal-state-v211822{margin-top:3px;font-size:11px;line-height:1.45;font-weight:700;color:#87979b}
+.mci-internal-entry-v211822.mci-internal-event-active-v211822{border-color:#ad684f!important;background:linear-gradient(135deg,#b86849 0%,#a9554d 100%)!important;color:#fff!important;box-shadow:0 7px 18px rgba(122,70,55,.16),0 0 0 2px rgba(191,120,83,.07)!important}
+.mci-internal-entry-v211822.mci-internal-event-active-v211822:hover{background:linear-gradient(135deg,#aa6045 0%,#9c4e49 100%)!important}
+.mci-internal-entry-v211822.mci-internal-event-active-v211822 .menu-icon,
+.mci-internal-entry-v211822.mci-internal-event-active-v211822 .menu-title,
+.mci-internal-entry-v211822.mci-internal-event-active-v211822 .mci-internal-state-v211822{color:#fff!important}
+.mci-internal-entry-v211822.mci-internal-event-active-v211822 .mci-internal-state-v211822{opacity:.96}
 .home-layer-panel-v211818{display:grid;gap:12px;margin-top:14px}
 .home-layer-option-v211818{width:100%;border:1px solid #d7e6ea;border-radius:16px;background:#fff;padding:17px 16px;text-align:left;cursor:pointer;box-shadow:0 5px 16px rgba(42,88,102,.05);display:flex;flex-direction:column;gap:6px;color:#315d68}
 .home-layer-option-v211818:hover{background:#f7fbfc}
@@ -5593,7 +5603,7 @@
 .home-layer-option-desc-v211818{font-size:13px;line-height:1.55;color:#70858c;font-weight:500}
 @media(max-width:700px){.home-layer-entry-v211818{font-size:15.5px}.home-layer-option-v211818{text-align:center;align-items:center}.home-layer-option-desc-v211818{text-align:center}}
 
-/* V21.18.1.9.6｜首頁登入按鈕與第二層入口視覺統一 */
+/* V21.18.2.1｜首頁登入按鈕與第二層入口視覺統一 */
 button.primary.home-login-entry-v2118192{
   width:100%;
   min-height:62px;
@@ -5616,7 +5626,7 @@ button.primary.home-login-entry-v2118192:disabled{
   cursor:wait;
 }
 
-/* V21.18.1.9.6｜登入操作改為雙小方塊 */
+/* V21.18.2.1｜登入操作改為雙小方塊 */
 .login-options-row-v2118193{
   justify-content:flex-start;
   margin-top:12px;
@@ -5665,6 +5675,72 @@ button.compact-forgot-button-v2118193:hover{
   margin-top:8px;
   text-align:left;
 }
+
+
+/* V21.18.2.1｜登入／忘記密碼白底一致、提高辨識度 */
+#loginSubmitButton.compact-inline-button-v2118194,
+button.compact-forgot-button-v2118193.compact-inline-button-v2118194{
+  min-width:78px!important;
+  min-height:40px!important;
+  border:1px solid #b9cdd4!important;
+  background:#fff!important;
+  color:#294f5b!important;
+  font-weight:800!important;
+  box-shadow:0 1px 2px rgba(37,76,89,.04)!important;
+}
+#loginSubmitButton.compact-inline-button-v2118194:hover,
+button.compact-forgot-button-v2118193.compact-inline-button-v2118194:hover{
+  background:#f7fafb!important;
+  border-color:#9fbac4!important;
+}
+
+
+/* V21.18.2.1｜登入辨識強化＋全系統自助忘記密碼 */
+#loginSubmitButton.compact-inline-button-v2118194{
+  min-width:86px!important;
+  min-height:40px!important;
+  padding:8px 16px!important;
+  border:2px solid #4f8795!important;
+  border-radius:10px!important;
+  background:#fff!important;
+  color:#245966!important;
+  font-weight:900!important;
+  box-shadow:0 2px 7px rgba(38,89,102,.10)!important;
+}
+#loginSubmitButton.compact-inline-button-v2118194:hover{
+  background:#f7fafb!important;
+  border-color:#2f7180!important;
+  color:#174e5b!important;
+  box-shadow:0 3px 9px rgba(38,89,102,.13)!important;
+}
+button.compact-forgot-button-v2118193.compact-inline-button-v2118194:not(#loginSubmitButton){
+  min-width:86px!important;
+  min-height:40px!important;
+  padding:8px 14px!important;
+  border:1px solid #c8d9de!important;
+  border-radius:10px!important;
+  background:#fff!important;
+  color:#496a73!important;
+  font-weight:800!important;
+  box-shadow:none!important;
+}
+.forgot-reset-modal-v211821{position:fixed;inset:0;z-index:12000;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(24,48,57,.42);backdrop-filter:blur(2px)}
+.forgot-reset-modal-v211821.active{display:flex}
+.forgot-reset-card-v211821{width:min(460px,96vw);max-height:92vh;overflow:auto;background:#fff;border:1px solid #d8e5e9;border-radius:18px;padding:20px;box-shadow:0 24px 70px rgba(15,48,58,.24)}
+.forgot-reset-head-v211821{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:16px}
+.forgot-reset-title-v211821{font-size:21px;font-weight:900;color:#244f5a}
+.forgot-reset-sub-v211821{margin-top:5px;font-size:13px;line-height:1.55;color:#71878f}
+.forgot-reset-close-v211821{width:34px!important;height:34px!important;min-width:34px!important;margin:0!important;padding:0!important;border:1px solid #d8e5e9!important;border-radius:9px!important;background:#fff!important;color:#5b737b!important;box-shadow:none!important}
+.forgot-reset-grid-v211821{display:grid;grid-template-columns:1fr;gap:12px}
+.forgot-reset-grid-v211821 label{font-size:14px;font-weight:800;color:#395d67}
+.forgot-reset-grid-v211821 input{width:100%;margin-top:6px;box-sizing:border-box}
+.forgot-reset-msg-v211821{min-height:20px;margin-top:10px;color:#b34c4c;font-size:13px;font-weight:700}
+.forgot-reset-actions-v211821{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.forgot-reset-actions-v211821 button{min-height:44px!important;margin:0!important;border-radius:10px!important;font-weight:900!important}
+.forgot-reset-secondary-v211821{border:1px solid #cfdee3!important;background:#fff!important;color:#496a73!important;box-shadow:none!important}
+.forgot-reset-primary-v211821{border:2px solid #4f8795!important;background:#fff!important;color:#245966!important;box-shadow:0 2px 7px rgba(38,89,102,.09)!important}
+.forgot-reset-note-v211821{margin-top:12px;font-size:12px;line-height:1.5;color:#87989e;text-align:center}
+@media(max-width:520px){#loginSubmitButton.compact-inline-button-v2118194,button.compact-forgot-button-v2118193.compact-inline-button-v2118194:not(#loginSubmitButton){min-width:74px!important;padding:8px 10px!important}.forgot-reset-card-v211821{padding:17px;border-radius:16px}}
 
 </style>
 
@@ -7708,7 +7784,7 @@ button.compact-forgot-button-v2118193:hover{
     <div class="error" id="loginErrorBox"></div>
   </section>
 
-  <!-- V21.18.1.9.6｜首頁登入按鈕與入口視覺統一 -->
+  <!-- V21.18.2.1｜首頁登入按鈕與入口視覺統一 -->
   <section id="mciExternalHubSectionV211818" class="section">
     <button class="back-button" onclick="showSection('loginSection')">← 返回首頁</button>
     <div class="page-title">🧭 災害應變系統｜外部支援入口</div>
@@ -7947,10 +8023,11 @@ button.compact-forgot-button-v2118193:hover{
         </div>
       </button>
 
-      <button class="menu-card" onclick="window.location.href='./mci/'">
-        <div class="menu-icon">🚑</div>
+      <button id="mciInternalHomeEntryV211822" class="menu-card mci-internal-entry-v211822" onclick="window.location.href='./mci/'">
+        <div class="menu-icon">🧭</div>
         <div>
           <div class="menu-title">災害應變系統</div>
+          <div id="mciInternalHomeStateV211822" class="mci-internal-state-v211822">目前無啟動中的災害事件</div>
         </div>
       </button>
 
@@ -9781,7 +9858,7 @@ button.compact-forgot-button-v2118193:hover{
     <div class="form-panel"><div class="panel-title">申請資料</div><button type="button" class="secondary" onclick="loadOnboardingApplications()">重新整理</button><div id="onboardingAdminList" style="margin-top:12px">資料載入中...</div><div class="error" id="onboardingAdminError"></div></div>
   </section>
 
-  <div class="footer">🛡️ 管理單位：鳳凰救護大隊第一分隊<br>網頁更新時間：2026/08/24 ｜版本：V21.18.1.9.6</div>
+  <div class="footer">🛡️ 管理單位：鳳凰救護大隊第一分隊<br>網頁更新時間：2026/08/25 ｜版本：V21.18.2.4</div>
 </div>
 
 <script>
@@ -10185,71 +10262,53 @@ async function loginMember() {
   }
 
 
-  async function startForgotPasswordFlow() {
+  function startForgotPasswordFlow() {
     const errorBox = document.getElementById('loginErrorBox');
-    if (errorBox) {
-      errorBox.style.display = 'none';
-      errorBox.innerText = '';
-    }
+    if (errorBox) { errorBox.style.display='none'; errorBox.innerText=''; }
+    const modal=document.getElementById('forgotPasswordModalV211821');
+    if(!modal)return;
+    const name=(document.getElementById('loginNameInput')?.value||'').trim();
+    document.getElementById('forgotResetNameV211821').value=name;
+    document.getElementById('forgotResetBirthV211821').value='';
+    document.getElementById('forgotResetNewCodeV211821').value='';
+    document.getElementById('forgotResetConfirmCodeV211821').value='';
+    document.getElementById('forgotResetMsgV211821').textContent='';
+    modal.classList.add('active');
+    setTimeout(()=>document.getElementById(name?'forgotResetBirthV211821':'forgotResetNameV211821')?.focus(),80);
+  }
 
-    const defaultName = (document.getElementById('loginNameInput')?.value || '').trim();
-    const name = prompt('請輸入您的姓名：', defaultName);
+  function closeForgotPasswordModalV211821(){
+    document.getElementById('forgotPasswordModalV211821')?.classList.remove('active');
+  }
 
-    if (!name || !name.trim()) return;
-
-    if (!API_URL || API_URL.includes('請在這裡貼上')) {
-      alert('尚未設定 Google Apps Script Web App URL。');
-      return;
-    }
-
-    try {
-      const params = new URLSearchParams({
-        action: 'requestForgotPasswordOtp',
-        name: name.trim()
-      });
-
-      const response = await fetch(`${API_URL}?${params.toString()}`);
-      const result = await response.json();
-
-      if (!result.success) {
-        alert(result.message || '無法送出驗證碼，請稍後再試');
-        return;
-      }
-
-      alert(result.message || '已將一次性驗證碼推播至您綁定的 LINE。');
-
-      const otp = prompt('請輸入 LINE 收到的一次性驗證碼：');
-      if (!otp || !otp.trim()) return;
-
-      const newCode = prompt('請設定新的登入驗證密碼：\n需為 4～12 碼英文字母或數字。');
-      if (!newCode || !newCode.trim()) return;
-
-      if (!/^[A-Za-z0-9]{4,12}$/.test(newCode.trim())) {
-        alert('新的登入驗證密碼格式不正確，請使用 4～12 碼英文字母或數字。');
-        return;
-      }
-
-      const resetParams = new URLSearchParams({
-        action: 'resetLoginCodeByOtp',
-        name: name.trim(),
-        otp: otp.trim(),
-        newCode: newCode.trim()
-      });
-
-      const resetResponse = await fetch(`${API_URL}?${resetParams.toString()}`);
-      const resetResult = await resetResponse.json();
-
-      if (!resetResult.success) {
-        alert(resetResult.message || '登入驗證密碼重設失敗');
-        return;
-      }
-
-      document.getElementById('loginNameInput').value = name.trim();
-      document.getElementById('loginCodeInput').value = '';
-      alert(resetResult.message || '登入驗證密碼已重設，請使用新的登入驗證密碼登入。');
-
-    } catch (err) {
-      alert('系統連線異常，請稍後再試或聯絡幹部。');
+  async function submitForgotPasswordResetV211821(){
+    const name=(document.getElementById('forgotResetNameV211821')?.value||'').trim();
+    const birth=(document.getElementById('forgotResetBirthV211821')?.value||'').trim();
+    const newCode=(document.getElementById('forgotResetNewCodeV211821')?.value||'').trim();
+    const confirmCode=(document.getElementById('forgotResetConfirmCodeV211821')?.value||'').trim();
+    const msg=document.getElementById('forgotResetMsgV211821');
+    const btn=document.getElementById('forgotResetSubmitV211821');
+    if(msg)msg.textContent='';
+    if(!name||!birth){if(msg)msg.textContent='請輸入姓名與生日。';return;}
+    if(!/^[A-Za-z0-9]{4,12}$/.test(newCode)){if(msg)msg.textContent='新登入密碼請使用 4～12 碼英文字母或數字。';return;}
+    if(newCode!==confirmCode){if(msg)msg.textContent='兩次輸入的新密碼不一致。';return;}
+    if(!API_URL||API_URL.includes('請在這裡貼上')){if(msg)msg.textContent='尚未設定系統連線網址。';return;}
+    if(btn){btn.disabled=true;btn.textContent='驗證中…';}
+    try{
+      const body=new URLSearchParams({action:'resetLoginCodeByNameBirthV211821',name,birth,newCode});
+      const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:body.toString()});
+      const x=await parseApiJsonV2159(r,'忘記密碼');
+      if(!x.success)throw new Error(x.message||'身分驗證未通過');
+      document.getElementById('loginNameInput').value=name;
+      document.getElementById('loginCodeInput').value='';
+      try{localStorage.removeItem('phoenixRememberedLogin');}catch(_e){}
+      closeForgotPasswordModalV211821();
+      alert(x.message||'登入密碼已重設，請使用新密碼登入。');
+      setTimeout(()=>document.getElementById('loginCodeInput')?.focus(),100);
+    }catch(err){
+      if(msg)msg.textContent=err?.message||'身分驗證未通過，請確認姓名與生日。';
+    }finally{
+      if(btn){btn.disabled=false;btn.textContent='設定新密碼';}
     }
   }
 
@@ -13437,8 +13496,17 @@ function updateMciPublicTransportEntryV21761(event){
   mciPublicEventCheckedV21761=true;
   const transportEntry=document.getElementById('mciPublicTransportEntryV21761');
   const externalHubEntry=document.getElementById('mciExternalHubEntryV211819');
+  const internalHomeEntry=document.getElementById('mciInternalHomeEntryV211822');
+  const internalHomeState=document.getElementById('mciInternalHomeStateV211822');
   if(transportEntry)transportEntry.style.display=event?'block':'none';
   if(externalHubEntry)externalHubEntry.style.display=event?'flex':'none';
+  if(internalHomeEntry){
+    internalHomeEntry.classList.toggle('mci-internal-event-active-v211822',!!event);
+    internalHomeEntry.setAttribute('aria-label',event?'災害應變系統，事件啟動中，點選進入災害應變工作區':'災害應變系統，目前無啟動中的災害事件');
+  }
+  if(internalHomeState){
+    internalHomeState.textContent=event?'事件啟動中｜點選進入災害應變工作區':'目前無啟動中的災害事件';
+  }
   if(!event){
     const hub=document.getElementById('mciExternalHubSectionV211818');
     if(hub&&hub.classList.contains('active'))showSection('loginSection');
@@ -19133,7 +19201,7 @@ async function loadCadreTaskOverviewV21210(){
     .promotion-signups-v2162{margin-top:10px;padding:10px 12px;background:#f8fbfc;border-radius:10px;font-size:13px;line-height:1.7;color:#516a75}.promotion-card-actions-v2162{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.promotion-card-actions-v2162 .promotion-action-btn-v21623{width:auto!important;min-width:0!important;margin:0!important;padding:7px 12px!important;border-radius:10px!important;border:1px solid #cfdee3!important;background:#fff!important;color:#365b68!important;font-size:14px!important;font-weight:700!important;box-shadow:none!important;line-height:1.25;cursor:pointer}.promotion-card-actions-v2162 .promotion-action-btn-v21623:hover{background:#f4f9fa!important;border-color:#b7d0d7!important}.promotion-card-actions-v2162 .promotion-action-status-v21623{color:#226775!important;border-color:#bcd5db!important;background:#f7fbfc!important}.promotion-card-actions-v2162 .promotion-action-danger-v21623{color:#9a4a4a!important;border-color:#ebcccc!important;background:#fffafa!important}.promotion-card-actions-v2162 .promotion-action-danger-v21623:hover{background:#fdf1f1!important;border-color:#dfb3b3!important}
     @media(max-width:640px){.promotion-form-grid-v2162{grid-template-columns:1fr}.promotion-form-grid-v2162 .full{grid-column:auto}.promotion-admin-summary-v2162{grid-template-columns:repeat(3,1fr)}.promotion-admin-summary-v2162 b{font-size:20px}}
 
-/* V21.18.1.9.6｜記住登入／登入／忘記密碼同列精簡 */
+/* V21.18.2.1｜記住登入／登入／忘記密碼同列精簡 */
 .login-inline-actions-v2118194{
   display:flex;
   align-items:center;
@@ -19160,7 +19228,7 @@ button.compact-inline-button-v2118194{
   button.compact-inline-button-v2118194{ min-width:68px; padding:8px 10px; font-size:13px; }
 }
 
-/* V21.18.1.9.6｜登入／忘記密碼同列同樣式 */
+/* V21.18.2.1｜登入／忘記密碼同列同樣式 */
 .login-inline-actions-v2118194{
   display:flex;
   align-items:center;
@@ -19208,7 +19276,7 @@ button.primary.compact-inline-button-v2118194:disabled{
   button.compact-inline-button-v2118194{ min-width:68px!important; padding:8px 10px!important; font-size:13px!important; }
 }
 
-/* V21.18.1.9.6｜修正舊版 #loginSubmitButton !important 覆蓋問題 */
+/* V21.18.2.1｜修正舊版 #loginSubmitButton !important 覆蓋問題 */
 #loginSubmitButton.compact-inline-button-v2118194{
   width:auto!important;
   min-width:76px!important;
@@ -19245,6 +19313,36 @@ button.primary.compact-inline-button-v2118194:disabled{
     font-size:13px!important;
   }
 }
+
+
+/* V21.18.2.4｜首頁登入按鈕加寬加大：維持白底簡約，強化主要操作辨識 */
+#loginSubmitButton.compact-inline-button-v2118194{
+  min-width:116px!important;
+  min-height:44px!important;
+  padding:10px 24px!important;
+  font-size:15px!important;
+  font-weight:900!important;
+  border:2px solid #4f8795!important;
+  border-radius:11px!important;
+  background:#fff!important;
+  color:#245966!important;
+  box-shadow:0 2px 7px rgba(38,89,102,.10)!important;
+}
+#loginSubmitButton.compact-inline-button-v2118194:hover{
+  background:#f7fafb!important;
+  border-color:#2f7180!important;
+  color:#174e5b!important;
+  box-shadow:0 3px 9px rgba(38,89,102,.13)!important;
+}
+@media (max-width:520px){
+  #loginSubmitButton.compact-inline-button-v2118194{
+    min-width:98px!important;
+    min-height:42px!important;
+    padding:9px 17px!important;
+    font-size:14px!important;
+  }
+}
+
 </style>
 <section id="cadreVoteOverviewSectionV2128" class="section cadre-feature-section">
   <div class="cadre-subnav-v21651"><button class="back-button" onclick="showSection('cadreAdminCategoryV2164')">← 📋 行政互動</button><button class="back-button" onclick="showSection('cadreSection')">← 返回幹部專區</button></div>
@@ -21690,5 +21788,32 @@ function openMciExternalSupportEntryV211801(){
   window.location.href='mci/index.html?entry=external';
 }
 </script>
+
+<div id="forgotPasswordModalV211821" class="forgot-reset-modal-v211821" onclick="if(event.target===this)closeForgotPasswordModalV211821()">
+  <div class="forgot-reset-card-v211821" role="dialog" aria-modal="true" aria-labelledby="forgotResetTitleV211821">
+    <div class="forgot-reset-head-v211821">
+      <div>
+        <div id="forgotResetTitleV211821" class="forgot-reset-title-v211821">忘記密碼</div>
+        <div class="forgot-reset-sub-v211821">輸入姓名與生日完成身分驗證，直接設定新的登入密碼。</div>
+      </div>
+      <button type="button" class="forgot-reset-close-v211821" onclick="closeForgotPasswordModalV211821()">✕</button>
+    </div>
+    <div class="forgot-reset-grid-v211821">
+      <label>姓名<input id="forgotResetNameV211821" autocomplete="name" placeholder="請輸入姓名"></label>
+      <label>生日<input id="forgotResetBirthV211821" type="date" autocomplete="bday"></label>
+      <label>新登入密碼<input id="forgotResetNewCodeV211821" type="password" inputmode="text" autocomplete="new-password" maxlength="12" placeholder="4～12 碼英文字母或數字"></label>
+      <label>再次輸入新密碼<input id="forgotResetConfirmCodeV211821" type="password" inputmode="text" autocomplete="new-password" maxlength="12" placeholder="再次輸入"></label>
+    </div>
+    <div id="forgotResetMsgV211821" class="forgot-reset-msg-v211821"></div>
+    <div class="forgot-reset-actions-v211821">
+      <button type="button" class="forgot-reset-secondary-v211821" onclick="closeForgotPasswordModalV211821()">取消</button>
+      <button type="button" id="forgotResetSubmitV211821" class="forgot-reset-primary-v211821" onclick="submitForgotPasswordResetV211821()">設定新密碼</button>
+    </div>
+    <div class="forgot-reset-note-v211821">連續多次驗證失敗時，系統會暫時停止重試，以保護帳號安全。</div>
+  </div>
+</div>
+
 </body>
 </html>
+
+<!-- V21.18.2.1: profile autofill aliases + LINE reply password reset + consistent login buttons -->
