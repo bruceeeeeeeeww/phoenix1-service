@@ -1,5 +1,5 @@
 // V22.4.4 效能分層與協勤熱點
-const CACHE_NAME = 'phoenix-member-v22_4_4';
+const CACHE_NAME = 'phoenix-member-v22_4_6_4';
 const APP_SHELL = [
   './',
   './index.html',

@@ -10190,6 +10190,12 @@ async function hydrateLoginHomeV2191(name){
     saveCurrentSession();
     savePhoenixSharedSessionV2193();
     updateMemberDisplay();
+    // V22.4.6.4：若使用者已經停留在定訓頁，背景資料完成後立即重繪月份選單。
+    const trainingSection=document.getElementById('trainingSection');
+    if(trainingSection&&trainingSection.classList.contains('active')){
+      renderTrainingData();
+      updateTrainingDateAndLocation();
+    }
   }catch(err){}
 }
 
@@ -12515,7 +12521,7 @@ function showHoursSection() {
     }
   }
 
-  function showTrainingSection() {
+  async function showTrainingSection() {
     if (!currentUser) {
       showSection('loginSection');
       return;
@@ -12529,6 +12535,35 @@ function showHoursSection() {
     renderTrainingData();
     updateTrainingDateAndLocation();
     showSection('trainingSection');
+
+    // V22.4.6.4：登入採快速模式時，定訓資料可能仍在背景讀取。
+    // 若月份尚未載入，進入定訓頁時立即向後端補抓，不必等 2.5 秒背景工作。
+    const months=currentUser?.training?.months||[];
+    if(months.length===0){
+      const select=document.getElementById('trainingMonthSelect');
+      if(select)select.innerHTML='<option value="">定訓月份載入中…</option>';
+      try{
+        const q=new URLSearchParams({action:'getLoginDeferredV2191',name:currentUser.name,includeHours:'false',t:String(Date.now())});
+        const result=await fetchJsonWithTimeoutV2191(`${API_URL}?${q.toString()}`,25000,2);
+        if(!result?.success)throw new Error(result?.message||'定訓資料讀取失敗');
+        if(!currentUser)return;
+        currentUser.training=result.data?.training||{
+          exists:false,message:'目前尚未建立定訓資料',months:[],attendCount:0,absentCount:0,remark:''
+        };
+        saveCurrentSession();
+        savePhoenixSharedSessionV2193();
+        renderTrainingData();
+        updateTrainingDateAndLocation();
+        if((currentUser.training.months||[]).length===0){
+          errorBox.innerText=currentUser.training.message||'目前沒有可回報的定訓月份';
+          errorBox.style.display='block';
+        }
+      }catch(err){
+        if(select)select.innerHTML='<option value="">定訓月份讀取失敗，請稍後再試</option>';
+        errorBox.innerText=err?.message||'定訓資料讀取失敗，請稍後再試';
+        errorBox.style.display='block';
+      }
+    }
   }
 
   function renderTrainingData() {
