@@ -7477,6 +7477,11 @@
 @media(max-width:640px){.liming-stats-grid-v2121{grid-template-columns:repeat(2,minmax(0,1fr))}.app-badge-host-v2121{padding-right:46px!important}}
 </style>
   <!-- V21.12.5 LIMIN standalone entry -->
+
+<style id="mciRetiredCssV22462">
+/* V22.4.6.2 — MCI retired: hard-hide any legacy MCI DOM that may remain in the monolithic page. */
+[id^="mci" i], [id*="Mci"], [class^="mci-"], [class*=" mci-"] { display:none !important; }
+</style>
 </head>
 
 <body>
@@ -12674,8 +12679,40 @@ function updateForceBoardVisibility(sectionId) {
       const data=result.data||{},items=data.items||[];limingLastRecordsV2130=items;document.getElementById('limingMonthDaysV2120').textContent=`${data.dutyDays||0} 天`;document.getElementById('limingMonthHoursV2120').textContent=formatLimingHoursV2120(sumLimingReportedHoursV2123(items));
       if(!items.length){status.textContent='本月尚無回報紀錄。';return;}
       status.textContent=`共 ${items.length} 筆回報，點擊單筆可查看詳細內容。`;
-      list.innerHTML=items.map(item=>`<details class="liming-record-card-v2120"><summary><div><div class="liming-record-main-v2120">${escapeHtml(item.dutyDate||'-')}</div><div class="liming-record-sub-v2120">簽到 ${escapeHtml(item.startTime||'-')}　簽退 ${escapeHtml(item.endTime||'-')}｜${Number(item.dispatchCount||0)===0?'🍎 無出勤':`出勤 ${escapeHtml(String(item.dispatchCount||0))} 次`}</div></div><div class="liming-record-hours-v2120">${escapeHtml(formatLimingHoursV2120(item.totalHours))} 〉</div></summary><div class="liming-record-detail-v2120">${renderLimingRecordDetailV2120(item)}</div></details>`).join('');
+      list.innerHTML=items.map(item=>`<details class="liming-record-card-v2120"><summary><div><div class="liming-record-main-v2120">${escapeHtml(item.dutyDate||'-')}</div><div class="liming-record-sub-v2120">簽到 ${escapeHtml(item.startTime||'-')}　簽退 ${escapeHtml(item.endTime||'-')}｜${Number(item.dispatchCount||0)===0?'🍎 無出勤':`出勤 ${escapeHtml(String(item.dispatchCount||0))} 次`}</div></div><div class="liming-record-hours-v2120">${escapeHtml(formatLimingHoursV2120(item.totalHours))} 〉</div></summary><div class="liming-record-detail-v2120">${renderLimingRecordDetailV2120(item)}<div style="margin-top:14px;padding-top:12px;border-top:1px solid #e2e8f0;"><button type="button" onclick="event.preventDefault();event.stopPropagation();openLimingEndTimeEditV2245(${Number(item.rowNumber)||0})" style="width:100%;border:1px solid #93c5fd;background:#eff6ff;color:#1d4ed8;border-radius:12px;padding:11px 14px;font-weight:800;cursor:pointer;">🕒 修正實際退勤時間</button></div></div></details>`).join('');
     }catch(err){status.textContent='系統連線異常，請稍後再試。';}
+  }
+
+
+  // V22.4.5｜已完成勤務只修正「實際退勤時間」。
+  // 後端會覆寫 Google 試算表同一列，並清掉相同姓名＋日期＋簽到時間的舊重複列。
+  function openLimingEndTimeEditV2245(rowNumber){
+    const item=(limingLastRecordsV2130||[]).find(x=>Number(x.rowNumber)===Number(rowNumber));
+    if(!item){alert('找不到這筆勤務紀錄，請重新整理後再試。');return;}
+    const old=document.getElementById('limingEndTimeModalV2245');if(old)old.remove();
+    const wrap=document.createElement('div');wrap.id='limingEndTimeModalV2245';wrap.style.cssText='position:fixed;inset:0;background:rgba(15,23,42,.48);z-index:100000;display:flex;align-items:center;justify-content:center;padding:18px;';
+    const card=document.createElement('div');card.style.cssText='width:min(430px,100%);background:#fff;border-radius:20px;padding:20px;box-shadow:0 22px 70px rgba(15,23,42,.28);';
+    card.innerHTML=`<div style="font-size:20px;font-weight:900;color:#172033;margin-bottom:6px;">🕒 修正實際退勤時間</div><div style="font-size:14px;line-height:1.7;color:#64748b;margin-bottom:16px;">${escapeHtml(item.dutyDate||'')}｜簽到 ${escapeHtml(item.startTime||'-')}<br>目前退勤：<b>${escapeHtml(item.endTime||'-')}</b><br><span style="color:#0f766e;">儲存後會直接覆寫原試算表紀錄，不會新增第二筆。</span></div><label style="display:block;font-size:14px;font-weight:800;color:#334155;margin-bottom:6px;">新的實際退勤時間</label><input id="limingNewEndTimeV2245" type="time" value="${escapeHtml(item.endTime||'')}" style="width:100%;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:12px;padding:12px 13px;font-size:17px;"><div id="limingEndTimePreviewV2245" style="margin-top:10px;padding:10px 12px;border-radius:10px;background:#f8fafc;color:#475569;font-size:14px;"></div><div id="limingEndTimeErrorV2245" style="display:none;margin-top:10px;color:#b91c1c;font-size:14px;font-weight:700;"></div><div style="display:flex;gap:10px;margin-top:18px;"><button id="limingEndTimeCancelV2245" type="button" style="flex:1;border:1px solid #cbd5e1;background:white;color:#334155;border-radius:12px;padding:12px;font-weight:800;">取消</button><button id="limingEndTimeSaveV2245" type="button" style="flex:1;border:0;background:#2563eb;color:white;border-radius:12px;padding:12px;font-weight:900;">更新退勤時間</button></div>`;
+    wrap.appendChild(card);document.body.appendChild(wrap);
+    const input=document.getElementById('limingNewEndTimeV2245'),preview=document.getElementById('limingEndTimePreviewV2245');
+    function refresh(){const s=String(item.startTime||''),e=input.value;if(!s||!e){preview.textContent='請輸入新的退勤時間';return;}const [sh,sm]=s.split(':').map(Number),[eh,em]=e.split(':').map(Number),mins=(eh*60+em)-(sh*60+sm);preview.textContent=mins>0?`更新後協勤時數：${formatLimingHoursV2120(mins/60)}`:'退勤時間必須晚於簽到時間';}
+    input.addEventListener('input',refresh);refresh();
+    document.getElementById('limingEndTimeCancelV2245').onclick=()=>wrap.remove();
+    document.getElementById('limingEndTimeSaveV2245').onclick=()=>saveLimingEndTimeV2245(item,wrap);
+  }
+  async function saveLimingEndTimeV2245(item,modal){
+    const input=document.getElementById('limingNewEndTimeV2245'),btn=document.getElementById('limingEndTimeSaveV2245'),err=document.getElementById('limingEndTimeErrorV2245');
+    const endTime=String(input&&input.value||'').trim();if(!endTime){err.textContent='請輸入新的實際退勤時間';err.style.display='block';return;}
+    const s=String(item.startTime||''),[sh,sm]=s.split(':').map(Number),[eh,em]=endTime.split(':').map(Number);if((eh*60+em)<=(sh*60+sm)){err.textContent='退勤時間必須晚於簽到時間';err.style.display='block';return;}
+    btn.disabled=true;btn.textContent='更新中…';err.style.display='none';
+    try{
+      const q=new URLSearchParams({action:'updateLimingEndTimeV2245',name:currentUser.name,rowNumber:String(item.rowNumber||''),endTime:endTime,t:String(Date.now())});
+      const x=await fetch(`${API_URL}?${q.toString()}`).then(r=>r.json());
+      if(!x.success)throw new Error(x.message||'更新失敗');
+      modal.remove();
+      const status=document.getElementById('limingRecordsStatusV2120');if(status)status.textContent=`✅ ${x.message||'實際退勤時間已更新'}${x.data&&x.data.removedDuplicates?`；已清除 ${x.data.removedDuplicates} 筆舊重複資料`:''}`;
+      await loadMyLimingRecordsV2120();
+    }catch(e){err.textContent=e.message||'系統連線異常，請稍後再試。';err.style.display='block';btn.disabled=false;btn.textContent='更新退勤時間';}
   }
 
   function calculateLimingHours() {
@@ -21396,5 +21433,44 @@ loadCadreUniformStats=async function(){
 syncPromotionModeFieldsV21110();
 </script>
 
+
+<script id="mciRetiredGuardV22462">
+(function(){
+  function removeLegacyMciUi(){
+    try{
+      document.querySelectorAll('[id^="mci" i],[id*="Mci"],[class^="mci-"],[class*=" mci-"]').forEach(function(el){
+        if(el && el.parentNode) el.parentNode.removeChild(el);
+      });
+      // Remove orphan test-reset text left by earlier partial deletions, if any.
+      document.querySelectorAll('body *').forEach(function(el){
+        var t=(el.textContent||'').trim();
+        if(t && (t.indexOf('傷患編號／QR 標籤')>=0 || t.indexOf('此操作無法復原，請勿用於正式事件')>=0 || t.indexOf('會清除指定傷患在本次事件的主檔與歷程')>=0)){
+          if(el.parentNode) el.parentNode.removeChild(el);
+        }
+      });
+    }catch(_e){}
+  }
+  function stopLegacyMciTimers(){
+    var timerNames=['mciBgQueueTimerV21720','mciPublicEntryPollTimerV211819','mciTransportPollTimerV21760','mciDashboardPollTimerV21681','mciPollTimer'];
+    timerNames.forEach(function(n){ try{ if(typeof window[n]!=='undefined') clearInterval(window[n]); }catch(_e){} });
+    var fnNames=['refreshMciPublicTransportEntryV21761','refreshMciMemberStatus','loadMciEvent','refreshMciDashboardV21681_','refreshMciTransportDashboardLiteV21811','mciProcessBgQueueV21720','mciStartBgSyncV21720'];
+    fnNames.forEach(function(n){ try{ if(typeof window[n]==='function') window[n]=function(){ return Promise.resolve(null); }; }catch(_e){} });
+  }
+  removeLegacyMciUi();
+  stopLegacyMciTimers();
+  document.addEventListener('DOMContentLoaded',function(){ removeLegacyMciUi(); stopLegacyMciTimers(); });
+  setTimeout(function(){ removeLegacyMciUi(); stopLegacyMciTimers(); },0);
+  setTimeout(function(){ removeLegacyMciUi(); stopLegacyMciTimers(); },700);
+  // Loader fail-safe only; normal loader behavior still runs first.
+  setTimeout(function(){
+    try{
+      var selectors=['#loadingOverlay','#loadingScreen','.loading-overlay','.loading-screen'];
+      selectors.forEach(function(sel){ document.querySelectorAll(sel).forEach(function(el){ el.style.display='none'; el.remove(); }); });
+      document.documentElement.style.overflow='';
+      document.body.style.overflow='';
+    }catch(_e){}
+  },3500);
+})();
+</script>
 </body>
 </html>
